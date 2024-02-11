@@ -55,10 +55,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                if (value.Length > 200)
-                {
-                    throw new ArgumentException("Name cannot exceed 200 characters.");
-                }
+                ValueValidator.AssertStringOnLength(value, 200, nameof(_name));
                 _name = value;
             }
         }
@@ -75,10 +72,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                if (value.Length > 1000) 
-                {
-                    throw new ArgumentException("Info cannot exceed 1000 characters.");
-                }
+                ValueValidator.AssertStringOnLength(value, 1000, nameof(_info));
                 _info = value;
             }
         }

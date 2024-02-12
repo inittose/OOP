@@ -100,6 +100,16 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Item"/>.
         /// </summary>
+        public Item()
+        {
+            Name = string.Empty;
+            Info = string.Empty;
+            Cost = 0;
+        }
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Item"/>.
+        /// </summary>
         /// <param name="name">
         ///     Именование товара. 
         ///     Должно состоять не более чем из 200 символов.

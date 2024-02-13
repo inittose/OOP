@@ -113,6 +113,7 @@
             this.ItemsListBox.Name = "ItemsListBox";
             this.ItemsListBox.Size = new System.Drawing.Size(352, 563);
             this.ItemsListBox.TabIndex = 1;
+            this.ItemsListBox.SelectedIndexChanged += new System.EventHandler(this.ItemsListBox_SelectedIndexChanged);
             // 
             // ItemsLabel
             // 
@@ -180,30 +181,36 @@
             // 
             // CostTextBox
             // 
+            this.CostTextBox.Enabled = false;
             this.CostTextBox.Location = new System.Drawing.Point(45, 60);
             this.CostTextBox.Name = "CostTextBox";
             this.CostTextBox.Size = new System.Drawing.Size(100, 20);
             this.CostTextBox.TabIndex = 6;
+            this.CostTextBox.TextChanged += new System.EventHandler(this.CostTextBox_TextChanged);
             // 
             // NameTextBox
             // 
             this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameTextBox.Enabled = false;
             this.NameTextBox.Location = new System.Drawing.Point(6, 101);
             this.NameTextBox.Multiline = true;
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(564, 94);
             this.NameTextBox.TabIndex = 7;
+            this.NameTextBox.TextChanged += new System.EventHandler(this.NameTextBox_TextChanged);
             // 
             // DescriptionTextBox
             // 
             this.DescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DescriptionTextBox.Enabled = false;
             this.DescriptionTextBox.Location = new System.Drawing.Point(6, 223);
             this.DescriptionTextBox.Multiline = true;
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.Size = new System.Drawing.Size(564, 168);
             this.DescriptionTextBox.TabIndex = 8;
+            this.DescriptionTextBox.TextChanged += new System.EventHandler(this.DescriptionTextBox_TextChanged);
             // 
             // SelectedItemPanel
             // 

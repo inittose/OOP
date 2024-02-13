@@ -70,6 +70,9 @@ namespace ObjectOrientedPractics.View.Tabs
                         ItemsListBox.SelectedIndex = removeIndex - 1;
                     }
                 }
+                CostTextBox.BackColor = Color.White;
+                NameTextBox.BackColor = Color.White;
+                DescriptionTextBox.BackColor = Color.White;
             }
         }
 
@@ -80,26 +83,78 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
-            float validCost;
-            if (float.TryParse(CostTextBox.Text, out validCost))
+            if (ItemsListBox.SelectedIndex < 0)
             {
-                _items[ItemsListBox.SelectedIndex].Cost = validCost;
-                CostTextBox.BackColor = Color.White;
+                return;
             }
-            else
+            Color currentColor;
+            try
             {
-                CostTextBox.BackColor = Color.Red;
+                _items[ItemsListBox.SelectedIndex].Cost = float.Parse(CostTextBox.Text);
+                currentColor = Color.White;
             }
+            catch
+            {
+                currentColor = Color.Red;
+            }
+            CostTextBox.BackColor = currentColor;
         }
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            _items[ItemsListBox.SelectedIndex].Name = NameTextBox.Text;
+            if (ItemsListBox.SelectedIndex < 0)
+            {
+                return;
+            }
+            Color currentColor;
+            try
+            {
+                _items[ItemsListBox.SelectedIndex].Name = NameTextBox.Text;
+                ItemsListBox.Items[ItemsListBox.SelectedIndex] = NameTextBox.Text;
+                NameTextBox.Focus();
+                NameTextBox.Select(NameTextBox.Text.Length, 0);
+                currentColor = Color.White;
+            }
+            catch
+            {
+                currentColor = Color.Red;
+            }
+            NameTextBox.BackColor = currentColor;
         }
 
         private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
         {
-            _items[ItemsListBox.SelectedIndex].Info = DescriptionTextBox.Text;
+            if (ItemsListBox.SelectedIndex < 0)
+            {
+                return;
+            }
+            Color currentColor;
+            try
+            {
+                _items[ItemsListBox.SelectedIndex].Info = DescriptionTextBox.Text;
+                currentColor = Color.White;
+            }
+            catch
+            {
+                currentColor = Color.Red;
+            }
+            DescriptionTextBox.BackColor = currentColor;
+        }
+
+        private void NameTextBox_Leave(object sender, EventArgs e)
+        {
+            if (ItemsListBox.SelectedIndex < 0)
+            {
+                return;
+            }
+            try
+            {
+                //ItemsListBox.Items[ItemsListBox.SelectedIndex] = NameTextBox.Text;
+            }
+            catch
+            {
+
+            }
         }
     }
 }

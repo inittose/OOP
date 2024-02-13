@@ -14,13 +14,27 @@ namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class ItemsTab : UserControl
     {
-        List<Item> _items = new List<Item>();
+        /// <summary>
+        /// Список товаров класса <see cref="Item"/>.
+        /// </summary>
+        private List<Item> _items = new List<Item>();
+
+        private Color rightInputColor = Color.White;
+        private Color wrongInputColor = Color.Red;
 
         public ItemsTab()
         {
             InitializeComponent();
+            WrongCostLabel.Text = string.Empty;
+            WrongNameLabel.Text = string.Empty;
+            WrongDescriptionLabel.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Устанавливает корректные данные в текстовых окнах 
+        /// в зависимости от индекса товара в списке.
+        /// </summary>
+        /// <param name="selectedIndex">Индекс товара в списке.</param>
         private void SetTextBoxes(int selectedIndex)
         {
             bool status = selectedIndex >= 0;
@@ -70,9 +84,6 @@ namespace ObjectOrientedPractics.View.Tabs
                         ItemsListBox.SelectedIndex = removeIndex - 1;
                     }
                 }
-                CostTextBox.BackColor = Color.White;
-                NameTextBox.BackColor = Color.White;
-                DescriptionTextBox.BackColor = Color.White;
             }
         }
 
@@ -85,17 +96,28 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (ItemsListBox.SelectedIndex < 0)
             {
+                WrongCostLabel.Text = String.Empty;
+                CostTextBox.BackColor = rightInputColor;
                 return;
             }
-            Color currentColor;
-            try
+            Color currentColor = wrongInputColor;
+            float getParse = 0;
+            if (!float.TryParse(CostTextBox.Text, out getParse))
             {
-                _items[ItemsListBox.SelectedIndex].Cost = float.Parse(CostTextBox.Text);
-                currentColor = Color.White;
+                WrongCostLabel.Text = "Cost must be a float number.";
             }
-            catch
+            else if (getParse <= 0)
             {
-                currentColor = Color.Red;
+                WrongCostLabel.Text = "Cost must be greater than 0.";
+            }
+            else if (getParse > 100000)
+            {
+                WrongCostLabel.Text = "Сost must be less than 100 000.";
+            }
+            else
+            {
+                WrongCostLabel.Text = String.Empty;
+                currentColor = rightInputColor;
             }
             CostTextBox.BackColor = currentColor;
         }
@@ -104,20 +126,23 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (ItemsListBox.SelectedIndex < 0)
             {
+                WrongNameLabel.Text = String.Empty;
+                NameTextBox.BackColor = rightInputColor;
                 return;
             }
-            Color currentColor;
-            try
+            Color currentColor = wrongInputColor;
+            if (NameTextBox.Text.Length == 0)
             {
-                _items[ItemsListBox.SelectedIndex].Name = NameTextBox.Text;
-                ItemsListBox.Items[ItemsListBox.SelectedIndex] = NameTextBox.Text;
-                NameTextBox.Focus();
-                NameTextBox.Select(NameTextBox.Text.Length, 0);
-                currentColor = Color.White;
+                WrongNameLabel.Text = "Name must consist of characters.";
             }
-            catch
+            else if (NameTextBox.Text.Length > 200)
             {
-                currentColor = Color.Red;
+                WrongNameLabel.Text = "Name must be no more than 200 characters.";
+            }
+            else
+            {
+                WrongNameLabel.Text = String.Empty;
+                currentColor = rightInputColor;
             }
             NameTextBox.BackColor = currentColor;
         }
@@ -126,17 +151,19 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (ItemsListBox.SelectedIndex < 0)
             {
+                WrongDescriptionLabel.Text = String.Empty;
+                DescriptionTextBox.BackColor = rightInputColor;
                 return;
             }
-            Color currentColor;
-            try
+            Color currentColor = wrongInputColor;
+            if (DescriptionTextBox.Text.Length > 1000)
             {
-                _items[ItemsListBox.SelectedIndex].Info = DescriptionTextBox.Text;
-                currentColor = Color.White;
+                WrongDescriptionLabel.Text = "Description should not exceed 1000 characters";
             }
-            catch
+            else
             {
-                currentColor = Color.Red;
+                WrongDescriptionLabel.Text = String.Empty;
+                currentColor = rightInputColor;
             }
             DescriptionTextBox.BackColor = currentColor;
         }
@@ -147,13 +174,43 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
-            try
+            if (NameTextBox.BackColor == rightInputColor)
             {
-                //ItemsListBox.Items[ItemsListBox.SelectedIndex] = NameTextBox.Text;
+                _items[ItemsListBox.SelectedIndex].Name = NameTextBox.Text;
+                ItemsListBox.Items[ItemsListBox.SelectedIndex] = NameTextBox.Text;
             }
-            catch
+            else
             {
+                NameTextBox.Text = _items[ItemsListBox.SelectedIndex].Name;
+            }
+        }
 
+        private void CostTextBox_Leave(object sender, EventArgs e)
+        {
+            if (ItemsListBox.SelectedIndex < 0)
+            {
+                return;
+            }
+            if (CostTextBox.BackColor == rightInputColor)
+            {
+                _items[ItemsListBox.SelectedIndex].Cost = float.Parse(CostTextBox.Text);
+            }
+            CostTextBox.Text = _items[ItemsListBox.SelectedIndex].Cost.ToString();
+        }
+
+        private void DescriptionTextBox_Leave(object sender, EventArgs e)
+        {
+            if (ItemsListBox.SelectedIndex < 0)
+            {
+                return;
+            }
+            if (DescriptionTextBox.BackColor == rightInputColor)
+            {
+                _items[ItemsListBox.SelectedIndex].Info = DescriptionTextBox.Text;
+            }
+            else
+            {
+                DescriptionTextBox.Text = _items[ItemsListBox.SelectedIndex].Info;
             }
         }
     }

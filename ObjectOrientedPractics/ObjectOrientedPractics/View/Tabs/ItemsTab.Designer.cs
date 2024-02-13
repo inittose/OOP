@@ -44,6 +44,9 @@
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.DescriptionTextBox = new System.Windows.Forms.TextBox();
             this.SelectedItemPanel = new System.Windows.Forms.Panel();
+            this.WrongCostLabel = new System.Windows.Forms.Label();
+            this.WrongNameLabel = new System.Windows.Forms.Label();
+            this.WrongDescriptionLabel = new System.Windows.Forms.Label();
             this.ItemsListPanel.SuspendLayout();
             this.ButtonTable.SuspendLayout();
             this.SelectedItemPanel.SuspendLayout();
@@ -187,6 +190,7 @@
             this.CostTextBox.Size = new System.Drawing.Size(100, 20);
             this.CostTextBox.TabIndex = 6;
             this.CostTextBox.TextChanged += new System.EventHandler(this.CostTextBox_TextChanged);
+            this.CostTextBox.Leave += new System.EventHandler(this.CostTextBox_Leave);
             // 
             // NameTextBox
             // 
@@ -212,12 +216,16 @@
             this.DescriptionTextBox.Size = new System.Drawing.Size(564, 168);
             this.DescriptionTextBox.TabIndex = 8;
             this.DescriptionTextBox.TextChanged += new System.EventHandler(this.DescriptionTextBox_TextChanged);
+            this.DescriptionTextBox.Leave += new System.EventHandler(this.DescriptionTextBox_Leave);
             // 
             // SelectedItemPanel
             // 
             this.SelectedItemPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.SelectedItemPanel.Controls.Add(this.WrongDescriptionLabel);
+            this.SelectedItemPanel.Controls.Add(this.WrongNameLabel);
+            this.SelectedItemPanel.Controls.Add(this.WrongCostLabel);
             this.SelectedItemPanel.Controls.Add(this.DescriptionTextBox);
             this.SelectedItemPanel.Controls.Add(this.NameTextBox);
             this.SelectedItemPanel.Controls.Add(this.CostTextBox);
@@ -232,6 +240,36 @@
             this.SelectedItemPanel.Padding = new System.Windows.Forms.Padding(3);
             this.SelectedItemPanel.Size = new System.Drawing.Size(576, 653);
             this.SelectedItemPanel.TabIndex = 1;
+            // 
+            // WrongCostLabel
+            // 
+            this.WrongCostLabel.AutoSize = true;
+            this.WrongCostLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.WrongCostLabel.Location = new System.Drawing.Point(152, 63);
+            this.WrongCostLabel.Name = "WrongCostLabel";
+            this.WrongCostLabel.Size = new System.Drawing.Size(35, 13);
+            this.WrongCostLabel.TabIndex = 10;
+            this.WrongCostLabel.Text = "label1";
+            // 
+            // WrongNameLabel
+            // 
+            this.WrongNameLabel.AutoSize = true;
+            this.WrongNameLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.WrongNameLabel.Location = new System.Drawing.Point(50, 85);
+            this.WrongNameLabel.Name = "WrongNameLabel";
+            this.WrongNameLabel.Size = new System.Drawing.Size(35, 13);
+            this.WrongNameLabel.TabIndex = 11;
+            this.WrongNameLabel.Text = "label1";
+            // 
+            // WrongDescriptionLabel
+            // 
+            this.WrongDescriptionLabel.AutoSize = true;
+            this.WrongDescriptionLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.WrongDescriptionLabel.Location = new System.Drawing.Point(75, 207);
+            this.WrongDescriptionLabel.Name = "WrongDescriptionLabel";
+            this.WrongDescriptionLabel.Size = new System.Drawing.Size(35, 13);
+            this.WrongDescriptionLabel.TabIndex = 12;
+            this.WrongDescriptionLabel.Text = "label1";
             // 
             // ItemsTab
             // 
@@ -270,5 +308,8 @@
         private System.Windows.Forms.TextBox NameTextBox;
         private System.Windows.Forms.TextBox DescriptionTextBox;
         private System.Windows.Forms.Panel SelectedItemPanel;
+        private System.Windows.Forms.Label WrongDescriptionLabel;
+        private System.Windows.Forms.Label WrongNameLabel;
+        private System.Windows.Forms.Label WrongCostLabel;
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainTabControl = new System.Windows.Forms.TabControl();
             this.ItemsTabPage = new System.Windows.Forms.TabPage();
             this.ItemsTab = new ObjectOrientedPractics.View.Tabs.ItemsTab();
@@ -97,10 +98,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
             this.Controls.Add(this.MainTabControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(1000, 700);
             this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "MainForm";
-            this.Text = "Main Form";
+            this.Text = "Object Oriented Practics";
             this.MainTabControl.ResumeLayout(false);
             this.ItemsTabPage.ResumeLayout(false);
             this.CustomersTabPage.ResumeLayout(false);

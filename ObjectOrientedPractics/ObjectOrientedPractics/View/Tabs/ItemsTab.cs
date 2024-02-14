@@ -60,7 +60,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void AddButton_Click(object sender, EventArgs e)
         {
             Item newItem = new Item();
-            newItem.Name = $"New item{newItem.Id}";
+            newItem.Name = $"Item{newItem.Id}";
             _items.Add(newItem);
             ItemsListBox.Items.Add(newItem.Name);
             ItemsListBox.SelectedItem = newItem.Name;

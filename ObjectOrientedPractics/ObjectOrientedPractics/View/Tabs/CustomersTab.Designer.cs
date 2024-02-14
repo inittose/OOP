@@ -37,6 +37,8 @@
             this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SplitedTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SelectedItemPanel = new System.Windows.Forms.Panel();
+            this.WrongAddressLabel = new System.Windows.Forms.Label();
+            this.WrongFullNameLabel = new System.Windows.Forms.Label();
             this.AddressTextBox = new System.Windows.Forms.TextBox();
             this.FullNameTextBox = new System.Windows.Forms.TextBox();
             this.IdTextBox = new System.Windows.Forms.TextBox();
@@ -90,6 +92,7 @@
             this.RemoveButton.TabIndex = 1;
             this.RemoveButton.Text = "Remove";
             this.RemoveButton.UseVisualStyleBackColor = true;
+            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
             // 
             // AddButton
             // 
@@ -100,6 +103,7 @@
             this.AddButton.TabIndex = 0;
             this.AddButton.Text = "Add";
             this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // CustomersListBox
             // 
@@ -111,6 +115,7 @@
             this.CustomersListBox.Name = "CustomersListBox";
             this.CustomersListBox.Size = new System.Drawing.Size(388, 615);
             this.CustomersListBox.TabIndex = 1;
+            this.CustomersListBox.SelectedIndexChanged += new System.EventHandler(this.CustomersListBox_SelectedIndexChanged);
             // 
             // CustomersLabel
             // 
@@ -155,6 +160,8 @@
             // 
             // SelectedItemPanel
             // 
+            this.SelectedItemPanel.Controls.Add(this.WrongAddressLabel);
+            this.SelectedItemPanel.Controls.Add(this.WrongFullNameLabel);
             this.SelectedItemPanel.Controls.Add(this.AddressTextBox);
             this.SelectedItemPanel.Controls.Add(this.FullNameTextBox);
             this.SelectedItemPanel.Controls.Add(this.IdTextBox);
@@ -168,28 +175,55 @@
             this.SelectedItemPanel.Size = new System.Drawing.Size(588, 341);
             this.SelectedItemPanel.TabIndex = 3;
             // 
+            // WrongAddressLabel
+            // 
+            this.WrongAddressLabel.AutoSize = true;
+            this.WrongAddressLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.WrongAddressLabel.Location = new System.Drawing.Point(63, 107);
+            this.WrongAddressLabel.Name = "WrongAddressLabel";
+            this.WrongAddressLabel.Size = new System.Drawing.Size(29, 13);
+            this.WrongAddressLabel.TabIndex = 10;
+            this.WrongAddressLabel.Text = "Error";
+            // 
+            // WrongFullNameLabel
+            // 
+            this.WrongFullNameLabel.AutoSize = true;
+            this.WrongFullNameLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.WrongFullNameLabel.Location = new System.Drawing.Point(63, 61);
+            this.WrongFullNameLabel.Name = "WrongFullNameLabel";
+            this.WrongFullNameLabel.Size = new System.Drawing.Size(29, 13);
+            this.WrongFullNameLabel.TabIndex = 9;
+            this.WrongFullNameLabel.Text = "Error";
+            // 
             // AddressTextBox
             // 
             this.AddressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddressTextBox.Location = new System.Drawing.Point(66, 100);
+            this.AddressTextBox.Enabled = false;
+            this.AddressTextBox.Location = new System.Drawing.Point(66, 123);
             this.AddressTextBox.Multiline = true;
             this.AddressTextBox.Name = "AddressTextBox";
-            this.AddressTextBox.Size = new System.Drawing.Size(519, 238);
+            this.AddressTextBox.Size = new System.Drawing.Size(519, 215);
             this.AddressTextBox.TabIndex = 7;
+            this.AddressTextBox.TextChanged += new System.EventHandler(this.AddressTextBox_TextChanged);
+            this.AddressTextBox.Leave += new System.EventHandler(this.AddressTextBox_Leave);
             // 
             // FullNameTextBox
             // 
             this.FullNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FullNameTextBox.Location = new System.Drawing.Point(66, 65);
+            this.FullNameTextBox.Enabled = false;
+            this.FullNameTextBox.Location = new System.Drawing.Point(66, 77);
             this.FullNameTextBox.Name = "FullNameTextBox";
             this.FullNameTextBox.Size = new System.Drawing.Size(519, 20);
             this.FullNameTextBox.TabIndex = 6;
+            this.FullNameTextBox.TextChanged += new System.EventHandler(this.FullNameTextBox_TextChanged);
+            this.FullNameTextBox.Leave += new System.EventHandler(this.FullNameTextBox_Leave);
             // 
             // IdTextBox
             // 
+            this.IdTextBox.Enabled = false;
             this.IdTextBox.Location = new System.Drawing.Point(66, 31);
             this.IdTextBox.Name = "IdTextBox";
             this.IdTextBox.Size = new System.Drawing.Size(100, 20);
@@ -198,7 +232,7 @@
             // AddressLabel
             // 
             this.AddressLabel.AutoSize = true;
-            this.AddressLabel.Location = new System.Drawing.Point(3, 103);
+            this.AddressLabel.Location = new System.Drawing.Point(3, 126);
             this.AddressLabel.Name = "AddressLabel";
             this.AddressLabel.Size = new System.Drawing.Size(48, 13);
             this.AddressLabel.TabIndex = 4;
@@ -207,7 +241,7 @@
             // FullNameLabel
             // 
             this.FullNameLabel.AutoSize = true;
-            this.FullNameLabel.Location = new System.Drawing.Point(3, 68);
+            this.FullNameLabel.Location = new System.Drawing.Point(3, 80);
             this.FullNameLabel.Name = "FullNameLabel";
             this.FullNameLabel.Size = new System.Drawing.Size(57, 13);
             this.FullNameLabel.TabIndex = 3;
@@ -279,5 +313,7 @@
         private System.Windows.Forms.Label IdLabel;
         private System.Windows.Forms.Label SelectedCustomerLabel;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label WrongAddressLabel;
+        private System.Windows.Forms.Label WrongFullNameLabel;
     }
 }

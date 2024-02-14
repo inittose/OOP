@@ -242,9 +242,9 @@
             this.WrongDescriptionLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.WrongDescriptionLabel.Location = new System.Drawing.Point(72, 204);
             this.WrongDescriptionLabel.Name = "WrongDescriptionLabel";
-            this.WrongDescriptionLabel.Size = new System.Drawing.Size(35, 13);
+            this.WrongDescriptionLabel.Size = new System.Drawing.Size(29, 13);
             this.WrongDescriptionLabel.TabIndex = 12;
-            this.WrongDescriptionLabel.Text = "label1";
+            this.WrongDescriptionLabel.Text = "Error";
             // 
             // WrongNameLabel
             // 
@@ -252,19 +252,19 @@
             this.WrongNameLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.WrongNameLabel.Location = new System.Drawing.Point(47, 82);
             this.WrongNameLabel.Name = "WrongNameLabel";
-            this.WrongNameLabel.Size = new System.Drawing.Size(35, 13);
+            this.WrongNameLabel.Size = new System.Drawing.Size(29, 13);
             this.WrongNameLabel.TabIndex = 11;
-            this.WrongNameLabel.Text = "label1";
+            this.WrongNameLabel.Text = "Error";
             // 
             // WrongCostLabel
             // 
             this.WrongCostLabel.AutoSize = true;
             this.WrongCostLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.WrongCostLabel.Location = new System.Drawing.Point(149, 60);
+            this.WrongCostLabel.Location = new System.Drawing.Point(151, 63);
             this.WrongCostLabel.Name = "WrongCostLabel";
-            this.WrongCostLabel.Size = new System.Drawing.Size(35, 13);
+            this.WrongCostLabel.Size = new System.Drawing.Size(29, 13);
             this.WrongCostLabel.TabIndex = 10;
-            this.WrongCostLabel.Text = "label1";
+            this.WrongCostLabel.Text = "Error";
             // 
             // MainTableLayoutPanel
             // 

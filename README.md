@@ -8,3 +8,7 @@
   - *Mail:* [pol.konnik@gmail.com](pol.konnik@gmail.com)
   - *Telegram:* [@inittose](https://t.me/inittose)
   - *Vk:* [inittose](https://vk.com/inittose)
+
+## UML-диаграммы
+**1 лабораторная работа:**
+![Practics1](/doc/Practics1.png)

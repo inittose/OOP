@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.ItemsListPanel = new System.Windows.Forms.Panel();
-            this.ButtonTable = new System.Windows.Forms.TableLayoutPanel();
+            this.ButtonPanel = new System.Windows.Forms.TableLayoutPanel();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.ItemsListBox = new System.Windows.Forms.ListBox();
@@ -44,11 +44,11 @@
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.DescriptionTextBox = new System.Windows.Forms.TextBox();
             this.SelectedItemPanel = new System.Windows.Forms.Panel();
-            this.WrongCostLabel = new System.Windows.Forms.Label();
-            this.WrongNameLabel = new System.Windows.Forms.Label();
             this.WrongDescriptionLabel = new System.Windows.Forms.Label();
+            this.WrongNameLabel = new System.Windows.Forms.Label();
+            this.WrongCostLabel = new System.Windows.Forms.Label();
             this.ItemsListPanel.SuspendLayout();
-            this.ButtonTable.SuspendLayout();
+            this.ButtonPanel.SuspendLayout();
             this.SelectedItemPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +56,7 @@
             // 
             this.ItemsListPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.ItemsListPanel.Controls.Add(this.ButtonTable);
+            this.ItemsListPanel.Controls.Add(this.ButtonPanel);
             this.ItemsListPanel.Controls.Add(this.ItemsListBox);
             this.ItemsListPanel.Controls.Add(this.ItemsLabel);
             this.ItemsListPanel.Location = new System.Drawing.Point(3, 3);
@@ -67,22 +67,22 @@
             this.ItemsListPanel.Size = new System.Drawing.Size(364, 653);
             this.ItemsListPanel.TabIndex = 0;
             // 
-            // ButtonTable
+            // ButtonPanel
             // 
-            this.ButtonTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.ButtonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonTable.ColumnCount = 3;
-            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.ButtonTable.Controls.Add(this.RemoveButton, 1, 0);
-            this.ButtonTable.Controls.Add(this.AddButton, 0, 0);
-            this.ButtonTable.Location = new System.Drawing.Point(6, 599);
-            this.ButtonTable.Name = "ButtonTable";
-            this.ButtonTable.RowCount = 1;
-            this.ButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ButtonTable.Size = new System.Drawing.Size(352, 47);
-            this.ButtonTable.TabIndex = 1;
+            this.ButtonPanel.ColumnCount = 3;
+            this.ButtonPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.ButtonPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.ButtonPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.ButtonPanel.Controls.Add(this.RemoveButton, 1, 0);
+            this.ButtonPanel.Controls.Add(this.AddButton, 0, 0);
+            this.ButtonPanel.Location = new System.Drawing.Point(6, 599);
+            this.ButtonPanel.Name = "ButtonPanel";
+            this.ButtonPanel.RowCount = 1;
+            this.ButtonPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ButtonPanel.Size = new System.Drawing.Size(352, 47);
+            this.ButtonPanel.TabIndex = 1;
             // 
             // RemoveButton
             // 
@@ -112,9 +112,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ItemsListBox.FormattingEnabled = true;
-            this.ItemsListBox.Location = new System.Drawing.Point(6, 28);
+            this.ItemsListBox.Location = new System.Drawing.Point(6, 19);
             this.ItemsListBox.Name = "ItemsListBox";
-            this.ItemsListBox.Size = new System.Drawing.Size(352, 563);
+            this.ItemsListBox.Size = new System.Drawing.Size(352, 576);
             this.ItemsListBox.TabIndex = 1;
             this.ItemsListBox.SelectedIndexChanged += new System.EventHandler(this.ItemsListBox_SelectedIndexChanged);
             // 
@@ -122,7 +122,7 @@
             // 
             this.ItemsLabel.AutoSize = true;
             this.ItemsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.ItemsLabel.Location = new System.Drawing.Point(6, 12);
+            this.ItemsLabel.Location = new System.Drawing.Point(6, 3);
             this.ItemsLabel.Name = "ItemsLabel";
             this.ItemsLabel.Size = new System.Drawing.Size(37, 13);
             this.ItemsLabel.TabIndex = 0;
@@ -132,7 +132,7 @@
             // 
             this.SelectedItemLabel.AutoSize = true;
             this.SelectedItemLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.SelectedItemLabel.Location = new System.Drawing.Point(7, 12);
+            this.SelectedItemLabel.Location = new System.Drawing.Point(6, 3);
             this.SelectedItemLabel.Name = "SelectedItemLabel";
             this.SelectedItemLabel.Size = new System.Drawing.Size(85, 13);
             this.SelectedItemLabel.TabIndex = 0;
@@ -241,15 +241,15 @@
             this.SelectedItemPanel.Size = new System.Drawing.Size(576, 653);
             this.SelectedItemPanel.TabIndex = 1;
             // 
-            // WrongCostLabel
+            // WrongDescriptionLabel
             // 
-            this.WrongCostLabel.AutoSize = true;
-            this.WrongCostLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.WrongCostLabel.Location = new System.Drawing.Point(152, 63);
-            this.WrongCostLabel.Name = "WrongCostLabel";
-            this.WrongCostLabel.Size = new System.Drawing.Size(35, 13);
-            this.WrongCostLabel.TabIndex = 10;
-            this.WrongCostLabel.Text = "label1";
+            this.WrongDescriptionLabel.AutoSize = true;
+            this.WrongDescriptionLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.WrongDescriptionLabel.Location = new System.Drawing.Point(75, 207);
+            this.WrongDescriptionLabel.Name = "WrongDescriptionLabel";
+            this.WrongDescriptionLabel.Size = new System.Drawing.Size(35, 13);
+            this.WrongDescriptionLabel.TabIndex = 12;
+            this.WrongDescriptionLabel.Text = "label1";
             // 
             // WrongNameLabel
             // 
@@ -261,15 +261,15 @@
             this.WrongNameLabel.TabIndex = 11;
             this.WrongNameLabel.Text = "label1";
             // 
-            // WrongDescriptionLabel
+            // WrongCostLabel
             // 
-            this.WrongDescriptionLabel.AutoSize = true;
-            this.WrongDescriptionLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.WrongDescriptionLabel.Location = new System.Drawing.Point(75, 207);
-            this.WrongDescriptionLabel.Name = "WrongDescriptionLabel";
-            this.WrongDescriptionLabel.Size = new System.Drawing.Size(35, 13);
-            this.WrongDescriptionLabel.TabIndex = 12;
-            this.WrongDescriptionLabel.Text = "label1";
+            this.WrongCostLabel.AutoSize = true;
+            this.WrongCostLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.WrongCostLabel.Location = new System.Drawing.Point(152, 63);
+            this.WrongCostLabel.Name = "WrongCostLabel";
+            this.WrongCostLabel.Size = new System.Drawing.Size(35, 13);
+            this.WrongCostLabel.TabIndex = 10;
+            this.WrongCostLabel.Text = "label1";
             // 
             // ItemsTab
             // 
@@ -283,7 +283,7 @@
             this.Size = new System.Drawing.Size(954, 661);
             this.ItemsListPanel.ResumeLayout(false);
             this.ItemsListPanel.PerformLayout();
-            this.ButtonTable.ResumeLayout(false);
+            this.ButtonPanel.ResumeLayout(false);
             this.SelectedItemPanel.ResumeLayout(false);
             this.SelectedItemPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -294,7 +294,7 @@
 
         private System.Windows.Forms.Panel ItemsListPanel;
         private System.Windows.Forms.Label ItemsLabel;
-        private System.Windows.Forms.TableLayoutPanel ButtonTable;
+        private System.Windows.Forms.TableLayoutPanel ButtonPanel;
         private System.Windows.Forms.Button RemoveButton;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.ListBox ItemsListBox;

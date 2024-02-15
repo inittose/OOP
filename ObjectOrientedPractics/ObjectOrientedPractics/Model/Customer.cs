@@ -71,5 +71,31 @@ namespace ObjectOrientedPractics.Model
                 _address = value;
             }
         }
+
+        /// <summary>
+        /// Создает экземпляр класса <see cref="Customer"/>.
+        /// </summary>
+        public Customer()
+        {
+            FullName = String.Empty;
+            Address = String.Empty;
+        }
+
+        /// <summary>
+        /// Создает экземпляр класса <see cref="Customer"/>.
+        /// </summary>
+        /// <param name="fullname">
+        ///     Полное имя покупателя.
+        ///     Должно состоять не более чем из 200 символов.
+        /// </param>
+        /// <param name="address">
+        ///     Адрес доставки покупателя.
+        ///     Должно состоять не более чем из 500 символов.
+        /// </param>
+        public Customer(String fullname, String address)
+        {
+            FullName = fullname;
+            Address = address;
+        }
     }
 }

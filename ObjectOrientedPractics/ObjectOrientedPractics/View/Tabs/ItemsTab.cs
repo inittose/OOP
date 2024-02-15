@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,7 +64,7 @@ namespace ObjectOrientedPractics.View.Tabs
             newItem.Name = $"Item{newItem.Id}";
             _items.Add(newItem);
             ItemsListBox.Items.Add(newItem.Name);
-            ItemsListBox.SelectedItem = newItem.Name;
+            ItemsListBox.SelectedIndex = ItemsListBox.Items.Count - 1;
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
@@ -85,6 +86,13 @@ namespace ObjectOrientedPractics.View.Tabs
                     }
                 }
             }
+        }
+        private void AddRandomButton_Click(object sender, EventArgs e)
+        {
+            Item newItem = ItemFactory.GetRandomItem();
+            _items.Add(newItem);
+            ItemsListBox.Items.Add(newItem.Name);
+            ItemsListBox.SelectedIndex = ItemsListBox.Items.Count - 1;
         }
 
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)

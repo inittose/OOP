@@ -48,6 +48,7 @@
             this.WrongNameLabel = new System.Windows.Forms.Label();
             this.WrongCostLabel = new System.Windows.Forms.Label();
             this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.AddRandomButton = new System.Windows.Forms.Button();
             this.ItemsListPanel.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
             this.SelectedItemPanel.SuspendLayout();
@@ -75,6 +76,7 @@
             this.ButtonPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.ButtonPanel.Controls.Add(this.RemoveButton, 1, 0);
             this.ButtonPanel.Controls.Add(this.AddButton, 0, 0);
+            this.ButtonPanel.Controls.Add(this.AddRandomButton, 2, 0);
             this.ButtonPanel.Location = new System.Drawing.Point(3, 639);
             this.ButtonPanel.Name = "ButtonPanel";
             this.ButtonPanel.RowCount = 1;
@@ -281,6 +283,17 @@
             this.MainTableLayoutPanel.Size = new System.Drawing.Size(1000, 700);
             this.MainTableLayoutPanel.TabIndex = 2;
             // 
+            // AddRandomButton
+            // 
+            this.AddRandomButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AddRandomButton.Location = new System.Drawing.Point(261, 3);
+            this.AddRandomButton.Name = "AddRandomButton";
+            this.AddRandomButton.Size = new System.Drawing.Size(124, 46);
+            this.AddRandomButton.TabIndex = 3;
+            this.AddRandomButton.Text = "Add Random";
+            this.AddRandomButton.UseVisualStyleBackColor = true;
+            this.AddRandomButton.Click += new System.EventHandler(this.AddRandomButton_Click);
+            // 
             // ItemsTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -322,5 +335,6 @@
         private System.Windows.Forms.Label WrongNameLabel;
         private System.Windows.Forms.Label WrongCostLabel;
         private System.Windows.Forms.TableLayoutPanel MainTableLayoutPanel;
+        private System.Windows.Forms.Button AddRandomButton;
     }
 }

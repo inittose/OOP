@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,7 +64,7 @@ namespace ObjectOrientedPractics.View.Tabs
             newCustomer.FullName = $"Customer{newCustomer.Id}";
             _customers.Add(newCustomer);
             CustomersListBox.Items.Add(newCustomer.FullName);
-            CustomersListBox.SelectedItem = newCustomer.FullName;
+            CustomersListBox.SelectedIndex = CustomersListBox.Items.Count - 1;
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
@@ -85,6 +86,14 @@ namespace ObjectOrientedPractics.View.Tabs
                     }
                 }
             }
+        }
+
+        private void AddRandomButton_Click(object sender, EventArgs e)
+        {
+            Customer newCustomer = CustomerFactory.GetRandomCustomer();
+            _customers.Add(newCustomer);
+            CustomersListBox.Items.Add(newCustomer.FullName);
+            CustomersListBox.SelectedIndex = CustomersListBox.Items.Count - 1;
         }
 
         private void FullNameTextBox_TextChanged(object sender, EventArgs e)

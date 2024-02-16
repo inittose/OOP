@@ -1,15 +1,10 @@
-﻿using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -18,7 +13,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Список товаров класса <see cref="Item"/>.
         /// </summary>
-        private List<Item> _items = new List<Item>();
+        private List<Item> _items = Serializer.GetItems();
 
         private Color rightInputColor = Color.White;
         private Color wrongInputColor = Color.Red;
@@ -29,6 +24,10 @@ namespace ObjectOrientedPractics.View.Tabs
             WrongCostLabel.Text = string.Empty;
             WrongNameLabel.Text = string.Empty;
             WrongDescriptionLabel.Text = string.Empty;
+            for (int i = 0; i < _items.Count; i++)
+            {
+                ItemsListBox.Items.Add(_items[i].Name);
+            }
         }
 
         /// <summary>
@@ -86,6 +85,7 @@ namespace ObjectOrientedPractics.View.Tabs
                     }
                 }
             }
+            Serializer.SetItems(_items);
         }
         private void AddRandomButton_Click(object sender, EventArgs e)
         {
@@ -98,6 +98,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetTextBoxes(ItemsListBox.SelectedIndex);
+            Serializer.SetItems(_items);
         }
 
         private void CostTextBox_TextChanged(object sender, EventArgs e)
@@ -186,6 +187,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _items[ItemsListBox.SelectedIndex].Name = NameTextBox.Text;
                 ItemsListBox.Items[ItemsListBox.SelectedIndex] = NameTextBox.Text;
+                Serializer.SetItems(_items);
             }
             else
             {
@@ -202,6 +204,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (CostTextBox.BackColor == rightInputColor)
             {
                 _items[ItemsListBox.SelectedIndex].Cost = float.Parse(CostTextBox.Text);
+                Serializer.SetItems(_items);
             }
             CostTextBox.Text = _items[ItemsListBox.SelectedIndex].Cost.ToString();
         }
@@ -215,6 +218,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (DescriptionTextBox.BackColor == rightInputColor)
             {
                 _items[ItemsListBox.SelectedIndex].Info = DescriptionTextBox.Text;
+                Serializer.SetItems(_items);
             }
             else
             {

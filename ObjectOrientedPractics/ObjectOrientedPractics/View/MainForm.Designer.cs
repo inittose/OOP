@@ -99,6 +99,7 @@
             this.ClientSize = new System.Drawing.Size(984, 661);
             this.Controls.Add(this.MainTabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1000, 700);
             this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "MainForm";

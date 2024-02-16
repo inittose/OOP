@@ -32,6 +32,7 @@
             this.ButtonPanel = new System.Windows.Forms.TableLayoutPanel();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
+            this.AddRandomButton = new System.Windows.Forms.Button();
             this.ItemsListBox = new System.Windows.Forms.ListBox();
             this.ItemsLabel = new System.Windows.Forms.Label();
             this.SelectedItemLabel = new System.Windows.Forms.Label();
@@ -48,7 +49,6 @@
             this.WrongNameLabel = new System.Windows.Forms.Label();
             this.WrongCostLabel = new System.Windows.Forms.Label();
             this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.AddRandomButton = new System.Windows.Forms.Button();
             this.ItemsListPanel.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
             this.SelectedItemPanel.SuspendLayout();
@@ -105,6 +105,17 @@
             this.AddButton.Text = "Add";
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // AddRandomButton
+            // 
+            this.AddRandomButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AddRandomButton.Location = new System.Drawing.Point(261, 3);
+            this.AddRandomButton.Name = "AddRandomButton";
+            this.AddRandomButton.Size = new System.Drawing.Size(124, 46);
+            this.AddRandomButton.TabIndex = 3;
+            this.AddRandomButton.Text = "Add Random";
+            this.AddRandomButton.UseVisualStyleBackColor = true;
+            this.AddRandomButton.Click += new System.EventHandler(this.AddRandomButton_Click);
             // 
             // ItemsListBox
             // 
@@ -177,7 +188,7 @@
             // IdTextBox
             // 
             this.IdTextBox.Enabled = false;
-            this.IdTextBox.Location = new System.Drawing.Point(45, 34);
+            this.IdTextBox.Location = new System.Drawing.Point(45, 32);
             this.IdTextBox.Name = "IdTextBox";
             this.IdTextBox.Size = new System.Drawing.Size(100, 20);
             this.IdTextBox.TabIndex = 5;
@@ -270,29 +281,20 @@
             // 
             // MainTableLayoutPanel
             // 
+            this.MainTableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MainTableLayoutPanel.ColumnCount = 2;
             this.MainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.MainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.MainTableLayoutPanel.Controls.Add(this.ItemsListPanel, 0, 0);
             this.MainTableLayoutPanel.Controls.Add(this.SelectedItemPanel, 1, 0);
-            this.MainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.MainTableLayoutPanel.Name = "MainTableLayoutPanel";
             this.MainTableLayoutPanel.RowCount = 1;
             this.MainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MainTableLayoutPanel.Size = new System.Drawing.Size(1000, 700);
             this.MainTableLayoutPanel.TabIndex = 2;
-            // 
-            // AddRandomButton
-            // 
-            this.AddRandomButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AddRandomButton.Location = new System.Drawing.Point(261, 3);
-            this.AddRandomButton.Name = "AddRandomButton";
-            this.AddRandomButton.Size = new System.Drawing.Size(124, 46);
-            this.AddRandomButton.TabIndex = 3;
-            this.AddRandomButton.Text = "Add Random";
-            this.AddRandomButton.UseVisualStyleBackColor = true;
-            this.AddRandomButton.Click += new System.EventHandler(this.AddRandomButton_Click);
             // 
             // ItemsTab
             // 

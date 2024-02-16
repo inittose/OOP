@@ -17,7 +17,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Список покупателей класса <see cref="Customer"/>
         /// </summary>
-        private List<Customer> _customers = new List<Customer>();
+        private List<Customer> _customers = Serializer.GetCustomers();
 
         private Color rightInputColor = Color.White;
         private Color wrongInputColor = Color.Red;
@@ -27,6 +27,10 @@ namespace ObjectOrientedPractics.View.Tabs
             InitializeComponent();
             WrongAddressLabel.Text = string.Empty;
             WrongFullNameLabel.Text = string.Empty;
+            for (int i = 0; i < _customers.Count; i++)
+            {
+                CustomersListBox.Items.Add(_customers[i].FullName);
+            }
         }
 
         /// <summary>
@@ -56,6 +60,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetTextBoxes(CustomersListBox.SelectedIndex);
+            Serializer.SetCustomers(_customers);
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -86,6 +91,7 @@ namespace ObjectOrientedPractics.View.Tabs
                     }
                 }
             }
+            Serializer.SetCustomers(_customers);
         }
 
         private void AddRandomButton_Click(object sender, EventArgs e)
@@ -152,6 +158,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _customers[CustomersListBox.SelectedIndex].FullName = FullNameTextBox.Text;
                 CustomersListBox.Items[CustomersListBox.SelectedIndex] = FullNameTextBox.Text;
+                Serializer.SetCustomers(_customers);
             }
             else
             {
@@ -169,6 +176,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _customers[CustomersListBox.SelectedIndex].Address = AddressTextBox.Text;
                 CustomersListBox.Items[CustomersListBox.SelectedIndex] = AddressTextBox.Text;
+                Serializer.SetCustomers(_customers);
             }
             else
             {

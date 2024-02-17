@@ -1,17 +1,23 @@
-﻿using ObjectOrientedPractics.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Хранит данные о покупателе.
     /// </summary>
-    internal class Customer
+    public class Customer
     {
+        /// <summary>
+        /// Максимальное число символов имени покупателя.
+        /// </summary>
+        private static readonly int _fullnameLengthLimit = 200;
+
+        /// <summary>
+        /// Максимальное число символов адреса покупателя.
+        /// </summary>
+        private static readonly int _addressLengthLimit = 500;
+
         /// <summary>
         /// Уникальный идентификатор данного покупателя.
         /// </summary>
@@ -28,14 +34,27 @@ namespace ObjectOrientedPractics.Model
         private string _address;
 
         /// <summary>
+        /// Возвращает максимальное число символов имени покупателя.
+        /// </summary>
+        public static int FullNameLengthLimit
+        {
+            get => _fullnameLengthLimit;
+        }
+
+        /// <summary>
+        /// Возвращает максимальное число символов адреса покупателя.
+        /// </summary>
+        public static int AddressLengthLimit
+        {
+            get => _addressLengthLimit;
+        }
+
+        /// <summary>
         /// Возвращает уникальный идентификатор данного покупателя.
         /// </summary>
         public int Id
         {
-            get
-            {
-                return _id;
-            }
+            get => _id;
         }
 
         /// <summary>
@@ -44,13 +63,10 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public string FullName
         {
-            get
-            {
-                return _fullname;
-            }
+            get => _fullname;
             set
             {
-                ValueValidator.AssertStringOnLength(value, 200, nameof(_fullname));
+                ValueValidator.AssertStringOnLength(value, FullNameLengthLimit, nameof(_fullname));
                 _fullname = value;
             }
         }
@@ -61,13 +77,10 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public string Address
         {
-            get
-            {
-                return _address;
-            }
+            get => _address;
             set
             {
-                ValueValidator.AssertStringOnLength(value, 500, nameof(_address));
+                ValueValidator.AssertStringOnLength(value, AddressLengthLimit, nameof(_address));
                 _address = value;
             }
         }

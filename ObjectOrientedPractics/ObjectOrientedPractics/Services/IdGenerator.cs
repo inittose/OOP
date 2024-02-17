@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ObjectOrientedPractics.Services
+﻿namespace ObjectOrientedPractics.Services
 {
     /// <summary>
     /// Хранит и возвращает уникальный идентификатор.
     /// </summary>
-    static internal class IdGenerator
+    public static class IdGenerator
     {
         /// <summary>
         /// Счетчик уникальных идентификаторов.
@@ -17,12 +11,21 @@ namespace ObjectOrientedPractics.Services
         private static int _counter = 0;
 
         /// <summary>
+        /// Возвращает и задает счетчик уникальных идентификаторов.
+        /// </summary>
+        private static int Counter
+        {
+            get => _counter;
+            set => _counter = value;
+        }
+
+        /// <summary>
         /// Возвращает уникальный идентификатор и вычисляет новый.
         /// </summary>
         /// <returns>Текущий уникальный идентификатор.</returns>
-        static public int GetNextId()
+        public static int GetNextId()
         {
-            return _counter++;
+            return Counter++;
         }
     }
 }

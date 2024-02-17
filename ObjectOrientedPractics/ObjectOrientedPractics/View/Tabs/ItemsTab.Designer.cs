@@ -152,7 +152,7 @@
             // IdLabel
             // 
             this.IdLabel.AutoSize = true;
-            this.IdLabel.Location = new System.Drawing.Point(3, 34);
+            this.IdLabel.Location = new System.Drawing.Point(3, 31);
             this.IdLabel.Name = "IdLabel";
             this.IdLabel.Size = new System.Drawing.Size(21, 13);
             this.IdLabel.TabIndex = 1;
@@ -170,7 +170,7 @@
             // NameLabel
             // 
             this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(3, 82);
+            this.NameLabel.Location = new System.Drawing.Point(3, 92);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(38, 13);
             this.NameLabel.TabIndex = 3;
@@ -179,7 +179,7 @@
             // DiscriptionLabel
             // 
             this.DiscriptionLabel.AutoSize = true;
-            this.DiscriptionLabel.Location = new System.Drawing.Point(3, 204);
+            this.DiscriptionLabel.Location = new System.Drawing.Point(3, 220);
             this.DiscriptionLabel.Name = "DiscriptionLabel";
             this.DiscriptionLabel.Size = new System.Drawing.Size(63, 13);
             this.DiscriptionLabel.TabIndex = 4;
@@ -188,7 +188,7 @@
             // IdTextBox
             // 
             this.IdTextBox.Enabled = false;
-            this.IdTextBox.Location = new System.Drawing.Point(45, 32);
+            this.IdTextBox.Location = new System.Drawing.Point(45, 28);
             this.IdTextBox.Name = "IdTextBox";
             this.IdTextBox.Size = new System.Drawing.Size(100, 20);
             this.IdTextBox.TabIndex = 5;
@@ -196,7 +196,7 @@
             // CostTextBox
             // 
             this.CostTextBox.Enabled = false;
-            this.CostTextBox.Location = new System.Drawing.Point(45, 60);
+            this.CostTextBox.Location = new System.Drawing.Point(45, 57);
             this.CostTextBox.Name = "CostTextBox";
             this.CostTextBox.Size = new System.Drawing.Size(100, 20);
             this.CostTextBox.TabIndex = 6;
@@ -208,7 +208,7 @@
             this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NameTextBox.Enabled = false;
-            this.NameTextBox.Location = new System.Drawing.Point(3, 98);
+            this.NameTextBox.Location = new System.Drawing.Point(3, 108);
             this.NameTextBox.Multiline = true;
             this.NameTextBox.Name = "NameTextBox";
             this.NameTextBox.Size = new System.Drawing.Size(588, 94);
@@ -221,7 +221,7 @@
             this.DescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DescriptionTextBox.Enabled = false;
-            this.DescriptionTextBox.Location = new System.Drawing.Point(3, 220);
+            this.DescriptionTextBox.Location = new System.Drawing.Point(3, 236);
             this.DescriptionTextBox.Multiline = true;
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.Size = new System.Drawing.Size(588, 157);
@@ -253,7 +253,7 @@
             // 
             this.WrongDescriptionLabel.AutoSize = true;
             this.WrongDescriptionLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.WrongDescriptionLabel.Location = new System.Drawing.Point(72, 204);
+            this.WrongDescriptionLabel.Location = new System.Drawing.Point(72, 220);
             this.WrongDescriptionLabel.Name = "WrongDescriptionLabel";
             this.WrongDescriptionLabel.Size = new System.Drawing.Size(29, 13);
             this.WrongDescriptionLabel.TabIndex = 12;
@@ -263,7 +263,7 @@
             // 
             this.WrongNameLabel.AutoSize = true;
             this.WrongNameLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.WrongNameLabel.Location = new System.Drawing.Point(47, 82);
+            this.WrongNameLabel.Location = new System.Drawing.Point(47, 92);
             this.WrongNameLabel.Name = "WrongNameLabel";
             this.WrongNameLabel.Size = new System.Drawing.Size(29, 13);
             this.WrongNameLabel.TabIndex = 11;
@@ -273,7 +273,7 @@
             // 
             this.WrongCostLabel.AutoSize = true;
             this.WrongCostLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.WrongCostLabel.Location = new System.Drawing.Point(151, 63);
+            this.WrongCostLabel.Location = new System.Drawing.Point(151, 60);
             this.WrongCostLabel.Name = "WrongCostLabel";
             this.WrongCostLabel.Size = new System.Drawing.Size(29, 13);
             this.WrongCostLabel.TabIndex = 10;

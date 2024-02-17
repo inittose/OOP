@@ -1,17 +1,33 @@
-﻿using ObjectOrientedPractics.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Хранит данные о товаре.
     /// </summary>
-    internal class Item
+    public class Item
     {
+        /// <summary>
+        /// Максимальное число символов именования товара.
+        /// </summary>
+        private static readonly int _nameLengthLimit = 200;
+
+        /// <summary>
+        /// Максимальное число символов описания товара.
+        /// </summary>
+        private static readonly int _infoLengthLimit = 1000;
+
+        /// <summary>
+        /// Минимальная цена товара.
+        /// </summary>
+        private static readonly float _minimumCost = 0f;
+
+        /// <summary>
+        /// Максимальная цена товара.
+        /// </summary>
+        private static readonly float _maximumCost = 100000f;
+
         /// <summary>
         /// Уникальный идентификатор данного товара.
         /// </summary>
@@ -20,17 +36,49 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Именование товара.
         /// </summary>
-        private string _name;
+        private String _name;
 
         /// <summary>
         /// Описание товара.
         /// </summary>
-        private string _info;
+        private String _info;
 
         /// <summary>
         /// Стоимость товара.
         /// </summary>
         private float _cost;
+
+        /// <summary>
+        /// Возвращает максимальное число символов именования товара.
+        /// </summary>
+        public static int NameLengthLimit
+        {
+            get => _nameLengthLimit;
+        }
+
+        /// <summary>
+        /// Возвращает максимальное число символов описания товара.
+        /// </summary>
+        public static int InfoLengthLimit
+        {
+            get => _infoLengthLimit;
+        }
+
+        /// <summary>
+        /// Возвращает минимальную цену товара.
+        /// </summary>
+        public static float MinimumCost
+        {
+            get => _minimumCost;
+        }
+
+        /// <summary>
+        /// Возвращает максимальную цену товара.
+        /// </summary>
+        public static float MaximumCost
+        {
+            get => _maximumCost;
+        }
 
         /// <summary>
         /// Возвращает уникальный идентификатор данного товара.
@@ -47,7 +95,7 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает и задает наименование товара. 
         /// Должно состоять не более чем из 200 символов.
         /// </summary>
-        public string Name
+        public String Name
         {
             get
             {
@@ -55,7 +103,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 200, nameof(_name));
+                ValueValidator.AssertStringOnLength(value, NameLengthLimit, nameof(Name));
                 _name = value;
             }
         }
@@ -64,7 +112,7 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает и задает описание товара. 
         /// Должно состоять не более чем из 1000 символов.
         /// </summary>
-        public string Info
+        public String Info
         {
             get
             {
@@ -72,7 +120,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 1000, nameof(_info));
+                ValueValidator.AssertStringOnLength(value, InfoLengthLimit, nameof(Info));
                 _info = value;
             }
         }
@@ -89,10 +137,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                if (value < 0 || value > 100000f)
-                {
-                    throw new ArgumentException("Cost is not included in the range from 0 to 100 000.");
-                }
+                ValueValidator.AssertFloatOnLimits(value, MinimumCost, MaximumCost, nameof(Cost));
                 _cost = value;
             }
         }
@@ -102,8 +147,8 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Item()
         {
-            Name = string.Empty;
-            Info = string.Empty;
+            Name = String.Empty;
+            Info = String.Empty;
             Cost = 0;
         }
 
@@ -122,7 +167,7 @@ namespace ObjectOrientedPractics.Model
         ///     Стоимость товара.
         ///     Должна входить в диапозон: от 0 до 100 000.
         ///</param>
-        public Item(string name, string info, float cost)
+        public Item(String name, String info, float cost)
         {
             Name = name;
             Info = info;

@@ -6,32 +6,57 @@ using ObjectOrientedPractics.Model;
 
 namespace ObjectOrientedPractics.Services
 {
-    static internal class Serializer
+    /// <summary>
+    /// Сериализует и десериализует данные товаров и покупателей.
+    /// </summary>
+    public static class Serializer
     {
-        static private readonly String _filePath = Path.Combine(Environment.GetFolderPath(
+        /// <summary>
+        /// Путь до файла сериализации.
+        /// </summary>
+        private static readonly String _filePath = Path.Combine(Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData), 
             "ObjectOrientedPractics\\Serialization.json");
 
-        static private String _itemsJson;
-        static private String _customersJson;
+        /// <summary>
+        /// Данные о товарах в json формате.
+        /// </summary>
+        private static String _itemsJson;
 
-        static public String FilePath
+        /// <summary>
+        /// Данные о покупателях в json формате.
+        /// </summary>
+        private static String _customersJson;
+
+        /// <summary>
+        /// Возвращает путь до файла сериализации.
+        /// </summary>
+        public static String FilePath
         {
             get => _filePath;
         }
 
-        static public String ItemsJson
+        /// <summary>
+        /// Возвращает и задает данные о товарах в json формате.
+        /// </summary>
+        public static String ItemsJson
         {
             get => _itemsJson;
             set => _itemsJson = value;
         }
 
-        static public String CustomersJson
+        /// <summary>
+        /// Возвращает и задает данные о покупателях в json формате.
+        /// </summary>
+        public static String CustomersJson
         {
             get => _customersJson;
             set => _customersJson = value;
         }
 
+        /// <summary>
+        /// Выгрузить данные о товарах и покупателях из файла сериализации, если он есть.
+        /// </summary>
         static Serializer()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
@@ -48,12 +73,11 @@ namespace ObjectOrientedPractics.Services
             }
         }
 
-        static private void SaveFile()
-        {
-            File.WriteAllText(FilePath, ItemsJson + "\n" + CustomersJson);
-        }
-
-        static public List<Item> GetItems()
+        /// <summary>
+        /// Десериализовать данные о товарах.
+        /// </summary>
+        /// <returns>Список экзепляров класса <see cref="Item"/>.</returns>
+        public static List<Item> GetItems()
         {
             if (ItemsJson == String.Empty)
             {
@@ -66,13 +90,21 @@ namespace ObjectOrientedPractics.Services
             }
         }
 
-        static public void SetItems(List<Item> items)
+        /// <summary>
+        /// Сериализовать данные о товарах и сохранить изменения.
+        /// </summary>
+        /// <param name="items">Список экзепляров класса <see cref="Item"/>.</param>
+        public static void SetItems(List<Item> items)
         {
             ItemsJson = JsonConvert.SerializeObject(items);
             SaveFile();
         }
 
-        static public List<Customer> GetCustomers()
+        /// <summary>
+        /// Десериализовать данные о покупателях.
+        /// </summary>
+        /// <returns>Список экзепляров класса <see cref="Customer"/>.</returns>
+        public static List<Customer> GetCustomers()
         {
             if (CustomersJson == String.Empty)
             {
@@ -85,10 +117,22 @@ namespace ObjectOrientedPractics.Services
             }
         }
 
-        static public void SetCustomers(List<Customer> customer)
+        /// <summary>
+        /// Сериализовать данные о покупателях и сохранить изменения.
+        /// </summary>
+        /// <param name="customer">Список экзепляров класса <see cref="Customer"/>.</param>
+        public static void SetCustomers(List<Customer> customer)
         {
             CustomersJson = JsonConvert.SerializeObject(customer);
             SaveFile();
+        }
+
+        /// <summary>
+        /// Сохранить изменения данных о товарах и покупателях в файл сериализации.
+        /// </summary>
+        private static void SaveFile()
+        {
+            File.WriteAllText(FilePath, ItemsJson + "\n" + CustomersJson);
         }
     }
 }

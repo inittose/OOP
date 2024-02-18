@@ -11,12 +11,12 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Максимальное число символов имени покупателя.
         /// </summary>
-        private static readonly int _fullnameLengthLimit = 200;
+        public const int FULLNAME_LENGTH_LIMIT = 200;
 
         /// <summary>
         /// Максимальное число символов адреса покупателя.
         /// </summary>
-        private static readonly int _addressLengthLimit = 500;
+        public const int ADDRESS_LENGTH_LIMIT = 500;
 
         /// <summary>
         /// Уникальный идентификатор данного покупателя.
@@ -32,22 +32,6 @@ namespace ObjectOrientedPractics.Model
         /// Адрес доставки покупателя.
         /// </summary>
         private string _address;
-
-        /// <summary>
-        /// Возвращает максимальное число символов имени покупателя.
-        /// </summary>
-        public static int FullNameLengthLimit
-        {
-            get => _fullnameLengthLimit;
-        }
-
-        /// <summary>
-        /// Возвращает максимальное число символов адреса покупателя.
-        /// </summary>
-        public static int AddressLengthLimit
-        {
-            get => _addressLengthLimit;
-        }
 
         /// <summary>
         /// Возвращает уникальный идентификатор данного покупателя.
@@ -66,7 +50,8 @@ namespace ObjectOrientedPractics.Model
             get => _fullname;
             set
             {
-                ValueValidator.AssertStringOnLength(value, FullNameLengthLimit, nameof(_fullname));
+                ValueValidator.AssertStringOnLength(
+                    value, FULLNAME_LENGTH_LIMIT, nameof(_fullname));
                 _fullname = value;
             }
         }
@@ -80,7 +65,7 @@ namespace ObjectOrientedPractics.Model
             get => _address;
             set
             {
-                ValueValidator.AssertStringOnLength(value, AddressLengthLimit, nameof(_address));
+                ValueValidator.AssertStringOnLength(value, ADDRESS_LENGTH_LIMIT, nameof(_address));
                 _address = value;
             }
         }

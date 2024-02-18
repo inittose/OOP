@@ -8,16 +8,7 @@
         /// <summary>
         /// Счетчик уникальных идентификаторов.
         /// </summary>
-        private static int _counter = 0;
-
-        /// <summary>
-        /// Возвращает и задает счетчик уникальных идентификаторов.
-        /// </summary>
-        private static int Counter
-        {
-            get => _counter;
-            set => _counter = value;
-        }
+        private static int Counter { get; set; } = 0;
 
         /// <summary>
         /// Возвращает уникальный идентификатор и вычисляет новый.

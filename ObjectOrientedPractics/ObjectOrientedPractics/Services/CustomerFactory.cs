@@ -12,29 +12,13 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Максимальное количество строк в базе данных.
         /// </summary>
-        private static readonly int _maxRows = 1000;
+        private const int MAX_ROWS = 1000;
 
         /// <summary>
         /// Путь до базы данных покупателей.
         /// </summary>
-        private static readonly String _fileName =
+        private static String FileName { get; } =
             $@"{Directory.GetCurrentDirectory()}\..\..\Services\Databases\CustomersData.txt";
-
-        /// <summary>
-        /// Возвращает максимальное количество строк в базе данных.
-        /// </summary>
-        private static int MaxRows
-        {
-            get => _maxRows;
-        }
-
-        /// <summary>
-        /// Возвращает путь до базы данных покупателей.
-        /// </summary>
-        private static String FileName
-        {
-            get => _fileName;
-        }
 
         /// <summary>
         /// Получить экзепляр класса <see cref="Customer"/> с начальными случайными значениями.
@@ -43,7 +27,7 @@ namespace ObjectOrientedPractics.Services
         public static Customer GetRandomCustomer()
         {
             var random = new Random();
-            var randomIndex = random.Next(0, MaxRows);
+            var randomIndex = random.Next(0, MAX_ROWS);
 
             var randomData = File.ReadAllLines(FileName)[randomIndex].Split('\t');
             var customerFullName = randomData[0] + ' ' +  randomData[1];

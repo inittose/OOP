@@ -11,22 +11,22 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Максимальное число символов именования товара.
         /// </summary>
-        private static readonly int _nameLengthLimit = 200;
+        public const int NAME_LENGTH_LIMIT = 200;
 
         /// <summary>
         /// Максимальное число символов описания товара.
         /// </summary>
-        private static readonly int _infoLengthLimit = 1000;
+        public const int INFO_LENGTH_LIMIT = 1000;
 
         /// <summary>
         /// Минимальная цена товара.
         /// </summary>
-        private static readonly float _minimumCost = 0f;
+        public const float MINIMUM_COST = 0f;
 
         /// <summary>
         /// Максимальная цена товара.
         /// </summary>
-        private static readonly float _maximumCost = 100000f;
+        public const float MAXIMUM_COST = 100000f;
 
         /// <summary>
         /// Уникальный идентификатор данного товара.
@@ -47,38 +47,6 @@ namespace ObjectOrientedPractics.Model
         /// Стоимость товара.
         /// </summary>
         private float _cost;
-
-        /// <summary>
-        /// Возвращает максимальное число символов именования товара.
-        /// </summary>
-        public static int NameLengthLimit
-        {
-            get => _nameLengthLimit;
-        }
-
-        /// <summary>
-        /// Возвращает максимальное число символов описания товара.
-        /// </summary>
-        public static int InfoLengthLimit
-        {
-            get => _infoLengthLimit;
-        }
-
-        /// <summary>
-        /// Возвращает минимальную цену товара.
-        /// </summary>
-        public static float MinimumCost
-        {
-            get => _minimumCost;
-        }
-
-        /// <summary>
-        /// Возвращает максимальную цену товара.
-        /// </summary>
-        public static float MaximumCost
-        {
-            get => _maximumCost;
-        }
 
         /// <summary>
         /// Возвращает уникальный идентификатор данного товара.
@@ -103,7 +71,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                ValueValidator.AssertStringOnLength(value, NameLengthLimit, nameof(Name));
+                ValueValidator.AssertStringOnLength(value, NAME_LENGTH_LIMIT, nameof(Name));
                 _name = value;
             }
         }
@@ -120,7 +88,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                ValueValidator.AssertStringOnLength(value, InfoLengthLimit, nameof(Info));
+                ValueValidator.AssertStringOnLength(value, INFO_LENGTH_LIMIT, nameof(Info));
                 _info = value;
             }
         }
@@ -137,7 +105,8 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                ValueValidator.AssertFloatOnLimits(value, MinimumCost, MaximumCost, nameof(Cost));
+                ValueValidator.AssertFloatOnLimits(
+                    value, MINIMUM_COST, MAXIMUM_COST, nameof(Cost));
                 _cost = value;
             }
         }

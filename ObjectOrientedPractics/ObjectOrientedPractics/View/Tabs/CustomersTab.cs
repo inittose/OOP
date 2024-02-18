@@ -15,41 +15,17 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Цвет <see cref="TextBox"/>, успешно прошедшего валидацию. 
         /// </summary>
-        private static readonly Color _rightInputColor = Color.White;
+        private static Color RightInputColor { get; } = Color.White;
 
         /// <summary>
         /// Цвет <see cref="TextBox"/>, неудачно прошедшего валидацию. 
         /// </summary>
-        private static readonly Color _wrongInputColor = Color.Red;
+        private static Color WrongInputColor { get; } = Color.Red;
 
         /// <summary>
         /// Список покупателей класса <see cref="Customer"/>
         /// </summary>
-        private List<Customer> _customers = Serializer.GetCustomers();
-
-        /// <summary>
-        /// Возвращает цвет <see cref="TextBox"/>, успешно прошедшего валидацию. 
-        /// </summary>
-        private static Color RightInputColor
-        {
-            get => _rightInputColor;
-        }
-
-        /// <summary>
-        /// Возвращает цвет <see cref="TextBox"/>, неудачно прошедшего валидацию. 
-        /// </summary>
-        private static Color WrongInputColor
-        {
-            get => _wrongInputColor;
-        }
-
-        /// <summary>
-        /// Возвращает список покупателей <see cref="List<Customer>"/>.
-        /// </summary>
-        private List<Customer> Customers
-        {
-            get => _customers;
-        }
+        private List<Customer> Customers { get; } = Serializer.GetCustomers();
 
         /// <summary>
         /// Инициализировать компонент, 
@@ -60,7 +36,7 @@ namespace ObjectOrientedPractics.View.Tabs
             InitializeComponent();
             WrongAddressLabel.Text = string.Empty;
             WrongFullNameLabel.Text = string.Empty;
-            for (int i = 0; i < Customers.Count; i++)
+            for (var i = 0; i < Customers.Count; i++)
             {
                 CustomersListBox.Items.Add(Customers[i].FullName);
             }
@@ -153,10 +129,10 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 WrongFullNameLabel.Text = "Full name must consist of characters.";
             }
-            else if (FullNameTextBox.Text.Length > Customer.FullNameLengthLimit)
+            else if (FullNameTextBox.Text.Length > Customer.FULLNAME_LENGTH_LIMIT)
             {
                 WrongFullNameLabel.Text = 
-                    $"Full name must be no more than {Customer.FullNameLengthLimit} characters.";
+                    $"Full name must be no more than {Customer.FULLNAME_LENGTH_LIMIT} characters.";
             }
             else
             {
@@ -175,10 +151,10 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
             var currentColor = WrongInputColor;
-            if (AddressTextBox.Text.Length > Customer.AddressLengthLimit)
+            if (AddressTextBox.Text.Length > Customer.ADDRESS_LENGTH_LIMIT)
             {
                 WrongAddressLabel.Text = 
-                    $"Address must be no more than {Customer.AddressLengthLimit} characters.";
+                    $"Address must be no more than {Customer.ADDRESS_LENGTH_LIMIT} characters.";
             }
             else
             {

@@ -14,45 +14,19 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Путь до файла сериализации.
         /// </summary>
-        private static readonly String _filePath = Path.Combine(Environment.GetFolderPath(
-            Environment.SpecialFolder.ApplicationData), 
+        private static String FilePath { get; } = Path.Combine(Environment.GetFolderPath(
+            Environment.SpecialFolder.ApplicationData),
             "ObjectOrientedPractics\\Serialization.json");
 
         /// <summary>
         /// Данные о товарах в json формате.
         /// </summary>
-        private static String _itemsJson;
+        private static String ItemsJson { get; set; } = String.Empty;
 
         /// <summary>
         /// Данные о покупателях в json формате.
         /// </summary>
-        private static String _customersJson;
-
-        /// <summary>
-        /// Возвращает путь до файла сериализации.
-        /// </summary>
-        public static String FilePath
-        {
-            get => _filePath;
-        }
-
-        /// <summary>
-        /// Возвращает и задает данные о товарах в json формате.
-        /// </summary>
-        public static String ItemsJson
-        {
-            get => _itemsJson;
-            set => _itemsJson = value;
-        }
-
-        /// <summary>
-        /// Возвращает и задает данные о покупателях в json формате.
-        /// </summary>
-        public static String CustomersJson
-        {
-            get => _customersJson;
-            set => _customersJson = value;
-        }
+        private static String CustomersJson { get; set; } = String.Empty;
 
         /// <summary>
         /// Выгрузить данные о товарах и покупателях из файла сериализации, если он есть.

@@ -17,7 +17,7 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Путь до базы данных покупателей.
         /// </summary>
-        private static String FileName { get; } =
+        private static string FileName { get; } =
             $@"{Directory.GetCurrentDirectory()}\..\..\Services\Databases\CustomersData.txt";
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace ObjectOrientedPractics.Services
             var customerFullName = randomData[0] + ' ' +  randomData[1];
             var customerAddress = randomData[2];
 
-            Customer randomCustomer = new Customer(customerFullName, customerAddress);
+            var randomCustomer = new Customer(customerFullName, customerAddress);
             return randomCustomer;
         }
     }

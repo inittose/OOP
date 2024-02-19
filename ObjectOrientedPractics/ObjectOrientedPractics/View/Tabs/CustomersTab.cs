@@ -15,12 +15,12 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Цвет <see cref="TextBox"/>, успешно прошедшего валидацию. 
         /// </summary>
-        private static Color RightInputColor { get; } = Color.White;
+        private Color RightInputColor { get; } = Color.White;
 
         /// <summary>
         /// Цвет <see cref="TextBox"/>, неудачно прошедшего валидацию. 
         /// </summary>
-        private static Color WrongInputColor { get; } = Color.Red;
+        private Color WrongInputColor { get; } = Color.Red;
 
         /// <summary>
         /// Список покупателей класса <see cref="Customer"/>
@@ -49,7 +49,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="selectedIndex">Индекс товара в списке.</param>
         private void SetTextBoxes(int selectedIndex)
         {
-            bool isSelectedIndexCorrect = selectedIndex >= 0;
+            var isSelectedIndexCorrect = selectedIndex >= 0;
             AddressTextBox.Enabled = isSelectedIndexCorrect;
             FullNameTextBox.Enabled = isSelectedIndexCorrect;
             if (isSelectedIndexCorrect)
@@ -60,39 +60,59 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             else
             {
-                FullNameTextBox.Text = String.Empty;
-                AddressTextBox.Text = String.Empty;
-                IdTextBox.Text = String.Empty;
+                FullNameTextBox.Text = string.Empty;
+                AddressTextBox.Text = string.Empty;
+                IdTextBox.Text = string.Empty;
             }
         }
 
+        /// <summary>
+        /// Событие при изменении выбора в списке покупателей.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetTextBoxes(CustomersListBox.SelectedIndex);
             Serializer.SetCustomers(Customers);
         }
 
+        /// <summary>
+        /// Событие при нажатии кнопки добавления покупателя.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            Customer newCustomer = new Customer();
+            var newCustomer = new Customer();
             newCustomer.FullName = $"Customer{newCustomer.Id}";
             Customers.Add(newCustomer);
             CustomersListBox.Items.Add(newCustomer.FullName);
             CustomersListBox.SelectedIndex = CustomersListBox.Items.Count - 1;
         }
 
+        /// <summary>
+        /// Событие при нажатии кнопки добавления случайного покупателя.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void AddRandomButton_Click(object sender, EventArgs e)
         {
-            Customer newCustomer = CustomerFactory.GetRandomCustomer();
+            var newCustomer = CustomerFactory.GetRandomCustomer();
             Customers.Add(newCustomer);
             CustomersListBox.Items.Add(newCustomer.FullName);
             CustomersListBox.SelectedIndex = CustomersListBox.Items.Count - 1;
         }
 
+        /// <summary>
+        /// Событие при нажатии кнопки удаления покупателя.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-            int removeIndex = CustomersListBox.SelectedIndex;
-            if (removeIndex == -1)
+            var removeIndex = CustomersListBox.SelectedIndex;
+            if (removeIndex < 0)
             {
                 return;
             }
@@ -116,11 +136,16 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Событие при изменении текста в текстовом поле ввода имени покупателя.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void FullNameTextBox_TextChanged(object sender, EventArgs e)
         {
             if (CustomersListBox.SelectedIndex < 0)
             {
-                WrongFullNameLabel.Text = String.Empty;
+                WrongFullNameLabel.Text = string.Empty;
                 FullNameTextBox.BackColor = RightInputColor;
                 return;
             }
@@ -136,17 +161,22 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             else
             {
-                WrongFullNameLabel.Text = String.Empty;
+                WrongFullNameLabel.Text = string.Empty;
                 currentColor = RightInputColor;
             }
             FullNameTextBox.BackColor = currentColor;
         }
 
+        /// <summary>
+        /// Событие при изменении текста в текстовом поле ввода адреса покупателя.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void AddressTextBox_TextChanged(object sender, EventArgs e)
         {
             if (CustomersListBox.SelectedIndex < 0)
             {
-                WrongAddressLabel.Text = String.Empty;
+                WrongAddressLabel.Text = string.Empty;
                 AddressTextBox.BackColor = RightInputColor;
                 return;
             }
@@ -158,12 +188,17 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             else
             {
-                WrongAddressLabel.Text = String.Empty;
+                WrongAddressLabel.Text = string.Empty;
                 currentColor = RightInputColor;
             }
             AddressTextBox.BackColor = currentColor;
         }
 
+        /// <summary>
+        /// Событие при выходе из текстового поля ввода имени покупателя.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void FullNameTextBox_Leave(object sender, EventArgs e)
         {
             if (CustomersListBox.SelectedIndex < 0)
@@ -182,6 +217,11 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Событие при выходе из текстового поля ввода адреса покупателя.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void AddressTextBox_Leave(object sender, EventArgs e)
         {
             if (CustomersListBox.SelectedIndex < 0)

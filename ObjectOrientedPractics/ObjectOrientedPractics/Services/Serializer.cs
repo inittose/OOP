@@ -14,19 +14,19 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Путь до файла сериализации.
         /// </summary>
-        private static String FilePath { get; } = Path.Combine(Environment.GetFolderPath(
+        private static string FilePath { get; } = Path.Combine(Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData),
             "ObjectOrientedPractics\\Serialization.json");
 
         /// <summary>
         /// Данные о товарах в json формате.
         /// </summary>
-        private static String ItemsJson { get; set; } = String.Empty;
+        private static string ItemsJson { get; set; } = string.Empty;
 
         /// <summary>
         /// Данные о покупателях в json формате.
         /// </summary>
-        private static String CustomersJson { get; set; } = String.Empty;
+        private static string CustomersJson { get; set; } = string.Empty;
 
         /// <summary>
         /// Выгрузить данные о товарах и покупателях из файла сериализации, если он есть.
@@ -42,8 +42,8 @@ namespace ObjectOrientedPractics.Services
             }
             catch
             {
-                ItemsJson = String.Empty;
-                CustomersJson = String.Empty;
+                ItemsJson = string.Empty;
+                CustomersJson = string.Empty;
             }
         }
 
@@ -53,7 +53,7 @@ namespace ObjectOrientedPractics.Services
         /// <returns>Список экзепляров класса <see cref="Item"/>.</returns>
         public static List<Item> GetItems()
         {
-            if (ItemsJson == String.Empty)
+            if (ItemsJson == string.Empty)
             {
                 return new List<Item>();
             }
@@ -80,7 +80,7 @@ namespace ObjectOrientedPractics.Services
         /// <returns>Список экзепляров класса <see cref="Customer"/>.</returns>
         public static List<Customer> GetCustomers()
         {
-            if (CustomersJson == String.Empty)
+            if (CustomersJson == string.Empty)
             {
                 return new List<Customer>();
             }

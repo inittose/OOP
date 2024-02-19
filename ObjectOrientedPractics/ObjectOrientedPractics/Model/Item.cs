@@ -1,5 +1,4 @@
-﻿using System;
-using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -36,12 +35,12 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Именование товара.
         /// </summary>
-        private String _name;
+        private string _name;
 
         /// <summary>
         /// Описание товара.
         /// </summary>
-        private String _info;
+        private string _info;
 
         /// <summary>
         /// Стоимость товара.
@@ -63,7 +62,7 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает и задает наименование товара. 
         /// Должно состоять не более чем из 200 символов.
         /// </summary>
-        public String Name
+        public string Name
         {
             get
             {
@@ -80,7 +79,7 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает и задает описание товара. 
         /// Должно состоять не более чем из 1000 символов.
         /// </summary>
-        public String Info
+        public string Info
         {
             get
             {
@@ -116,8 +115,8 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Item()
         {
-            Name = String.Empty;
-            Info = String.Empty;
+            Name = string.Empty;
+            Info = string.Empty;
             Cost = 0;
         }
 
@@ -136,7 +135,7 @@ namespace ObjectOrientedPractics.Model
         ///     Стоимость товара.
         ///     Должна входить в диапозон: от 0 до 100 000.
         ///</param>
-        public Item(String name, String info, float cost)
+        public Item(string name, string info, float cost)
         {
             Name = name;
             Info = info;

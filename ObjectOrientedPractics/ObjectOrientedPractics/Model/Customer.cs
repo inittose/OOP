@@ -1,5 +1,4 @@
-﻿using System;
-using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -75,8 +74,8 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Customer()
         {
-            FullName = String.Empty;
-            Address = String.Empty;
+            FullName = string.Empty;
+            Address = string.Empty;
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace ObjectOrientedPractics.Model
         ///     Адрес доставки покупателя.
         ///     Должно состоять не более чем из 500 символов.
         /// </param>
-        public Customer(String fullname, String address)
+        public Customer(string fullname, string address)
         {
             FullName = fullname;
             Address = address;

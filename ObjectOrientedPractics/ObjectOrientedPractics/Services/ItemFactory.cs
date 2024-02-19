@@ -17,7 +17,7 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Путь до базы данных товаров.
         /// </summary>
-        private static String FileName { get; } =
+        private static string FileName { get; } =
             $@"{Directory.GetCurrentDirectory()}\..\..\Services\Databases\ItemsData.txt";
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace ObjectOrientedPractics.Services
             var itemCost = float.Parse(randomData[1]);
             var itemInfo = randomData[2];
 
-            Item randomItem = new Item(itemName, itemInfo, itemCost);
+            var randomItem = new Item(itemName, itemInfo, itemCost);
             return randomItem;
         }
     }

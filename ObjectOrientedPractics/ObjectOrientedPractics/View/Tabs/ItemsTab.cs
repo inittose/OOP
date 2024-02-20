@@ -34,6 +34,8 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
+            CategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
+            CategoryComboBox.SelectedIndex = -1;
             WrongCostLabel.Text = string.Empty;
             WrongNameLabel.Text = string.Empty;
             WrongDescriptionLabel.Text = string.Empty;
@@ -54,12 +56,14 @@ namespace ObjectOrientedPractics.View.Tabs
             CostTextBox.Enabled = isSelectedIndexCorrect;
             NameTextBox.Enabled = isSelectedIndexCorrect;
             DescriptionTextBox.Enabled = isSelectedIndexCorrect;
+            CategoryComboBox.Enabled = isSelectedIndexCorrect;
             if (isSelectedIndexCorrect)
             {
                 NameTextBox.Text = Items[ItemsListBox.SelectedIndex].Name;
                 CostTextBox.Text = Items[ItemsListBox.SelectedIndex].Cost.ToString();
                 IdTextBox.Text = Items[ItemsListBox.SelectedIndex].Id.ToString();
                 DescriptionTextBox.Text = Items[ItemsListBox.SelectedIndex].Info;
+                CategoryComboBox.SelectedIndex = (int)Items[ItemsListBox.SelectedIndex].Category;
             }
             else
             {
@@ -67,6 +71,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 CostTextBox.Text = string.Empty;
                 IdTextBox.Text = string.Empty;
                 DescriptionTextBox.Text = string.Empty;
+                CategoryComboBox.SelectedIndex = -1;
             }
         }
 
@@ -294,6 +299,20 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 DescriptionTextBox.Text = Items[ItemsListBox.SelectedIndex].Info;
             }
+        }
+
+        /// <summary>
+        /// Событие при изменении выбора в списке категорий товара.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ItemsListBox.SelectedIndex < 0)
+            {
+                return;
+            }
+            Items[ItemsListBox.SelectedIndex].Category = (Category)CategoryComboBox.SelectedIndex;
         }
     }
 }

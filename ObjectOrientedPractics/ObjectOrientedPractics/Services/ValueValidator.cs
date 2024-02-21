@@ -39,5 +39,21 @@ namespace ObjectOrientedPractics.Services
                     $"{propertyName} не входит в границы от {minimum} до {maximum}.");
             }
         }
+
+        /// <summary>
+        /// Проверка, состоит ли целое число из нужного числа разрядов.
+        /// </summary>
+        /// <param name="value">Входное значение.</param>
+        /// <param name="digit">Число разрядов.</param>
+        /// <param name="propertyName">Имя свойства класса.</param>
+        public static void AssertIntOnDigit(int value, int digit, string propertyName)
+        {
+            if (value.ToString().Length != digit)
+            {
+                throw new
+                    ArgumentException(
+                    $"{propertyName} должно состоять из {digit} разрядов.");
+            }
+        }
     }
 }

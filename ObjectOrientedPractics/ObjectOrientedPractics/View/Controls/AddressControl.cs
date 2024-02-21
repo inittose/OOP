@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.View.Controls
 {
@@ -17,7 +13,7 @@ namespace ObjectOrientedPractics.View.Controls
         private Address _address;
 
         /// <summary>
-        /// Возвращает и задает адрес доставки.
+        /// Возвращает и задает адрес доставки класса <see cref="Model.Address"/>.
         /// </summary>
         public Address Address 
         { 
@@ -39,6 +35,8 @@ namespace ObjectOrientedPractics.View.Controls
         /// </summary>
         private Color WrongInputColor { get; } = Color.Red;
 
+        private string ErrorMessage { get; } = "Поле превышает макс. кол-во символов.";
+
         /// <summary>
         /// Флаг, указывающий на то, активен ли элемент управления.
         /// </summary>
@@ -50,6 +48,8 @@ namespace ObjectOrientedPractics.View.Controls
         public AddressControl()
         {
             InitializeComponent();
+            Address = null;
+            WrongInputLabel.Text = string.Empty;
         }
 
         /// <summary>
@@ -96,13 +96,15 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
-            if (PostIndexTextBox.Text.Length == Address.INDEX_DIGIT)
+            if (PostIndexTextBox.Text.Length == Address.INDEX_DIGIT && 
+                                int.TryParse(PostIndexTextBox.Text, out var temp))
             {
-                
+                WrongInputLabel.Text = string.Empty;
                 PostIndexTextBox.BackColor = RightInputColor;
             }
             else
             {
+                WrongInputLabel.Text = "Поле должно состоять из 6 цифр.";
                 PostIndexTextBox.BackColor = WrongInputColor;
             }
         }
@@ -120,11 +122,12 @@ namespace ObjectOrientedPractics.View.Controls
             }
             if (CountryTextBox.Text.Length <= Address.COUNTRY_LENGTH_LIMIT)
             {
-
+                WrongInputLabel.Text = string.Empty;
                 CountryTextBox.BackColor = RightInputColor;
             }
             else
             {
+                WrongInputLabel.Text = ErrorMessage;
                 CountryTextBox.BackColor = WrongInputColor;
             }
         }
@@ -142,11 +145,12 @@ namespace ObjectOrientedPractics.View.Controls
             }
             if (CityTextBox.Text.Length <= Address.CITY_LENGTH_LIMIT)
             {
-
+                WrongInputLabel.Text = string.Empty;
                 CityTextBox.BackColor = RightInputColor;
             }
             else
             {
+                WrongInputLabel.Text = ErrorMessage;
                 CityTextBox.BackColor = WrongInputColor;
             }
         }
@@ -164,11 +168,12 @@ namespace ObjectOrientedPractics.View.Controls
             }
             if (StreetTextBox.Text.Length <= Address.STREET_LENGTH_LIMIT)
             {
-
+                WrongInputLabel.Text = string.Empty;
                 StreetTextBox.BackColor = RightInputColor;
             }
             else
             {
+                WrongInputLabel.Text = ErrorMessage;
                 StreetTextBox.BackColor = WrongInputColor;
             }
         }
@@ -186,11 +191,12 @@ namespace ObjectOrientedPractics.View.Controls
             }
             if (BuildingTextBox.Text.Length <= Address.BUILDING_LENGTH_LIMIT)
             {
-
+                WrongInputLabel.Text = string.Empty;
                 BuildingTextBox.BackColor = RightInputColor;
             }
             else
             {
+                WrongInputLabel.Text = ErrorMessage;
                 BuildingTextBox.BackColor = WrongInputColor;
             }
         }
@@ -208,11 +214,12 @@ namespace ObjectOrientedPractics.View.Controls
             }
             if (ApartmentTextBox.Text.Length <= Address.APARTMENT_LENGTH_LIMIT)
             {
-
+                WrongInputLabel.Text = string.Empty;
                 ApartmentTextBox.BackColor = RightInputColor;
             }
             else
             {
+                WrongInputLabel.Text = ErrorMessage;
                 ApartmentTextBox.BackColor = WrongInputColor;
             }
         }

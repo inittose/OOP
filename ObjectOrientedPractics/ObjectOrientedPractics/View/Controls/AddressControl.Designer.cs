@@ -41,6 +41,7 @@
             this.BuildingTextBox = new System.Windows.Forms.TextBox();
             this.ApartmentTextBox = new System.Windows.Forms.TextBox();
             this.CityTextBox = new System.Windows.Forms.TextBox();
+            this.WrongInputLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // DeliveryAddressLabel
@@ -131,7 +132,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StreetTextBox.Location = new System.Drawing.Point(69, 85);
             this.StreetTextBox.Name = "StreetTextBox";
-            this.StreetTextBox.Size = new System.Drawing.Size(407, 20);
+            this.StreetTextBox.Size = new System.Drawing.Size(421, 20);
             this.StreetTextBox.TabIndex = 9;
             this.StreetTextBox.TextChanged += new System.EventHandler(this.StreetTextBox_TextChanged);
             this.StreetTextBox.Leave += new System.EventHandler(this.StreetTextBox_Leave);
@@ -160,15 +161,28 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CityTextBox.Location = new System.Drawing.Point(296, 55);
             this.CityTextBox.Name = "CityTextBox";
-            this.CityTextBox.Size = new System.Drawing.Size(180, 20);
+            this.CityTextBox.Size = new System.Drawing.Size(194, 20);
             this.CityTextBox.TabIndex = 12;
             this.CityTextBox.TextChanged += new System.EventHandler(this.CityTextBox_TextChanged);
             this.CityTextBox.Leave += new System.EventHandler(this.CityTextBox_Leave);
+            // 
+            // WrongInputLabel
+            // 
+            this.WrongInputLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WrongInputLabel.AutoSize = true;
+            this.WrongInputLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.WrongInputLabel.Location = new System.Drawing.Point(203, 28);
+            this.WrongInputLabel.Name = "WrongInputLabel";
+            this.WrongInputLabel.Size = new System.Drawing.Size(29, 13);
+            this.WrongInputLabel.TabIndex = 13;
+            this.WrongInputLabel.Text = "Error";
             // 
             // AddressControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.WrongInputLabel);
             this.Controls.Add(this.CityTextBox);
             this.Controls.Add(this.ApartmentTextBox);
             this.Controls.Add(this.BuildingTextBox);
@@ -183,7 +197,7 @@
             this.Controls.Add(this.PostIndexLabel);
             this.Controls.Add(this.DeliveryAddressLabel);
             this.Name = "AddressControl";
-            this.Size = new System.Drawing.Size(479, 142);
+            this.Size = new System.Drawing.Size(493, 192);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,5 +218,6 @@
         private System.Windows.Forms.TextBox BuildingTextBox;
         private System.Windows.Forms.TextBox ApartmentTextBox;
         private System.Windows.Forms.TextBox CityTextBox;
+        private System.Windows.Forms.Label WrongInputLabel;
     }
 }

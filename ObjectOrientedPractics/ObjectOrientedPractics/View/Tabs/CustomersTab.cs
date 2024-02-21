@@ -34,7 +34,6 @@ namespace ObjectOrientedPractics.View.Tabs
         public CustomersTab()
         {
             InitializeComponent();
-            WrongAddressLabel.Text = string.Empty;
             WrongFullNameLabel.Text = string.Empty;
             for (var i = 0; i < Customers.Count; i++)
             {
@@ -50,19 +49,18 @@ namespace ObjectOrientedPractics.View.Tabs
         private void SetTextBoxes(int selectedIndex)
         {
             var isSelectedIndexCorrect = selectedIndex >= 0;
-            AddressTextBox.Enabled = isSelectedIndexCorrect;
             FullNameTextBox.Enabled = isSelectedIndexCorrect;
             if (isSelectedIndexCorrect)
             {
                 IdTextBox.Text = Customers[CustomersListBox.SelectedIndex].Id.ToString();
                 FullNameTextBox.Text = Customers[CustomersListBox.SelectedIndex].FullName;
-                AddressTextBox.Text = Customers[CustomersListBox.SelectedIndex].Address;
+                AddressControl.Address = Customers[CustomersListBox.SelectedIndex].Address;
             }
             else
             {
                 FullNameTextBox.Text = string.Empty;
-                AddressTextBox.Text = string.Empty;
                 IdTextBox.Text = string.Empty;
+                AddressControl.Address = null;
             }
         }
 
@@ -168,33 +166,6 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// Событие при изменении текста в текстовом поле ввода адреса покупателя.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void AddressTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (CustomersListBox.SelectedIndex < 0)
-            {
-                WrongAddressLabel.Text = string.Empty;
-                AddressTextBox.BackColor = RightInputColor;
-                return;
-            }
-            var currentColor = WrongInputColor;
-            if (AddressTextBox.Text.Length > Customer.ADDRESS_LENGTH_LIMIT)
-            {
-                WrongAddressLabel.Text = 
-                    $"Address must be no more than {Customer.ADDRESS_LENGTH_LIMIT} characters.";
-            }
-            else
-            {
-                WrongAddressLabel.Text = string.Empty;
-                currentColor = RightInputColor;
-            }
-            AddressTextBox.BackColor = currentColor;
-        }
-
-        /// <summary>
         /// Событие при выходе из текстового поля ввода имени покупателя.
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
@@ -214,29 +185,6 @@ namespace ObjectOrientedPractics.View.Tabs
             else
             {
                 FullNameTextBox.Text = Customers[CustomersListBox.SelectedIndex].FullName;
-            }
-        }
-
-        /// <summary>
-        /// Событие при выходе из текстового поля ввода адреса покупателя.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void AddressTextBox_Leave(object sender, EventArgs e)
-        {
-            if (CustomersListBox.SelectedIndex < 0)
-            {
-                return;
-            }
-            if (AddressTextBox.BackColor == RightInputColor)
-            {
-                Customers[CustomersListBox.SelectedIndex].Address = AddressTextBox.Text;
-                CustomersListBox.Items[CustomersListBox.SelectedIndex] = AddressTextBox.Text;
-                Serializer.SetCustomers(Customers);
-            }
-            else
-            {
-                AddressTextBox.Text = Customers[CustomersListBox.SelectedIndex].Address;
             }
         }
     }

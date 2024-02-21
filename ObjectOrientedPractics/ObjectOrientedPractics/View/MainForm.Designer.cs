@@ -47,7 +47,7 @@
             this.MainTabControl.Location = new System.Drawing.Point(0, 0);
             this.MainTabControl.Name = "MainTabControl";
             this.MainTabControl.SelectedIndex = 0;
-            this.MainTabControl.Size = new System.Drawing.Size(984, 661);
+            this.MainTabControl.Size = new System.Drawing.Size(734, 571);
             this.MainTabControl.TabIndex = 0;
             // 
             // ItemsTabPage
@@ -77,7 +77,7 @@
             this.CustomersTabPage.Location = new System.Drawing.Point(4, 22);
             this.CustomersTabPage.Name = "CustomersTabPage";
             this.CustomersTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.CustomersTabPage.Size = new System.Drawing.Size(976, 635);
+            this.CustomersTabPage.Size = new System.Drawing.Size(726, 545);
             this.CustomersTabPage.TabIndex = 1;
             this.CustomersTabPage.Text = "Customers";
             this.CustomersTabPage.UseVisualStyleBackColor = true;
@@ -89,19 +89,19 @@
             this.CustomersTab.MaximumSize = new System.Drawing.Size(1000, 700);
             this.CustomersTab.MinimumSize = new System.Drawing.Size(600, 400);
             this.CustomersTab.Name = "CustomersTab";
-            this.CustomersTab.Size = new System.Drawing.Size(970, 629);
+            this.CustomersTab.Size = new System.Drawing.Size(720, 539);
             this.CustomersTab.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 661);
+            this.ClientSize = new System.Drawing.Size(734, 571);
             this.Controls.Add(this.MainTabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1000, 700);
-            this.MinimumSize = new System.Drawing.Size(700, 500);
+            this.MinimumSize = new System.Drawing.Size(750, 610);
             this.Name = "MainForm";
             this.Text = "Object Oriented Practics";
             this.MainTabControl.ResumeLayout(false);

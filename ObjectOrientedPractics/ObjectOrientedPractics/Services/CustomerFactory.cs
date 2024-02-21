@@ -31,7 +31,7 @@ namespace ObjectOrientedPractics.Services
 
             var randomData = File.ReadAllLines(FileName)[randomIndex].Split('\t');
             var customerFullName = randomData[0] + ' ' +  randomData[1];
-            var customerAddress = randomData[2];
+            var customerAddress = new Address();//randomData[2];
 
             var randomCustomer = new Customer(customerFullName, customerAddress);
             return randomCustomer;

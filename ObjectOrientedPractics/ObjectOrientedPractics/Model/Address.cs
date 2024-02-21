@@ -147,7 +147,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Address()
         {
-            Index = 111111;
+            Index = 999999;
             Country = string.Empty;
             City = string.Empty;
             Street = string.Empty;

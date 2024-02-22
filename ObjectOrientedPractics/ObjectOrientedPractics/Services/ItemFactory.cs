@@ -21,7 +21,7 @@ namespace ObjectOrientedPractics.Services
             $@"{Directory.GetCurrentDirectory()}\..\..\Services\Databases\ItemsData.txt";
 
         /// <summary>
-        /// Получить экзепляр класса <see cref="Item"/> с начальными случайными значениями.
+        /// Получает экзепляр класса <see cref="Item"/> с начальными случайными значениями.
         /// </summary>
         /// <returns>Экзепляр класса <see cref="Item"/>.</returns>
         public static Item GetRandomItem()

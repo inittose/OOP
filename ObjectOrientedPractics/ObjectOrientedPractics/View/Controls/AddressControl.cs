@@ -49,7 +49,7 @@ namespace ObjectOrientedPractics.View.Controls
         }
 
         /// <summary>
-        /// Обновить данные текстовых полей ввода.
+        /// Обновляет данные текстовых полей ввода.
         /// </summary>
         private void UpdateTextBoxes()
         {

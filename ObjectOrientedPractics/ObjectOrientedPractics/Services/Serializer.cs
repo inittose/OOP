@@ -23,7 +23,7 @@ namespace ObjectOrientedPractics.Services
         private static string StoreJson { get; set; } = string.Empty;
 
         /// <summary>
-        /// Выгрузить данные о товарах и покупателях из файла сериализации, если он есть.
+        /// Выгружает данные о товарах и покупателях из файла сериализации, если он есть.
         /// </summary>
         static Serializer()
         {
@@ -39,7 +39,7 @@ namespace ObjectOrientedPractics.Services
         }
 
         /// <summary>
-        /// Десериализовать данные о товарах и покупателях.
+        /// Десериализует данные о товарах и покупателях.
         /// </summary>
         /// <returns>Экземпляр класса <see cref="Store"/>.</returns>
         public static Store GetStore()
@@ -55,7 +55,7 @@ namespace ObjectOrientedPractics.Services
         }
 
         /// <summary>
-        /// Сериализовать данные о товарах и покупателях и сохранить изменения.
+        /// Сериализует данные о товарах и покупателях и сохранить изменения.
         /// </summary>
         /// <param name="store">Экзепляр класса <see cref="Store"/>.</param>
         public static void SetStore(Store store)

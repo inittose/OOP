@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace ObjectOrientedPractics.Services
 {
+    /// <summary>
+    /// Хранит цвета <see cref="Color"/> для программы.
+    /// </summary>
     public static class AppColors
     {
         /// <summary>

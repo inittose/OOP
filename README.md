@@ -12,3 +12,6 @@
 ## UML-диаграммы
 **1 лабораторная работа:**
 ![Practics1](/doc/Practics1.png)
+
+**2 лабораторная работа:**
+![Practics1](/doc/Practics2.png)

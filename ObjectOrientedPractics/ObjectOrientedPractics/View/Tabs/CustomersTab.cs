@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
@@ -34,18 +33,8 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// Цвет <see cref="TextBox"/>, успешно прошедшего валидацию. 
-        /// </summary>
-        private Color RightInputColor { get; } = Color.White;
-
-        /// <summary>
-        /// Цвет <see cref="TextBox"/>, неудачно прошедшего валидацию. 
-        /// </summary>
-        private Color WrongInputColor { get; } = Color.Red;
-
-        /// <summary>
-        /// Инициализировать компонент, 
-        /// убрать ошибки валидации и загрузить сохраненных покупателей.
+        /// Инициализирует компонент, 
+        /// убирает ошибки валидации и загружает сохраненных покупателей.
         /// </summary>
         public CustomersTab()
         {
@@ -166,10 +155,10 @@ namespace ObjectOrientedPractics.View.Tabs
             if (CustomersListBox.SelectedIndex < 0)
             {
                 WrongFullNameLabel.Text = string.Empty;
-                FullNameTextBox.BackColor = RightInputColor;
+                FullNameTextBox.BackColor = AppColors.RightInputColor;
                 return;
             }
-            var currentColor = WrongInputColor;
+            var currentColor = AppColors.WrongInputColor;
             if (FullNameTextBox.Text.Length == 0)
             {
                 WrongFullNameLabel.Text = "Full name must consist of characters.";
@@ -182,7 +171,7 @@ namespace ObjectOrientedPractics.View.Tabs
             else
             {
                 WrongFullNameLabel.Text = string.Empty;
-                currentColor = RightInputColor;
+                currentColor = AppColors.RightInputColor;
             }
             FullNameTextBox.BackColor = currentColor;
         }
@@ -198,7 +187,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
-            if (FullNameTextBox.BackColor == RightInputColor)
+            if (FullNameTextBox.BackColor == AppColors.RightInputColor)
             {
                 Customers[CustomersListBox.SelectedIndex].FullName = FullNameTextBox.Text;
                 CustomersListBox.Items[CustomersListBox.SelectedIndex] = FullNameTextBox.Text;

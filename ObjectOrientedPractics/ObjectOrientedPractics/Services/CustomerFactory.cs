@@ -15,12 +15,12 @@ namespace ObjectOrientedPractics.Services
         private const int MAX_ROWS = 1000;
 
         /// <summary>
-        /// Минимальное значение почтового индекса
+        /// Минимальное значение почтового индекса.
         /// </summary>
         private const int MIN_POST_INDEX = 100000;
 
         /// <summary>
-        /// Максимальное значение почтового индекса
+        /// Максимальное значение почтового индекса.
         /// </summary>
         private const int MAX_POST_INDEX = 999999;
 
@@ -46,8 +46,7 @@ namespace ObjectOrientedPractics.Services
             var customerAddress = new Address(GetRandomPostIndex(), address[0], 
                         address[1], address[2], buildingAndApartment[2], buildingAndApartment[3]);
 
-            var randomCustomer = new Customer(customerFullName, customerAddress);
-            return randomCustomer;
+            return new Customer(customerFullName, customerAddress);
         }
 
         /// <summary>
@@ -57,8 +56,7 @@ namespace ObjectOrientedPractics.Services
         private static int GetRandomPostIndex()
         {
             var random = new Random();
-            var RandomPostIndex = random.Next(MIN_POST_INDEX, MAX_POST_INDEX);
-            return RandomPostIndex;
+            return random.Next(MIN_POST_INDEX, MAX_POST_INDEX);
         }
     }
 }

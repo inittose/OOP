@@ -2,6 +2,9 @@
 
 namespace ObjectOrientedPractics.Model
 {
+    /// <summary>
+    /// Хранит данные об адресе доставки.
+    /// </summary>
     public class Address
     {
         /// <summary>

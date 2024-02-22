@@ -56,7 +56,7 @@
             this.ItemsTabPage.Location = new System.Drawing.Point(4, 22);
             this.ItemsTabPage.Name = "ItemsTabPage";
             this.ItemsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ItemsTabPage.Size = new System.Drawing.Size(976, 635);
+            this.ItemsTabPage.Size = new System.Drawing.Size(726, 545);
             this.ItemsTabPage.TabIndex = 0;
             this.ItemsTabPage.Text = "Items";
             this.ItemsTabPage.UseVisualStyleBackColor = true;
@@ -64,11 +64,12 @@
             // ItemsTab
             // 
             this.ItemsTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ItemsTab.Items = null;
             this.ItemsTab.Location = new System.Drawing.Point(3, 3);
             this.ItemsTab.MaximumSize = new System.Drawing.Size(954, 661);
             this.ItemsTab.MinimumSize = new System.Drawing.Size(622, 405);
             this.ItemsTab.Name = "ItemsTab";
-            this.ItemsTab.Size = new System.Drawing.Size(954, 629);
+            this.ItemsTab.Size = new System.Drawing.Size(720, 539);
             this.ItemsTab.TabIndex = 0;
             // 
             // CustomersTabPage
@@ -84,6 +85,7 @@
             // 
             // CustomersTab
             // 
+            this.CustomersTab.Customers = null;
             this.CustomersTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CustomersTab.Location = new System.Drawing.Point(3, 3);
             this.CustomersTab.MaximumSize = new System.Drawing.Size(1000, 700);
@@ -104,6 +106,7 @@
             this.MinimumSize = new System.Drawing.Size(750, 610);
             this.Name = "MainForm";
             this.Text = "Object Oriented Practics";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.MainTabControl.ResumeLayout(false);
             this.ItemsTabPage.ResumeLayout(false);
             this.CustomersTabPage.ResumeLayout(false);

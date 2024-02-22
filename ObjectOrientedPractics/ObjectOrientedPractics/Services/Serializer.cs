@@ -19,14 +19,9 @@ namespace ObjectOrientedPractics.Services
             "ObjectOrientedPractics\\Serialization.json");
 
         /// <summary>
-        /// Данные о товарах в json формате.
+        /// Данные о товарах и покупателях в json формате.
         /// </summary>
-        private static string ItemsJson { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Данные о покупателях в json формате.
-        /// </summary>
-        private static string CustomersJson { get; set; } = string.Empty;
+        private static string StoreJson { get; set; } = string.Empty;
 
         /// <summary>
         /// Выгрузить данные о товарах и покупателях из файла сериализации, если он есть.
@@ -36,68 +31,37 @@ namespace ObjectOrientedPractics.Services
             Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
             try
             {
-                var jsonData = File.ReadAllText(FilePath).Split('\n');
-                ItemsJson = jsonData[0];
-                CustomersJson = jsonData[1];
+                StoreJson = File.ReadAllText(FilePath);
             }
             catch
             {
-                ItemsJson = string.Empty;
-                CustomersJson = string.Empty;
+                StoreJson = string.Empty;
             }
         }
 
         /// <summary>
-        /// Десериализовать данные о товарах.
+        /// Десериализовать данные о товарах и покупателях.
         /// </summary>
-        /// <returns>Список экзепляров класса <see cref="Item"/>.</returns>
-        public static List<Item> GetItems()
+        /// <returns>Экземпляр класса <see cref="Store"/>.</returns>
+        public static Store GetStore()
         {
-            if (ItemsJson == string.Empty)
+            if (StoreJson == string.Empty)
             {
-                return new List<Item>();
+                return new Store();
             }
             else
             {
-                var items = JsonConvert.DeserializeObject<List<Item>>(ItemsJson);
-                return items;
+                return JsonConvert.DeserializeObject<Store>(StoreJson);
             }
         }
 
         /// <summary>
-        /// Сериализовать данные о товарах и сохранить изменения.
+        /// Сериализовать данные о товарах и покупателях и сохранить изменения.
         /// </summary>
-        /// <param name="items">Список экзепляров класса <see cref="Item"/>.</param>
-        public static void SetItems(List<Item> items)
+        /// <param name="store">Экзепляр класса <see cref="Store"/>.</param>
+        public static void SetStore(Store store)
         {
-            ItemsJson = JsonConvert.SerializeObject(items);
-            SaveFile();
-        }
-
-        /// <summary>
-        /// Десериализовать данные о покупателях.
-        /// </summary>
-        /// <returns>Список экзепляров класса <see cref="Customer"/>.</returns>
-        public static List<Customer> GetCustomers()
-        {
-            if (CustomersJson == string.Empty)
-            {
-                return new List<Customer>();
-            }
-            else
-            {
-                var customers = JsonConvert.DeserializeObject<List<Customer>>(CustomersJson);
-                return customers;
-            }
-        }
-
-        /// <summary>
-        /// Сериализовать данные о покупателях и сохранить изменения.
-        /// </summary>
-        /// <param name="customer">Список экзепляров класса <see cref="Customer"/>.</param>
-        public static void SetCustomers(List<Customer> customer)
-        {
-            CustomersJson = JsonConvert.SerializeObject(customer);
+            StoreJson = JsonConvert.SerializeObject(store);
             SaveFile();
         }
 
@@ -106,7 +70,7 @@ namespace ObjectOrientedPractics.Services
         /// </summary>
         private static void SaveFile()
         {
-            File.WriteAllText(FilePath, ItemsJson + "\n" + CustomersJson);
+            File.WriteAllText(FilePath, StoreJson);
         }
     }
 }

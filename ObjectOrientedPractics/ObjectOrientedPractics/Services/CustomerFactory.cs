@@ -15,6 +15,16 @@ namespace ObjectOrientedPractics.Services
         private const int MAX_ROWS = 1000;
 
         /// <summary>
+        /// Минимальное значение почтового индекса
+        /// </summary>
+        private const int MIN_POST_INDEX = 100000;
+
+        /// <summary>
+        /// Максимальное значение почтового индекса
+        /// </summary>
+        private const int MAX_POST_INDEX = 999999;
+
+        /// <summary>
         /// Путь до базы данных покупателей.
         /// </summary>
         private static string FileName { get; } =
@@ -31,10 +41,24 @@ namespace ObjectOrientedPractics.Services
 
             var randomData = File.ReadAllLines(FileName)[randomIndex].Split('\t');
             var customerFullName = randomData[0] + ' ' +  randomData[1];
-            var customerAddress = new Address();//randomData[2];
+            var address = randomData[2].Split(',');
+            var buildingAndApartment = address[3].Split(' ');
+            var customerAddress = new Address(GetRandomPostIndex(), address[0], 
+                        address[1], address[2], buildingAndApartment[2], buildingAndApartment[3]);
 
             var randomCustomer = new Customer(customerFullName, customerAddress);
             return randomCustomer;
+        }
+
+        /// <summary>
+        /// Получить случайный почтовый индекс.
+        /// </summary>
+        /// <returns>Случайный почтовый индекс типа <see cref="int"/>.</returns>
+        private static int GetRandomPostIndex()
+        {
+            var random = new Random();
+            var RandomPostIndex = random.Next(MIN_POST_INDEX, MAX_POST_INDEX);
+            return RandomPostIndex;
         }
     }
 }

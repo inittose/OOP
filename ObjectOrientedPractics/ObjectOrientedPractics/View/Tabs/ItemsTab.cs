@@ -13,6 +13,27 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class ItemsTab : UserControl
     {
         /// <summary>
+        /// Список товаров класса <see cref="Item"/>.
+        /// </summary>
+        private List<Item> _items;
+
+        /// <summary>
+        /// Возвращает и задает список товаров класса <see cref="Item"/>.
+        /// </summary>
+        public List<Item> Items 
+        { 
+            get => _items; 
+            set
+            {
+                _items = value;
+                if (value != null)
+                {
+                    UpdateItemsListBox();
+                }
+            }
+        }
+
+        /// <summary>
         /// Цвет <see cref="TextBox"/>, успешно прошедшего валидацию. 
         /// </summary>
         private Color RightInputColor { get; } = Color.White;
@@ -21,11 +42,6 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Цвет <see cref="TextBox"/>, неудачно прошедшего валидацию. 
         /// </summary>
         private Color WrongInputColor { get; } = Color.Red;
-
-        /// <summary>
-        /// Список товаров класса <see cref="Item"/>.
-        /// </summary>
-        private List<Item> Items { get; } = Serializer.GetItems();
 
         /// <summary>
         /// Инициализировать компонент, 
@@ -39,6 +55,15 @@ namespace ObjectOrientedPractics.View.Tabs
             WrongCostLabel.Text = string.Empty;
             WrongNameLabel.Text = string.Empty;
             WrongDescriptionLabel.Text = string.Empty;
+            
+        }
+
+        /// <summary>
+        /// Обновляет данные в списке товаров.
+        /// </summary>
+        private void UpdateItemsListBox()
+        {
+            ItemsListBox.Items.Clear();
             for (int i = 0; i < Items.Count; i++)
             {
                 ItemsListBox.Items.Add(Items[i].Name);
@@ -104,7 +129,6 @@ namespace ObjectOrientedPractics.View.Tabs
 
             ItemsListBox.Items.RemoveAt(removeIndex);
             Items.RemoveAt(removeIndex);
-            Serializer.SetItems(Items);
             if (ItemsListBox.Items.Count <= 0)
             {
                 return;
@@ -141,7 +165,6 @@ namespace ObjectOrientedPractics.View.Tabs
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetTextBoxes(ItemsListBox.SelectedIndex);
-            Serializer.SetItems(Items);
         }
 
         /// <summary>
@@ -252,7 +275,6 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 Items[ItemsListBox.SelectedIndex].Name = NameTextBox.Text;
                 ItemsListBox.Items[ItemsListBox.SelectedIndex] = NameTextBox.Text;
-                Serializer.SetItems(Items);
             }
             else
             {
@@ -274,7 +296,6 @@ namespace ObjectOrientedPractics.View.Tabs
             if (CostTextBox.BackColor == RightInputColor)
             {
                 Items[ItemsListBox.SelectedIndex].Cost = float.Parse(CostTextBox.Text);
-                Serializer.SetItems(Items);
             }
             CostTextBox.Text = Items[ItemsListBox.SelectedIndex].Cost.ToString();
         }
@@ -293,7 +314,6 @@ namespace ObjectOrientedPractics.View.Tabs
             if (DescriptionTextBox.BackColor == RightInputColor)
             {
                 Items[ItemsListBox.SelectedIndex].Info = DescriptionTextBox.Text;
-                Serializer.SetItems(Items);
             }
             else
             {

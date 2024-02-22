@@ -13,6 +13,27 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class CustomersTab : UserControl
     {
         /// <summary>
+        /// Список покупателей класса <see cref="Customer"/>.
+        /// </summary>
+        private List<Customer> _customers;
+
+        /// <summary>
+        /// Возвращает и задает список покупателей класса <see cref="Customer"/>.
+        /// </summary>
+        public List<Customer> Customers 
+        { 
+            get => _customers; 
+            set
+            {
+                _customers = value;
+                if (value != null)
+                {
+                    UpdateCustomersListBox();
+                }
+            }
+        }
+
+        /// <summary>
         /// Цвет <see cref="TextBox"/>, успешно прошедшего валидацию. 
         /// </summary>
         private Color RightInputColor { get; } = Color.White;
@@ -23,11 +44,6 @@ namespace ObjectOrientedPractics.View.Tabs
         private Color WrongInputColor { get; } = Color.Red;
 
         /// <summary>
-        /// Список покупателей класса <see cref="Customer"/>
-        /// </summary>
-        private List<Customer> Customers { get; } = Serializer.GetCustomers();
-
-        /// <summary>
         /// Инициализировать компонент, 
         /// убрать ошибки валидации и загрузить сохраненных покупателей.
         /// </summary>
@@ -35,6 +51,14 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             InitializeComponent();
             WrongFullNameLabel.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// Обновляет данные в списке покупателей.
+        /// </summary>
+        private void UpdateCustomersListBox()
+        {
+            CustomersListBox.Items.Clear();
             for (var i = 0; i < Customers.Count; i++)
             {
                 CustomersListBox.Items.Add(Customers[i].FullName);
@@ -72,7 +96,6 @@ namespace ObjectOrientedPractics.View.Tabs
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetTextBoxes(CustomersListBox.SelectedIndex);
-            Serializer.SetCustomers(Customers);
         }
 
         /// <summary>
@@ -117,7 +140,6 @@ namespace ObjectOrientedPractics.View.Tabs
 
             CustomersListBox.Items.RemoveAt(removeIndex);
             Customers.RemoveAt(removeIndex);
-            Serializer.SetCustomers(Customers);
 
             if (CustomersListBox.Items.Count <= 0)
             {
@@ -180,7 +202,6 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 Customers[CustomersListBox.SelectedIndex].FullName = FullNameTextBox.Text;
                 CustomersListBox.Items[CustomersListBox.SelectedIndex] = FullNameTextBox.Text;
-                Serializer.SetCustomers(Customers);
             }
             else
             {

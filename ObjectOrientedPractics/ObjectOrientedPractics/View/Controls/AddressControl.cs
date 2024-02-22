@@ -5,6 +5,9 @@ using ObjectOrientedPractics.Model;
 
 namespace ObjectOrientedPractics.View.Controls
 {
+    /// <summary>
+    /// Отвечает за логику работы с полями ввода адреса.
+    /// </summary>
     public partial class AddressControl : UserControl
     {
         /// <summary>

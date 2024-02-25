@@ -31,7 +31,7 @@ namespace ObjectOrientedPractics.Services
             $@"{Directory.GetCurrentDirectory()}\..\..\Services\Databases\CustomersData.txt";
 
         /// <summary>
-        /// Получает экзепляр класса <see cref="Customer"/> с начальными случайными значениями.
+        /// Возвращает экзепляр класса <see cref="Customer"/> с начальными случайными значениями.
         /// </summary>
         /// <returns>Экзепляр класса <see cref="Customer"/>.</returns>
         public static Customer GetRandomCustomer()
@@ -50,7 +50,7 @@ namespace ObjectOrientedPractics.Services
         }
 
         /// <summary>
-        /// Получает случайный почтовый индекс.
+        /// Возвращает случайный почтовый индекс.
         /// </summary>
         /// <returns>Случайный почтовый индекс типа <see cref="int"/>.</returns>
         private static int GetRandomPostIndex()

@@ -65,7 +65,7 @@ namespace ObjectOrientedPractics.Services
         }
 
         /// <summary>
-        /// Сохранить изменения данных о товарах и покупателях в файл сериализации.
+        /// Сохраняет изменения данных о товарах и покупателях в файл сериализации.
         /// </summary>
         private static void SaveFile()
         {

@@ -15,7 +15,6 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Возвращает общую стоимость товаров в корзине.
         /// </summary>
-
         public float Amount
         {
             get

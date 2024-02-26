@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractics.Services;
+using System.Collections.Generic;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -59,6 +60,11 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает и задает корзину покупателя.
         /// </summary>
         public Cart Cart { get; set; } = new Cart();
+
+        /// <summary>
+        /// Возвращает и задает список заказов покупателя.
+        /// </summary>
+        public List<Order> Orders { get; set; } = new List<Order>();
 
         /// <summary>
         /// Создает экземпляр класса <see cref="Customer"/>.

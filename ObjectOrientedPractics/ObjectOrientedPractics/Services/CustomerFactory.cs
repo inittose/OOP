@@ -27,8 +27,7 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Путь до базы данных покупателей.
         /// </summary>
-        private static string FileName { get; } =
-            $@"{Directory.GetCurrentDirectory()}\..\..\Services\Databases\CustomersData.txt";
+        private static string FileName { get; } = $@"..\..\Services\Databases\CustomersData.txt";
 
         /// <summary>
         /// Возвращает экзепляр класса <see cref="Customer"/> с начальными случайными значениями.
@@ -36,6 +35,7 @@ namespace ObjectOrientedPractics.Services
         /// <returns>Экзепляр класса <see cref="Customer"/>.</returns>
         public static Customer GetRandomCustomer()
         {
+            Console.WriteLine(FileName);
             var random = new Random();
             var randomIndex = random.Next(0, MAX_ROWS);
 
@@ -43,8 +43,13 @@ namespace ObjectOrientedPractics.Services
             var customerFullName = randomData[0] + ' ' +  randomData[1];
             var address = randomData[2].Split(',');
             var buildingAndApartment = address[3].Split(' ');
-            var customerAddress = new Address(GetRandomPostIndex(), address[0], 
-                        address[1], address[2], buildingAndApartment[2], buildingAndApartment[3]);
+            var customerAddress = new Address(
+                GetRandomPostIndex(), 
+                address[0], 
+                address[1], 
+                address[2], 
+                buildingAndApartment[2], 
+                buildingAndApartment[3]);
 
             return new Customer(customerFullName, customerAddress);
         }

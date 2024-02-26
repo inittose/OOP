@@ -127,7 +127,10 @@ namespace ObjectOrientedPractics.Model
             get => _building;
             set
             {
-                ValueValidator.AssertStringOnLength(value, BUILDING_LENGTH_LIMIT, nameof(Building));
+                ValueValidator.AssertStringOnLength(
+                    value, 
+                    BUILDING_LENGTH_LIMIT, 
+                    nameof(Building));
                 _building = value;
             }
         }
@@ -140,7 +143,10 @@ namespace ObjectOrientedPractics.Model
             get => _apartment;
             set
             {
-                ValueValidator.AssertStringOnLength(value, APARTMENT_LENGTH_LIMIT, nameof(Apartment));
+                ValueValidator.AssertStringOnLength(
+                    value, 
+                    APARTMENT_LENGTH_LIMIT, 
+                    nameof(Apartment));
                 _apartment = value;
             }
         }
@@ -167,8 +173,13 @@ namespace ObjectOrientedPractics.Model
         /// <param name="street">Улица.</param>
         /// <param name="building">Номер здания.</param>
         /// <param name="apartment">Номер квартиры/помещения.</param>
-        public Address(int index, string country, string city, 
-                                        string street, string building, string apartment)
+        public Address(
+            int index, 
+            string country, 
+            string city,                           
+            string street, 
+            string building, 
+            string apartment)
         {
             Index = index;
             Country = country;

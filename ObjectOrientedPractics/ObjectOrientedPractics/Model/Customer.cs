@@ -56,6 +56,11 @@ namespace ObjectOrientedPractics.Model
         public Address Address { get; set; }
 
         /// <summary>
+        /// Возвращает и задает корзину покупателя.
+        /// </summary>
+        public Cart Cart { get; set; } = new Cart();
+
+        /// <summary>
         /// Создает экземпляр класса <see cref="Customer"/>.
         /// </summary>
         public Customer()

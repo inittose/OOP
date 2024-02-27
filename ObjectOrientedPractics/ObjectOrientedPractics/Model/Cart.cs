@@ -32,5 +32,10 @@ namespace ObjectOrientedPractics.Model
                 return total;
             }
         }
+
+        public Cart()
+        {
+            Items = new List<Item>();
+        }
     }
 }

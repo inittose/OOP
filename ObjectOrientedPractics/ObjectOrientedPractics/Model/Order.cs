@@ -54,5 +54,28 @@ namespace ObjectOrientedPractics.Model
                 return total;
             }
         }
+
+        /// <summary>
+        /// Создает экзепляр класса <see cref="Order"/>.
+        /// </summary>
+        public Order() 
+        {
+            Status = OrderStatus.New;
+            Address = new Address();
+            Items = new List<Item>();
+        }
+
+        /// <summary>
+        /// Создает экзепляр класса <see cref="Order"/>.
+        /// </summary>
+        /// <param name="status">Статус заказа.</param>
+        /// <param name="address">Адрес доставки.</param>
+        /// <param name="items">Список товаров заказа.</param>
+        public Order(OrderStatus status, Address address, List<Item> items)
+        {
+            Status = status;
+            Address = address;
+            Items = items;
+        }
     }
 }

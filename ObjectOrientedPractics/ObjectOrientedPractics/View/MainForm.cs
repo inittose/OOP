@@ -24,6 +24,8 @@ namespace ObjectOrientedPractics
             InitializeComponent();
             ItemsTab.Items = Store.Items;
             CustomersTab.Customers = Store.Customers;
+            CartsTab.Items = Store.Items;
+            CartsTab.Customers = Store.Customers;
         }
 
         /// <summary>
@@ -34,6 +36,19 @@ namespace ObjectOrientedPractics
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Serializer.SetStore(Store);
+        }
+
+        /// <summary>
+        /// Событие при переходе на другую вкладку элемента <see cref="MainTabControl"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void MainTabControl_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (MainTabControl.SelectedIndex == 2)
+            {
+                CartsTab.RefreshData();
+            }
         }
     }
 }

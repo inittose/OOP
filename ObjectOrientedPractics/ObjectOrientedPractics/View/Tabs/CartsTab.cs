@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractics.Model;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -204,7 +205,8 @@ namespace ObjectOrientedPractics.View.Tabs
             Order order = new Order(
                 OrderStatus.New, 
                 Customers[CurrentCustomer].Address, 
-                Customers[CurrentCustomer].Cart.Items);
+                Customers[CurrentCustomer].Cart.Items,
+                DateTime.Now);
 
             Customers[CurrentCustomer].Orders.Add(order);
             Customers[CurrentCustomer].Cart.Items = new List<Item>();

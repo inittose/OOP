@@ -203,7 +203,7 @@
             this.Controls.Add(this.PostIndexLabel);
             this.Controls.Add(this.DeliveryAddressLabel);
             this.Name = "AddressControl";
-            this.Size = new System.Drawing.Size(493, 192);
+            this.Size = new System.Drawing.Size(493, 139);
             this.ResumeLayout(false);
             this.PerformLayout();
 

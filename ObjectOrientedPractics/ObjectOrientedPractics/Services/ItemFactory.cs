@@ -21,7 +21,7 @@ namespace ObjectOrientedPractics.Services
             $@"{Directory.GetCurrentDirectory()}\..\..\Services\Databases\ItemsData.txt";
 
         /// <summary>
-        /// Получить экзепляр класса <see cref="Item"/> с начальными случайными значениями.
+        /// Возвращает экзепляр класса <see cref="Item"/> с начальными случайными значениями.
         /// </summary>
         /// <returns>Экзепляр класса <see cref="Item"/>.</returns>
         public static Item GetRandomItem()
@@ -33,8 +33,9 @@ namespace ObjectOrientedPractics.Services
             var itemName = randomData[0];
             var itemCost = float.Parse(randomData[1]);
             var itemInfo = randomData[2];
+            var randomCategory = (Category)random.Next(0, Enum.GetNames(typeof(Category)).Length);
 
-            var randomItem = new Item(itemName, itemInfo, itemCost);
+            var randomItem = new Item(itemName, itemInfo, itemCost, randomCategory);
             return randomItem;
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
@@ -13,29 +12,42 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class CustomersTab : UserControl
     {
         /// <summary>
-        /// Цвет <see cref="TextBox"/>, успешно прошедшего валидацию. 
+        /// Список покупателей класса <see cref="Customer"/>.
         /// </summary>
-        private Color RightInputColor { get; } = Color.White;
+        private List<Customer> _customers;
 
         /// <summary>
-        /// Цвет <see cref="TextBox"/>, неудачно прошедшего валидацию. 
+        /// Возвращает и задает список покупателей класса <see cref="Customer"/>.
         /// </summary>
-        private Color WrongInputColor { get; } = Color.Red;
+        public List<Customer> Customers 
+        { 
+            get => _customers; 
+            set
+            {
+                _customers = value;
+                if (value != null)
+                {
+                    UpdateCustomersListBox();
+                }
+            }
+        }
 
         /// <summary>
-        /// Список покупателей класса <see cref="Customer"/>
-        /// </summary>
-        private List<Customer> Customers { get; } = Serializer.GetCustomers();
-
-        /// <summary>
-        /// Инициализировать компонент, 
-        /// убрать ошибки валидации и загрузить сохраненных покупателей.
+        /// Инициализирует компонент, 
+        /// убирает ошибки валидации и загружает сохраненных покупателей.
         /// </summary>
         public CustomersTab()
         {
             InitializeComponent();
-            WrongAddressLabel.Text = string.Empty;
             WrongFullNameLabel.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// Обновляет данные в списке покупателей.
+        /// </summary>
+        private void UpdateCustomersListBox()
+        {
+            CustomersListBox.Items.Clear();
             for (var i = 0; i < Customers.Count; i++)
             {
                 CustomersListBox.Items.Add(Customers[i].FullName);
@@ -50,19 +62,18 @@ namespace ObjectOrientedPractics.View.Tabs
         private void SetTextBoxes(int selectedIndex)
         {
             var isSelectedIndexCorrect = selectedIndex >= 0;
-            AddressTextBox.Enabled = isSelectedIndexCorrect;
             FullNameTextBox.Enabled = isSelectedIndexCorrect;
             if (isSelectedIndexCorrect)
             {
                 IdTextBox.Text = Customers[CustomersListBox.SelectedIndex].Id.ToString();
                 FullNameTextBox.Text = Customers[CustomersListBox.SelectedIndex].FullName;
-                AddressTextBox.Text = Customers[CustomersListBox.SelectedIndex].Address;
+                AddressControl.Address = Customers[CustomersListBox.SelectedIndex].Address;
             }
             else
             {
                 FullNameTextBox.Text = string.Empty;
-                AddressTextBox.Text = string.Empty;
                 IdTextBox.Text = string.Empty;
+                AddressControl.Address = null;
             }
         }
 
@@ -74,7 +85,6 @@ namespace ObjectOrientedPractics.View.Tabs
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetTextBoxes(CustomersListBox.SelectedIndex);
-            Serializer.SetCustomers(Customers);
         }
 
         /// <summary>
@@ -119,7 +129,6 @@ namespace ObjectOrientedPractics.View.Tabs
 
             CustomersListBox.Items.RemoveAt(removeIndex);
             Customers.RemoveAt(removeIndex);
-            Serializer.SetCustomers(Customers);
 
             if (CustomersListBox.Items.Count <= 0)
             {
@@ -146,10 +155,10 @@ namespace ObjectOrientedPractics.View.Tabs
             if (CustomersListBox.SelectedIndex < 0)
             {
                 WrongFullNameLabel.Text = string.Empty;
-                FullNameTextBox.BackColor = RightInputColor;
+                FullNameTextBox.BackColor = AppColors.RightInputColor;
                 return;
             }
-            var currentColor = WrongInputColor;
+            var currentColor = AppColors.WrongInputColor;
             if (FullNameTextBox.Text.Length == 0)
             {
                 WrongFullNameLabel.Text = "Full name must consist of characters.";
@@ -162,36 +171,9 @@ namespace ObjectOrientedPractics.View.Tabs
             else
             {
                 WrongFullNameLabel.Text = string.Empty;
-                currentColor = RightInputColor;
+                currentColor = AppColors.RightInputColor;
             }
             FullNameTextBox.BackColor = currentColor;
-        }
-
-        /// <summary>
-        /// Событие при изменении текста в текстовом поле ввода адреса покупателя.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void AddressTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (CustomersListBox.SelectedIndex < 0)
-            {
-                WrongAddressLabel.Text = string.Empty;
-                AddressTextBox.BackColor = RightInputColor;
-                return;
-            }
-            var currentColor = WrongInputColor;
-            if (AddressTextBox.Text.Length > Customer.ADDRESS_LENGTH_LIMIT)
-            {
-                WrongAddressLabel.Text = 
-                    $"Address must be no more than {Customer.ADDRESS_LENGTH_LIMIT} characters.";
-            }
-            else
-            {
-                WrongAddressLabel.Text = string.Empty;
-                currentColor = RightInputColor;
-            }
-            AddressTextBox.BackColor = currentColor;
         }
 
         /// <summary>
@@ -205,38 +187,14 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
-            if (FullNameTextBox.BackColor == RightInputColor)
+            if (FullNameTextBox.BackColor == AppColors.RightInputColor)
             {
                 Customers[CustomersListBox.SelectedIndex].FullName = FullNameTextBox.Text;
                 CustomersListBox.Items[CustomersListBox.SelectedIndex] = FullNameTextBox.Text;
-                Serializer.SetCustomers(Customers);
             }
             else
             {
                 FullNameTextBox.Text = Customers[CustomersListBox.SelectedIndex].FullName;
-            }
-        }
-
-        /// <summary>
-        /// Событие при выходе из текстового поля ввода адреса покупателя.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void AddressTextBox_Leave(object sender, EventArgs e)
-        {
-            if (CustomersListBox.SelectedIndex < 0)
-            {
-                return;
-            }
-            if (AddressTextBox.BackColor == RightInputColor)
-            {
-                Customers[CustomersListBox.SelectedIndex].Address = AddressTextBox.Text;
-                CustomersListBox.Items[CustomersListBox.SelectedIndex] = AddressTextBox.Text;
-                Serializer.SetCustomers(Customers);
-            }
-            else
-            {
-                AddressTextBox.Text = Customers[CustomersListBox.SelectedIndex].Address;
             }
         }
     }

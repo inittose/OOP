@@ -28,11 +28,6 @@ namespace ObjectOrientedPractics.Model
         private string _fullname;
 
         /// <summary>
-        /// Адрес доставки покупателя.
-        /// </summary>
-        private string _address;
-
-        /// <summary>
         /// Возвращает уникальный идентификатор данного покупателя.
         /// </summary>
         public int Id
@@ -56,18 +51,9 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// Возвращает и задает адрес доставки покупателя. 
-        /// Должен состоять не более чем из 500 символов.
+        /// Возвращает и задает адрес доставки покупателя класса <see cref="Model.Address"/>. 
         /// </summary>
-        public string Address
-        {
-            get => _address;
-            set
-            {
-                ValueValidator.AssertStringOnLength(value, ADDRESS_LENGTH_LIMIT, nameof(_address));
-                _address = value;
-            }
-        }
+        public Address Address { get; set; }
 
         /// <summary>
         /// Создает экземпляр класса <see cref="Customer"/>.
@@ -75,7 +61,7 @@ namespace ObjectOrientedPractics.Model
         public Customer()
         {
             FullName = string.Empty;
-            Address = string.Empty;
+            Address = new Address();
         }
 
         /// <summary>
@@ -86,10 +72,9 @@ namespace ObjectOrientedPractics.Model
         ///     Должно состоять не более чем из 200 символов.
         /// </param>
         /// <param name="address">
-        ///     Адрес доставки покупателя.
-        ///     Должно состоять не более чем из 500 символов.
+        ///     Адрес доставки покупателя класса <see cref="Model.Address"/>.
         /// </param>
-        public Customer(string fullname, string address)
+        public Customer(string fullname, Address address)
         {
             FullName = fullname;
             Address = address;

@@ -48,6 +48,11 @@ namespace ObjectOrientedPractics.Model
         private float _cost;
 
         /// <summary>
+        /// Возвращает и задает категорию товара объекта <see cref="Item"/>.
+        /// </summary>
+        public Category Category { get; set; }
+
+        /// <summary>
         /// Возвращает уникальный идентификатор данного товара.
         /// </summary>
         public int Id 
@@ -118,6 +123,7 @@ namespace ObjectOrientedPractics.Model
             Name = string.Empty;
             Info = string.Empty;
             Cost = 0;
+            Category = Category.Other;
         }
 
         /// <summary>
@@ -135,11 +141,15 @@ namespace ObjectOrientedPractics.Model
         ///     Стоимость товара.
         ///     Должна входить в диапозон: от 0 до 100 000.
         ///</param>
-        public Item(string name, string info, float cost)
+        /// <param name="category">
+        ///     Категория товара.
+        ///</param>
+        public Item(string name, string info, float cost, Category category)
         {
             Name = name;
             Info = info;
             Cost = cost;
+            Category = category;
         }
     }
 }

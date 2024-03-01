@@ -15,3 +15,6 @@
 
 **2 лабораторная работа:**
 ![Practics1](/doc/Practics2.png)
+
+**3 лабораторная работа:**
+![Practics1](/doc/Practics3.png)

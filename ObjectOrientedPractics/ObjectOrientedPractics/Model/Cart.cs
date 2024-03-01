@@ -10,7 +10,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Список товаров <see cref="Item"/> в корзине.
         /// </summary>
-        public List<Item> Items { get; set; }
+        public List<Item> Items { get; set; } = new List<Item>();
 
         /// <summary>
         /// Возвращает общую стоимость товаров в корзине.
@@ -31,11 +31,6 @@ namespace ObjectOrientedPractics.Model
                 }
                 return total;
             }
-        }
-
-        public Cart()
-        {
-            Items = new List<Item>();
         }
     }
 }

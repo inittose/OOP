@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ObjectOrientedPractics.Services;
+using System.Collections.Generic;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -7,6 +8,11 @@ namespace ObjectOrientedPractics.Model
     /// </summary>
     public class Store
     {
+        /// <summary>
+        /// Возвращает и задает список занятый уникальных идентификаторов.
+        /// </summary>
+        public List<int> BusyIds { get; set; } = new List<int>();
+
         /// <summary>
         /// Список товаров класса <see cref="Customer"/>.
         /// </summary>
@@ -22,7 +28,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Store() 
         {
-
+            IdGenerator.BusyIds = BusyIds;
         }
     }
 }

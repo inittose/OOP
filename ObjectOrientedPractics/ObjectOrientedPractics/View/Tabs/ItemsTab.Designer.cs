@@ -51,7 +51,6 @@
             this.WrongNameLabel = new System.Windows.Forms.Label();
             this.WrongCostLabel = new System.Windows.Forms.Label();
             this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.ItemsListPanel.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
             this.SelectedItemPanel.SuspendLayout();
@@ -256,6 +255,7 @@
             // 
             // CategoryComboBox
             // 
+            this.CategoryComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoryComboBox.Enabled = false;
             this.CategoryComboBox.FormattingEnabled = true;
             this.CategoryComboBox.Location = new System.Drawing.Point(74, 86);
@@ -364,6 +364,5 @@
         private System.Windows.Forms.Button AddRandomButton;
         private System.Windows.Forms.Label CategoryLabel;
         private System.Windows.Forms.ComboBox CategoryComboBox;
-        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }

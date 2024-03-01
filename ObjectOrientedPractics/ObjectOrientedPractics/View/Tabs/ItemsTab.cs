@@ -116,6 +116,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
+            IdGenerator.ReleaseId(Items[removeIndex].Id);
             ItemsListBox.Items.RemoveAt(removeIndex);
             Items.RemoveAt(removeIndex);
             if (ItemsListBox.Items.Count <= 0)

@@ -17,8 +17,7 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Путь до базы данных товаров.
         /// </summary>
-        private static string FileName { get; } =
-            $@"{Directory.GetCurrentDirectory()}\..\..\Services\Databases\ItemsData.txt";
+        private static string FileName { get; } = $@"..\..\Services\Databases\ItemsData.txt";
 
         /// <summary>
         /// Возвращает экзепляр класса <see cref="Item"/> с начальными случайными значениями.

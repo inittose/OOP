@@ -1,4 +1,5 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using Newtonsoft.Json;
+using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 
@@ -10,14 +11,31 @@ namespace ObjectOrientedPractics.Model
     public class Order
     {
         /// <summary>
+        /// Уникальный индентификатор заказа.
+        /// </summary>
+        private readonly int _id;
+
+        /// <summary>
+        /// Дата создания заказа.
+        /// </summary>
+        [JsonProperty]
+        private readonly DateTime _date = DateTime.Now;
+
+        /// <summary>
         /// Возвращает уникальный индентификатор заказа.
         /// </summary>
-        public int Id { get; } = IdGenerator.GetNextId();
+        public int Id
+        {
+            get => _id;
+        }
 
         /// <summary>
         /// Возвращает дату создания заказа.
         /// </summary>
-        public DateTime CreationDate { get; }
+        public DateTime CreationDate
+        {
+            get => _date;
+        }
 
         /// <summary>
         /// Возвращает и задает статус заказа.
@@ -60,10 +78,10 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Order() 
         {
+            _id = IdGenerator.GetNextId();
             Status = OrderStatus.New;
             Address = new Address();
             Items = new List<Item>();
-            CreationDate = DateTime.Now;
         }
 
         /// <summary>
@@ -73,12 +91,22 @@ namespace ObjectOrientedPractics.Model
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров заказа.</param>
         /// <param name="creationDate">Дата создания заказа.</param>
-        public Order(OrderStatus status, Address address, List<Item> items, DateTime creationDate)
+        public Order(OrderStatus status, Address address, List<Item> items)
         {
+            _id = IdGenerator.GetNextId();
             Status = status;
             Address = address;
             Items = items;
-            CreationDate = creationDate;
+        }
+
+        /// <summary>
+        /// Создает экзепляр класса <see cref="Order"/>.
+        /// </summary>
+        /// <param name="id">Уникальный идентификатор.</param>
+        [JsonConstructor]
+        public Order(int id)
+        {
+            _id = id;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using Newtonsoft.Json;
+using ObjectOrientedPractics.Services;
 using System.Collections.Generic;
 
 namespace ObjectOrientedPractics.Model
@@ -19,9 +20,9 @@ namespace ObjectOrientedPractics.Model
         public const int ADDRESS_LENGTH_LIMIT = 500;
 
         /// <summary>
-        /// Уникальный идентификатор данного покупателя.
+        /// Уникальный идентификатор покупателя.
         /// </summary>
-        private readonly int _id = IdGenerator.GetNextId();
+        private readonly int _id;
 
         /// <summary>
         /// Имя покупателя.
@@ -29,7 +30,7 @@ namespace ObjectOrientedPractics.Model
         private string _fullname;
 
         /// <summary>
-        /// Возвращает уникальный идентификатор данного покупателя.
+        /// Возвращает уникальный идентификатор покупателя.
         /// </summary>
         public int Id
         {
@@ -71,6 +72,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Customer()
         {
+            _id = IdGenerator.GetNextId();
             FullName = string.Empty;
             Address = new Address();
         }
@@ -87,8 +89,19 @@ namespace ObjectOrientedPractics.Model
         /// </param>
         public Customer(string fullname, Address address)
         {
+            _id = IdGenerator.GetNextId();
             FullName = fullname;
             Address = address;
+        }
+
+        /// <summary>
+        /// Создает экземпляр класса <see cref="Customer"/>.
+        /// </summary>
+        /// <param name="id">Уникальный идентификатор.</param>
+        [JsonConstructor]
+        public Customer(int id)
+        {
+            _id = id;
         }
     }
 }

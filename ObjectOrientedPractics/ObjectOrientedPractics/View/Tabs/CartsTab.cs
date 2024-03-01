@@ -1,5 +1,4 @@
 ﻿using ObjectOrientedPractics.Model;
-using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -41,9 +40,35 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateItemsListBox();
             UpdateCustomersComboBox();
             UpdateCartListBox();
-            for (var i = 0; i < Customers.Count; i++) 
+        }
+
+        /// <summary>
+        /// Обновляет данные корзин покупателей.
+        /// </summary>
+        public void UpdateCustomerCarts()
+        {
+            for (var i = 0; i < Customers.Count; i++)
             {
                 UpdateCartItems(Customers[i].Cart);
+            }
+        }
+
+        /// <summary>
+        /// Обновляет данные корзины покупателя.
+        /// </summary>
+        /// <param name="cart">Коризна покупателя класса <see cref="Cart"/>.</param>
+        private void UpdateCartItems(Cart cart)
+        {
+            for (var i = 0; i < cart.Items.Count; i++)
+            {
+                foreach (var item in Items)
+                {
+                    if (cart.Items[i].Id == item.Id)
+                    {
+                        cart.Items.RemoveAt(i);
+                        cart.Items.Insert(i, item);
+                    }
+                }
             }
         }
 
@@ -87,7 +112,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="nextIndex">Следующий индекс товара из корзины.</param>
         private void UpdateCartListBox(int nextIndex = -1)
         {
-            if (CurrentCustomer < 0)
+            if (Customers.Count == 0 || CurrentCustomer < 0)
             {
                 CartListBox.DataSource = null;
                 CartListBox.Enabled = false;
@@ -108,24 +133,6 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// Обновляет данные корзины покупателя.
-        /// </summary>
-        /// <param name="cart">Коризна покупателя класса <see cref="Cart"/>.</param>
-        private void UpdateCartItems(Cart cart)
-        {
-            for (var i = 0; i < cart.Items.Count; i++)
-            {
-                foreach (var item in Items)
-                {
-                    if (cart.Items[i].Id == item.Id && cart.Items[i] != item)
-                    {
-                        cart.Items[i] = item;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Событие при нажатии кнопки добавления товара в корзину.
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
@@ -137,7 +144,15 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
-            Customers[CurrentCustomer].Cart.Items.Add(Items[ItemsListBox.SelectedIndex]);
+            foreach (var item in Items)
+            {
+                if (item == Items[ItemsListBox.SelectedIndex])
+                {
+                    Customers[CurrentCustomer].Cart.Items.Add(item);
+                }
+            }
+
+            
             UpdateCartListBox();
         }
 
@@ -197,19 +212,25 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void CreateOrderButton_Click(object sender, System.EventArgs e)
         {
-            if (CurrentCustomer < 0)
+            if (CurrentCustomer < 0 || CartListBox.Items.Count == 0)
             {
                 return;
             }
 
+            var items = new List<Item>();
+
+            foreach(var item in Customers[CurrentCustomer].Cart.Items)
+            {
+                items.Add(new Item(item));
+            }
+
             Order order = new Order(
                 OrderStatus.New, 
-                Customers[CurrentCustomer].Address, 
-                Customers[CurrentCustomer].Cart.Items,
-                DateTime.Now);
+                Customers[CurrentCustomer].Address,
+                items);
 
             Customers[CurrentCustomer].Orders.Add(order);
-            Customers[CurrentCustomer].Cart.Items = new List<Item>();
+            Customers[CurrentCustomer].Cart.Items.Clear();
             UpdateCartListBox();
         }
     }

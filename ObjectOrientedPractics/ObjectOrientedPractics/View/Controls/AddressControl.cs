@@ -39,6 +39,12 @@ namespace ObjectOrientedPractics.View.Controls
         private bool IsControlEnabled { get; set; }
 
         /// <summary>
+        /// Флаг, указывающий на то, активны ли текстовые поля 
+        /// вкладки <see cref="AddressControl"/>.
+        /// </summary>
+        public bool IsTextBoxesEnabled { get; set; } = true;
+
+        /// <summary>
         /// Инициализирует компонент, создает экземпляр класса <see cref="AddressControl"/>.
         /// </summary>
         public AddressControl()
@@ -54,12 +60,13 @@ namespace ObjectOrientedPractics.View.Controls
         private void UpdateTextBoxes()
         {
             IsControlEnabled = Address != null;
-            PostIndexTextBox.Enabled = IsControlEnabled;
-            CountryTextBox.Enabled = IsControlEnabled;
-            CityTextBox.Enabled = IsControlEnabled;
-            StreetTextBox.Enabled = IsControlEnabled;
-            BuildingTextBox.Enabled = IsControlEnabled;
-            ApartmentTextBox.Enabled = IsControlEnabled;
+            var isTextBoxesEnabled = IsControlEnabled && IsTextBoxesEnabled;
+            PostIndexTextBox.Enabled = isTextBoxesEnabled;
+            CountryTextBox.Enabled = isTextBoxesEnabled;
+            CityTextBox.Enabled = isTextBoxesEnabled;
+            StreetTextBox.Enabled = isTextBoxesEnabled;
+            BuildingTextBox.Enabled = isTextBoxesEnabled;
+            ApartmentTextBox.Enabled = isTextBoxesEnabled;
 
             if (IsControlEnabled)
             {
@@ -92,6 +99,7 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
+
             if (PostIndexTextBox.Text.Length == Address.INDEX_DIGIT && 
                                 int.TryParse(PostIndexTextBox.Text, out var temp))
             {

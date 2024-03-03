@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -8,9 +9,15 @@ namespace ObjectOrientedPractics.Model
         public OrderTime Time { get; set; }
 
 
-        public PriorityOrder() 
+        public PriorityOrder(
+            OrderStatus status, 
+            Address address, 
+            List<Item> items, 
+            DateTime date, 
+            OrderTime time) : base(status, address, items)
         {
-        
+            Date = date;
+            Time = time;
         }
     }
 }

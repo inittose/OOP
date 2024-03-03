@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ObjectOrientedPractics.Services;
+using System.Collections.Generic;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -19,17 +20,7 @@ namespace ObjectOrientedPractics.Model
         {
             get
             {
-                if (Items == null)
-                {
-                    return 0f;
-                }
-
-                var total = 0f;
-                foreach (var item in Items)
-                {
-                    total += item.Cost;
-                }
-                return total;
+                return ItemsTool.GetAmount(Items);
             }
         }
     }

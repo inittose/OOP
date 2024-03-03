@@ -47,9 +47,9 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         public void UpdateCustomerCarts()
         {
-            for (var i = 0; i < Customers.Count; i++)
+            foreach (var customer in Customers)
             {
-                UpdateCartItems(Customers[i].Cart);
+                UpdateCartItems(customer.Cart);
             }
         }
 
@@ -59,17 +59,18 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="cart">Коризна покупателя класса <see cref="Cart"/>.</param>
         private void UpdateCartItems(Cart cart)
         {
-            for (var i = 0; i < cart.Items.Count; i++)
+            var linkedItems = new List<Item>();
+            foreach (var cartItem in cart.Items)
             {
                 foreach (var item in Items)
                 {
-                    if (cart.Items[i].Id == item.Id)
+                    if (cartItem.Id == item.Id)
                     {
-                        cart.Items.RemoveAt(i);
-                        cart.Items.Insert(i, item);
+                        linkedItems.Add(item);
                     }
                 }
             }
+            cart.Items = linkedItems;
         }
 
         /// <summary>

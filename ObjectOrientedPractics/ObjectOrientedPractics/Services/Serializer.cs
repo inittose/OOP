@@ -50,7 +50,10 @@ namespace ObjectOrientedPractics.Services
             }
             else
             {
-                return JsonConvert.DeserializeObject<Store>(StoreJson);
+                return JsonConvert.DeserializeObject<Store>(StoreJson, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                });
             }
         }
 
@@ -60,7 +63,10 @@ namespace ObjectOrientedPractics.Services
         /// <param name="store">Экзепляр класса <see cref="Store"/>.</param>
         public static void SetStore(Store store)
         {
-            StoreJson = JsonConvert.SerializeObject(store);
+            StoreJson = JsonConvert.SerializeObject(store, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            });
             SaveFile();
         }
 

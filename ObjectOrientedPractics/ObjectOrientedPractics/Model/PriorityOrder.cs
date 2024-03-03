@@ -12,12 +12,9 @@ namespace ObjectOrientedPractics.Model
         public PriorityOrder(
             OrderStatus status, 
             Address address, 
-            List<Item> items, 
-            DateTime date, 
-            OrderTime time) : base(status, address, items)
+            List<Item> items) : base(status, address, items)
         {
-            Date = date;
-            Time = time;
+
         }
     }
 }

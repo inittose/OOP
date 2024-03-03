@@ -217,19 +217,27 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
-
             var items = new List<Item>();
 
             foreach(var item in Customers[CurrentCustomer].Cart.Items)
             {
                 items.Add(new Item(item));
             }
-
-            var order = new Order(
-                OrderStatus.New, 
-                Customers[CurrentCustomer].Address,
-                items);
-
+            Order order;
+            if (Customers[CurrentCustomer].IsPriority)
+            {
+                order = new PriorityOrder(
+                    OrderStatus.New,
+                    Customers[CurrentCustomer].Address,
+                    items); 
+            }
+            else
+            {
+                order = new Order(
+                    OrderStatus.New,
+                    Customers[CurrentCustomer].Address,
+                    items);
+            }
             Customers[CurrentCustomer].Orders.Add(order);
             Customers[CurrentCustomer].Cart.Items.Clear();
             UpdateCartListBox();

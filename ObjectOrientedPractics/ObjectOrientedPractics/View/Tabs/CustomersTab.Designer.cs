@@ -37,13 +37,14 @@
             this.CustomersLabel = new System.Windows.Forms.Label();
             this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SelectedItemPanel = new System.Windows.Forms.Panel();
+            this.AddressControl = new ObjectOrientedPractics.View.Controls.AddressControl();
             this.WrongFullNameLabel = new System.Windows.Forms.Label();
             this.FullNameTextBox = new System.Windows.Forms.TextBox();
             this.IdTextBox = new System.Windows.Forms.TextBox();
             this.FullNameLabel = new System.Windows.Forms.Label();
             this.IdLabel = new System.Windows.Forms.Label();
             this.SelectedCustomerLabel = new System.Windows.Forms.Label();
-            this.AddressControl = new ObjectOrientedPractics.View.Controls.AddressControl();
+            this.IsPriorityCheckBox = new System.Windows.Forms.CheckBox();
             this.CustomersListPanel.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
             this.MainTableLayoutPanel.SuspendLayout();
@@ -153,6 +154,7 @@
             // 
             // SelectedItemPanel
             // 
+            this.SelectedItemPanel.Controls.Add(this.IsPriorityCheckBox);
             this.SelectedItemPanel.Controls.Add(this.AddressControl);
             this.SelectedItemPanel.Controls.Add(this.WrongFullNameLabel);
             this.SelectedItemPanel.Controls.Add(this.FullNameTextBox);
@@ -165,6 +167,17 @@
             this.SelectedItemPanel.Name = "SelectedItemPanel";
             this.SelectedItemPanel.Size = new System.Drawing.Size(384, 544);
             this.SelectedItemPanel.TabIndex = 3;
+            // 
+            // AddressControl
+            // 
+            this.AddressControl.Address = null;
+            this.AddressControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddressControl.IsTextBoxesEnabled = true;
+            this.AddressControl.Location = new System.Drawing.Point(3, 120);
+            this.AddressControl.Name = "AddressControl";
+            this.AddressControl.Size = new System.Drawing.Size(378, 141);
+            this.AddressControl.TabIndex = 10;
             // 
             // WrongFullNameLabel
             // 
@@ -226,16 +239,17 @@
             this.SelectedCustomerLabel.TabIndex = 1;
             this.SelectedCustomerLabel.Text = "Selected Customer";
             // 
-            // AddressControl
+            // IsPriorityCheckBox
             // 
-            this.AddressControl.Address = null;
-            this.AddressControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddressControl.IsTextBoxesEnabled = true;
-            this.AddressControl.Location = new System.Drawing.Point(3, 90);
-            this.AddressControl.Name = "AddressControl";
-            this.AddressControl.Size = new System.Drawing.Size(378, 141);
-            this.AddressControl.TabIndex = 10;
+            this.IsPriorityCheckBox.AutoSize = true;
+            this.IsPriorityCheckBox.Enabled = false;
+            this.IsPriorityCheckBox.Location = new System.Drawing.Point(66, 90);
+            this.IsPriorityCheckBox.Name = "IsPriorityCheckBox";
+            this.IsPriorityCheckBox.Size = new System.Drawing.Size(68, 17);
+            this.IsPriorityCheckBox.TabIndex = 12;
+            this.IsPriorityCheckBox.Text = "Is Priority";
+            this.IsPriorityCheckBox.UseVisualStyleBackColor = true;
+            this.IsPriorityCheckBox.CheckedChanged += new System.EventHandler(this.IsPriorityCheckBox_CheckedChanged);
             // 
             // CustomersTab
             // 
@@ -274,5 +288,6 @@
         private System.Windows.Forms.Label WrongFullNameLabel;
         private System.Windows.Forms.Button AddRandomButton;
         private Controls.AddressControl AddressControl;
+        private System.Windows.Forms.CheckBox IsPriorityCheckBox;
     }
 }

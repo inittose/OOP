@@ -68,6 +68,11 @@ namespace ObjectOrientedPractics.Model
         public List<Order> Orders { get; set; } = new List<Order>();
 
         /// <summary>
+        /// Возвращает и задает флаг, приоритетный ли покупатель.
+        /// </summary>
+        public bool IsPriority { get; set; } = false;
+
+        /// <summary>
         /// Создает экземпляр класса <see cref="Customer"/>.
         /// </summary>
         public Customer()

@@ -46,13 +46,13 @@ namespace ObjectOrientedPractics.View.Tabs
             Orders.Clear();
             OrdersDataGridView.Rows.Clear();
 
-            foreach (Customer customer in Customers)
+            foreach (var customer in Customers)
             {
                 var address = $"{customer.Address.Country}, {customer.Address.City}, ";
                 address += $"{customer.Address.Street} {customer.Address.Building}, ";
                 address += $"{customer.Address.Apartment}";
 
-                foreach (Order order in customer.Orders)
+                foreach (var order in customer.Orders)
                 {
                     Orders.Add(order);
                     OrdersDataGridView.Rows.Add(

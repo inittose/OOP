@@ -225,7 +225,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 items.Add(new Item(item));
             }
 
-            Order order = new Order(
+            var order = new Order(
                 OrderStatus.New, 
                 Customers[CurrentCustomer].Address,
                 items);

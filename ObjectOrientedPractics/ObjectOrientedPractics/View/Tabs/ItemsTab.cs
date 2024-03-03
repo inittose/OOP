@@ -53,9 +53,9 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateItemsListBox()
         {
             ItemsListBox.Items.Clear();
-            for (int i = 0; i < Items.Count; i++)
+            foreach (var item in Items) 
             {
-                ItemsListBox.Items.Add(Items[i].Name);
+                ItemsListBox.Items.Add(item.Name);
             }
         }
 
@@ -141,7 +141,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void AddRandomButton_Click(object sender, EventArgs e)
         {
-            Item newItem = ItemFactory.GetRandomItem();
+            var newItem = ItemFactory.GetRandomItem();
             Items.Add(newItem);
             ItemsListBox.Items.Add(newItem.Name);
             ItemsListBox.SelectedIndex = ItemsListBox.Items.Count - 1;

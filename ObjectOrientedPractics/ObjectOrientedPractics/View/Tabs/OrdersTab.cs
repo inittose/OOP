@@ -99,9 +99,15 @@ namespace ObjectOrientedPractics.View.Tabs
                 foreach (var order in customer.Orders)
                 {
                     Orders.Add(order);
-                    OrdersDataGridView.Rows.Add(
-                        order.Id, order.CreationDate, order.Status, customer.FullName,
+
+                    var index = OrdersDataGridView.Rows.Add( 
+                        "", order.Id, order.CreationDate, order.Status, customer.FullName,
                         address, order.Amount);
+
+                    if (order is PriorityOrder)
+                    {
+                        OrdersDataGridView.Rows[index].Cells[0].Value = "\u2605";
+                    }
                 }
             }
         }
@@ -180,10 +186,15 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             Orders[SelectedIndex].Status = (OrderStatus)StatusComboBox.SelectedItem;
-            OrdersDataGridView[2, SelectedIndex].Value = 
+            OrdersDataGridView[3, SelectedIndex].Value = 
                 Enum.GetName(typeof(OrderStatus), Orders[SelectedIndex].Status);
         }
 
+        /// <summary>
+        /// Событие при выборе другого времени доставки.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void DeliveryTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (SelectedIndex == -1 || !IsPriorityOrder)

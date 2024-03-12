@@ -61,6 +61,8 @@
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\OrderStatus.cs" />
     <Compile Include="Model\OrderTime.cs" />
+    <Compile Include="Model\PercentDiscount.cs" />
+    <Compile Include="Model\PointsDiscount.cs" />
     <Compile Include="Model\PriorityOrder.cs" />
     <Compile Include="Model\Store.cs" />
     <Compile Include="Services\AppColors.cs" />

@@ -29,8 +29,11 @@ namespace ObjectOrientedPractics.Services
         /// <param name="minimum">Минимальное число (нижняя граница).</param>
         /// <param name="maximum">Максимальное число (верхняя граница).</param>
         /// <param name="propertyName">Имя свойства класса.</param>
-        public static void AssertFloatOnLimits(float value, float minimum, 
-            float maximum, string propertyName)
+        public static void AssertFloatOnLimits(
+            float value, 
+            float minimum, 
+            float maximum, 
+            string propertyName)
         {
             if (value < minimum || value > maximum)
             {
@@ -53,6 +56,43 @@ namespace ObjectOrientedPractics.Services
                 throw new
                     ArgumentException(
                     $"{propertyName} должно состоять из {digit} разрядов.");
+            }
+        }
+
+        /// <summary>
+        /// Проверка, входит ли целочисленное значение в заданный нижний предел.
+        /// </summary>
+        /// <param name="value">Входное значение.</param>
+        /// <param name="minimum">Минимальное число (нижняя граница).</param>
+        /// <param name="propertyName">Имя свойства класса.</param>
+        public static void AssertIntOnLowerLimit(int value, int minimum, string propertyName)
+        {
+            if (value < minimum)
+            {
+                throw new
+                    ArgumentException(
+                    $"{propertyName} должно быть больше {minimum}.");
+            }
+        }
+
+        /// <summary>
+        /// Проверка, входит ли целочисленное значение в заданные границы.
+        /// </summary>
+        /// <param name="value">Входное значение.</param>
+        /// <param name="minimum">Минимальное число (нижняя граница).</param>
+        /// <param name="maximum">Максимальное число (верхняя граница).</param>
+        /// <param name="propertyName">Имя свойства класса.</param>
+        public static void AssertIntOnLimits(
+            int value, 
+            int minimum, 
+            int maximum, 
+            string propertyName)
+        {
+            if (value < minimum || value > maximum)
+            {
+                throw new
+                    ArgumentException(
+                    $"{propertyName} не входит в границы от {minimum} до {maximum}.");
             }
         }
     }

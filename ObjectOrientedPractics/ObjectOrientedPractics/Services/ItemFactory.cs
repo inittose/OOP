@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Enums;
 
 namespace ObjectOrientedPractics.Services
 {

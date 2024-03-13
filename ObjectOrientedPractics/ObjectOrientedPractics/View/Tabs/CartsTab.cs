@@ -1,4 +1,6 @@
 ﻿using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Model.Orders;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -232,14 +234,16 @@ namespace ObjectOrientedPractics.View.Tabs
                 order = new PriorityOrder(
                     OrderStatus.New,
                     Customers[CurrentCustomer].Address,
-                    items); 
+                    items,
+                    0); 
             }
             else
             {
                 order = new Order(
                     OrderStatus.New,
                     Customers[CurrentCustomer].Address,
-                    items);
+                    items,
+                    0);
             }
 
             Customers[CurrentCustomer].Orders.Add(order);

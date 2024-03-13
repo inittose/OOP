@@ -1,4 +1,5 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 
@@ -31,7 +32,13 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <summary>
         /// Информация о скидке.
         /// </summary>
-        public string Info { get; }
+        public string Info
+        {
+            get
+            {
+                return $"Накопительная - {Points} баллов";
+            }
+        }
 
         /// <summary>
         /// Вычисляет размер скидки, доступный для списка товаров.
@@ -77,10 +84,12 @@ namespace ObjectOrientedPractics.Model.Discounts
             Points += (int)Math.Ceiling(amount * 0.1);
         }
 
+        /// <summary>
+        /// Создает экзепляр класса <see cref="PointsDiscount"/>.
+        /// </summary>
         public PointsDiscount()
         {
             Points = 0;
-            Info = "Накопительная скидка.";
         }
     }
 }

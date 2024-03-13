@@ -34,14 +34,20 @@ namespace ObjectOrientedPractics.Model.Discounts
         public Category Category { get; }
 
         /// <summary>
-        /// Информация о скидке.
-        /// </summary>
-        public string Info { get; }
-
-        /// <summary>
         /// Возвращает сумму, на которую покупатель уже сделал покупки данной категории товаров.
         /// </summary>
-        public double SpendingPerCategory { get; private set; }
+        public double SpendingPerCategory { get; private set; } = 0;
+
+        /// <summary>
+        /// Информация о скидке.
+        /// </summary>
+        public string Info
+        {
+            get
+            {
+                return $"Процентная \"{Category}\" - {Discount}%";
+            }
+        }
 
         /// <summary>
         /// Вычисляет размер скидки, доступный для списка товаров.
@@ -82,6 +88,16 @@ namespace ObjectOrientedPractics.Model.Discounts
             {
 
             }
+        }
+
+        /// <summary>
+        /// Создает экзепляр класса <see cref="PercentDiscount"/>.
+        /// </summary>
+        /// <param name="category">Категория товара, на которую действует скидка.</param>
+        public PercentDiscount(Category category) 
+        { 
+            Category = category;
+            Discount = 1;
         }
     }
 }

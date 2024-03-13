@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Discounts;
+using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
+using ObjectOrientedPractics.View.Pop_ups;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -57,6 +60,19 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
+        /// Обновляет данные в списке скидок покупателя.
+        /// </summary>
+        /// <param name="customer">Текущий покупатель.</param>
+        private void UpdateDiscountsListBox(Customer customer)
+        {
+            DiscountsListBox.Items.Clear();
+            foreach (var discount in customer.Discounts)
+            {
+                DiscountsListBox.Items.Add(discount.Info);
+            }
+        }
+
+        /// <summary>
         /// Устанавливает корректные данные в текстовых окнах 
         /// в зависимости от индекса товара в списке.
         /// </summary>
@@ -66,13 +82,19 @@ namespace ObjectOrientedPractics.View.Tabs
             var isSelectedIndexCorrect = selectedIndex >= 0;
             FullNameTextBox.Enabled = isSelectedIndexCorrect;
             IsPriorityCheckBox.Enabled = isSelectedIndexCorrect;
+<<<<<<< HEAD
 
+=======
+            DiscountsListBox.Enabled = isSelectedIndexCorrect;
+            AddDiscountButton.Enabled = isSelectedIndexCorrect;
+>>>>>>> e67ac86 (feature(lab5): Реализовал логику добавления скидки)
             if (isSelectedIndexCorrect)
             {
                 IdTextBox.Text = Customers[CustomersListBox.SelectedIndex].Id.ToString();
                 FullNameTextBox.Text = Customers[CustomersListBox.SelectedIndex].FullName;
                 AddressControl.Address = Customers[CustomersListBox.SelectedIndex].Address;
                 IsPriorityCheckBox.Checked = Customers[CustomersListBox.SelectedIndex].IsPriority;
+                UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
             }
             else
             {
@@ -80,6 +102,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 IdTextBox.Text = string.Empty;
                 AddressControl.Address = null;
                 IsPriorityCheckBox.Checked = false;
+                DiscountsListBox.Items.Clear();
             }
         }
 
@@ -229,6 +252,54 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             Customers[CustomersListBox.SelectedIndex].IsPriority = IsPriorityCheckBox.Checked;
+        }
+
+        /// <summary>
+        /// Событие при нажатии на <see cref="AddDiscountButton"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void AddDiscountButton_Click(object sender, EventArgs e)
+        {
+            var addDiscountPopUp = new AddDiscountPopUp(Customers[CustomersListBox.SelectedIndex]);
+            if (addDiscountPopUp.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            var discount = new PercentDiscount(addDiscountPopUp.Category);
+            Customers[CustomersListBox.SelectedIndex].Discounts.Add(discount);
+            UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
+        }
+
+        /// <summary>
+        /// Событие при нажатии на <see cref="RemoveDiscountButton"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void RemoveDiscountButton_Click(object sender, EventArgs e)
+        {
+            var removedIndex = DiscountsListBox.SelectedIndex;
+            Customers[CustomersListBox.SelectedIndex].Discounts.RemoveAt(
+                DiscountsListBox.SelectedIndex);
+            UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
+            if (removedIndex >= DiscountsListBox.Items.Count)
+            {
+                DiscountsListBox.SelectedIndex = removedIndex - 1;
+            }
+            else
+            {
+                DiscountsListBox.SelectedIndex = removedIndex;
+            }
+        }
+
+        /// <summary>
+        /// Событие при смене элемента в <see cref="DiscountsListBox"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void DiscountsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RemoveDiscountButton.Enabled = DiscountsListBox.SelectedIndex > 0;
         }
     }
 }

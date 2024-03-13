@@ -1,12 +1,13 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Services;
 using System.Collections.Generic;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractics.Model.Discounts
 {
     /// <summary>
     /// Хранит и вычисляет процентную скидку на конкретную категорию товаров.
     /// </summary>
-    public class PercentDiscount
+    public class PercentDiscount : IDiscount
     {
         /// <summary>
         /// Скидка в процентах.
@@ -31,6 +32,11 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает категорию товара, на которую действует скидка.
         /// </summary>
         public Category Category { get; }
+
+        /// <summary>
+        /// Информация о скидке.
+        /// </summary>
+        public string Info { get; }
 
         /// <summary>
         /// Возвращает сумму, на которую покупатель уже сделал покупки данной категории товаров.
@@ -59,7 +65,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// Добавляет баллы на основе полученного списка товаров.
+        /// Обновляет процент скидки на основе полученного списка товаров.
         /// Каждые 1000 рублей, на которую покупатель совершает покупки, 
         /// скидка увеличивается на 1%.
         /// </summary>

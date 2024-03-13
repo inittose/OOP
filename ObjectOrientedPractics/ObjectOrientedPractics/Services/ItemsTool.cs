@@ -1,4 +1,6 @@
 ﻿using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace ObjectOrientedPractics.Services

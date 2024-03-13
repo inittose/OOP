@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractics.Model.Discounts
 {
     /// <summary>
     /// Хранит и вычисляет данные о накопительных баллах.
     /// </summary>
-    public class PointsDiscount
+    public class PointsDiscount : IDiscount
     {
         /// <summary>
         /// Накопительные баллы.
@@ -18,15 +18,20 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает и задает накопительные баллы.
         /// Должно быть неотрицательным числом.
         /// </summary>
-        public int Points 
+        public int Points
         {
             get => _points;
-            private set 
+            private set
             {
                 ValueValidator.AssertIntOnLowerLimit(value, 0, nameof(Points));
-                _points = value; 
-            } 
+                _points = value;
+            }
         }
+
+        /// <summary>
+        /// Информация о скидке.
+        /// </summary>
+        public string Info { get; }
 
         /// <summary>
         /// Вычисляет размер скидки, доступный для списка товаров.
@@ -70,6 +75,12 @@ namespace ObjectOrientedPractics.Model
         {
             var amount = ItemsTool.GetAmount(items);
             Points += (int)Math.Ceiling(amount * 0.1);
+        }
+
+        public PointsDiscount()
+        {
+            Points = 0;
+            Info = "Накопительная скидка.";
         }
     }
 }

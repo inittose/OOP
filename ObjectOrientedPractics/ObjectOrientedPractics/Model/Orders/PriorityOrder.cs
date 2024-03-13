@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ObjectOrientedPractics.Model.Enums;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Хранит данные о приоритетном заказе.
@@ -24,10 +25,12 @@ namespace ObjectOrientedPractics.Model
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров заказа.</param>
+        /// <param name="discountAmount">Скидка заказа.</param>
         public PriorityOrder(
             OrderStatus status, 
             Address address, 
-            List<Item> items) : base(status, address, items)
+            List<Item> items,
+            double discountAmount) : base(status, address, items, discountAmount)
         {
 
         }

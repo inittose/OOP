@@ -48,9 +48,9 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateCustomersListBox()
         {
             CustomersListBox.Items.Clear();
-            for (var i = 0; i < Customers.Count; i++)
+            foreach (var customer in Customers)
             {
-                CustomersListBox.Items.Add(Customers[i].FullName);
+                CustomersListBox.Items.Add(customer.FullName);
             }
         }
 
@@ -127,6 +127,11 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
+            IdGenerator.ReleaseId(Customers[removeIndex].Id);
+            foreach(var order in Customers[removeIndex].Orders)
+            {
+                IdGenerator.ReleaseId(order.Id);
+            }
             CustomersListBox.Items.RemoveAt(removeIndex);
             Customers.RemoveAt(removeIndex);
 

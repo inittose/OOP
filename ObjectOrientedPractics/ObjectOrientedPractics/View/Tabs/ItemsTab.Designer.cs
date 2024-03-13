@@ -51,7 +51,6 @@
             this.WrongNameLabel = new System.Windows.Forms.Label();
             this.WrongCostLabel = new System.Windows.Forms.Label();
             this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.ItemsListPanel.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
             this.SelectedItemPanel.SuspendLayout();
@@ -66,7 +65,7 @@
             this.ItemsListPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ItemsListPanel.Location = new System.Drawing.Point(3, 3);
             this.ItemsListPanel.Name = "ItemsListPanel";
-            this.ItemsListPanel.Size = new System.Drawing.Size(394, 694);
+            this.ItemsListPanel.Size = new System.Drawing.Size(254, 544);
             this.ItemsListPanel.TabIndex = 0;
             // 
             // ButtonPanel
@@ -80,19 +79,19 @@
             this.ButtonPanel.Controls.Add(this.RemoveButton, 1, 0);
             this.ButtonPanel.Controls.Add(this.AddButton, 0, 0);
             this.ButtonPanel.Controls.Add(this.AddRandomButton, 2, 0);
-            this.ButtonPanel.Location = new System.Drawing.Point(3, 639);
+            this.ButtonPanel.Location = new System.Drawing.Point(3, 496);
             this.ButtonPanel.Name = "ButtonPanel";
             this.ButtonPanel.RowCount = 1;
             this.ButtonPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ButtonPanel.Size = new System.Drawing.Size(388, 52);
+            this.ButtonPanel.Size = new System.Drawing.Size(248, 45);
             this.ButtonPanel.TabIndex = 1;
             // 
             // RemoveButton
             // 
             this.RemoveButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RemoveButton.Location = new System.Drawing.Point(132, 3);
+            this.RemoveButton.Location = new System.Drawing.Point(85, 3);
             this.RemoveButton.Name = "RemoveButton";
-            this.RemoveButton.Size = new System.Drawing.Size(123, 46);
+            this.RemoveButton.Size = new System.Drawing.Size(76, 39);
             this.RemoveButton.TabIndex = 2;
             this.RemoveButton.Text = "Remove";
             this.RemoveButton.UseVisualStyleBackColor = true;
@@ -103,7 +102,7 @@
             this.AddButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AddButton.Location = new System.Drawing.Point(3, 3);
             this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(123, 46);
+            this.AddButton.Size = new System.Drawing.Size(76, 39);
             this.AddButton.TabIndex = 1;
             this.AddButton.Text = "Add";
             this.AddButton.UseVisualStyleBackColor = true;
@@ -112,9 +111,9 @@
             // AddRandomButton
             // 
             this.AddRandomButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AddRandomButton.Location = new System.Drawing.Point(261, 3);
+            this.AddRandomButton.Location = new System.Drawing.Point(167, 3);
             this.AddRandomButton.Name = "AddRandomButton";
-            this.AddRandomButton.Size = new System.Drawing.Size(124, 46);
+            this.AddRandomButton.Size = new System.Drawing.Size(78, 39);
             this.AddRandomButton.TabIndex = 3;
             this.AddRandomButton.Text = "Add Random";
             this.AddRandomButton.UseVisualStyleBackColor = true;
@@ -128,7 +127,7 @@
             this.ItemsListBox.FormattingEnabled = true;
             this.ItemsListBox.Location = new System.Drawing.Point(3, 16);
             this.ItemsListBox.Name = "ItemsListBox";
-            this.ItemsListBox.Size = new System.Drawing.Size(388, 615);
+            this.ItemsListBox.Size = new System.Drawing.Size(248, 472);
             this.ItemsListBox.TabIndex = 1;
             this.ItemsListBox.SelectedIndexChanged += new System.EventHandler(this.ItemsListBox_SelectedIndexChanged);
             // 
@@ -136,7 +135,7 @@
             // 
             this.ItemsLabel.AutoSize = true;
             this.ItemsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.ItemsLabel.Location = new System.Drawing.Point(3, 0);
+            this.ItemsLabel.Location = new System.Drawing.Point(0, 0);
             this.ItemsLabel.Name = "ItemsLabel";
             this.ItemsLabel.Size = new System.Drawing.Size(37, 13);
             this.ItemsLabel.TabIndex = 0;
@@ -146,7 +145,7 @@
             // 
             this.SelectedItemLabel.AutoSize = true;
             this.SelectedItemLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.SelectedItemLabel.Location = new System.Drawing.Point(3, 0);
+            this.SelectedItemLabel.Location = new System.Drawing.Point(0, 0);
             this.SelectedItemLabel.Name = "SelectedItemLabel";
             this.SelectedItemLabel.Size = new System.Drawing.Size(85, 13);
             this.SelectedItemLabel.TabIndex = 0;
@@ -155,7 +154,7 @@
             // IdLabel
             // 
             this.IdLabel.AutoSize = true;
-            this.IdLabel.Location = new System.Drawing.Point(3, 31);
+            this.IdLabel.Location = new System.Drawing.Point(0, 30);
             this.IdLabel.Name = "IdLabel";
             this.IdLabel.Size = new System.Drawing.Size(21, 13);
             this.IdLabel.TabIndex = 1;
@@ -164,7 +163,7 @@
             // CostLabel
             // 
             this.CostLabel.AutoSize = true;
-            this.CostLabel.Location = new System.Drawing.Point(4, 60);
+            this.CostLabel.Location = new System.Drawing.Point(0, 60);
             this.CostLabel.Name = "CostLabel";
             this.CostLabel.Size = new System.Drawing.Size(31, 13);
             this.CostLabel.TabIndex = 2;
@@ -173,7 +172,7 @@
             // NameLabel
             // 
             this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(3, 120);
+            this.NameLabel.Location = new System.Drawing.Point(0, 120);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(38, 13);
             this.NameLabel.TabIndex = 3;
@@ -182,7 +181,7 @@
             // DiscriptionLabel
             // 
             this.DiscriptionLabel.AutoSize = true;
-            this.DiscriptionLabel.Location = new System.Drawing.Point(3, 248);
+            this.DiscriptionLabel.Location = new System.Drawing.Point(0, 247);
             this.DiscriptionLabel.Name = "DiscriptionLabel";
             this.DiscriptionLabel.Size = new System.Drawing.Size(63, 13);
             this.DiscriptionLabel.TabIndex = 4;
@@ -191,7 +190,7 @@
             // IdTextBox
             // 
             this.IdTextBox.Enabled = false;
-            this.IdTextBox.Location = new System.Drawing.Point(74, 28);
+            this.IdTextBox.Location = new System.Drawing.Point(66, 27);
             this.IdTextBox.Name = "IdTextBox";
             this.IdTextBox.Size = new System.Drawing.Size(121, 20);
             this.IdTextBox.TabIndex = 5;
@@ -199,7 +198,7 @@
             // CostTextBox
             // 
             this.CostTextBox.Enabled = false;
-            this.CostTextBox.Location = new System.Drawing.Point(74, 57);
+            this.CostTextBox.Location = new System.Drawing.Point(66, 57);
             this.CostTextBox.Name = "CostTextBox";
             this.CostTextBox.Size = new System.Drawing.Size(121, 20);
             this.CostTextBox.TabIndex = 6;
@@ -214,7 +213,7 @@
             this.NameTextBox.Location = new System.Drawing.Point(3, 136);
             this.NameTextBox.Multiline = true;
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(588, 94);
+            this.NameTextBox.Size = new System.Drawing.Size(378, 94);
             this.NameTextBox.TabIndex = 7;
             this.NameTextBox.TextChanged += new System.EventHandler(this.NameTextBox_TextChanged);
             this.NameTextBox.Leave += new System.EventHandler(this.NameTextBox_Leave);
@@ -224,10 +223,10 @@
             this.DescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DescriptionTextBox.Enabled = false;
-            this.DescriptionTextBox.Location = new System.Drawing.Point(3, 264);
+            this.DescriptionTextBox.Location = new System.Drawing.Point(3, 263);
             this.DescriptionTextBox.Multiline = true;
             this.DescriptionTextBox.Name = "DescriptionTextBox";
-            this.DescriptionTextBox.Size = new System.Drawing.Size(588, 157);
+            this.DescriptionTextBox.Size = new System.Drawing.Size(378, 157);
             this.DescriptionTextBox.TabIndex = 8;
             this.DescriptionTextBox.TextChanged += new System.EventHandler(this.DescriptionTextBox_TextChanged);
             this.DescriptionTextBox.Leave += new System.EventHandler(this.DescriptionTextBox_Leave);
@@ -249,16 +248,17 @@
             this.SelectedItemPanel.Controls.Add(this.IdLabel);
             this.SelectedItemPanel.Controls.Add(this.SelectedItemLabel);
             this.SelectedItemPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SelectedItemPanel.Location = new System.Drawing.Point(403, 3);
+            this.SelectedItemPanel.Location = new System.Drawing.Point(263, 3);
             this.SelectedItemPanel.Name = "SelectedItemPanel";
-            this.SelectedItemPanel.Size = new System.Drawing.Size(594, 694);
+            this.SelectedItemPanel.Size = new System.Drawing.Size(384, 544);
             this.SelectedItemPanel.TabIndex = 1;
             // 
             // CategoryComboBox
             // 
+            this.CategoryComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoryComboBox.Enabled = false;
             this.CategoryComboBox.FormattingEnabled = true;
-            this.CategoryComboBox.Location = new System.Drawing.Point(74, 86);
+            this.CategoryComboBox.Location = new System.Drawing.Point(66, 87);
             this.CategoryComboBox.Name = "CategoryComboBox";
             this.CategoryComboBox.Size = new System.Drawing.Size(121, 21);
             this.CategoryComboBox.TabIndex = 16;
@@ -267,7 +267,7 @@
             // CategoryLabel
             // 
             this.CategoryLabel.AutoSize = true;
-            this.CategoryLabel.Location = new System.Drawing.Point(4, 89);
+            this.CategoryLabel.Location = new System.Drawing.Point(0, 90);
             this.CategoryLabel.Name = "CategoryLabel";
             this.CategoryLabel.Size = new System.Drawing.Size(52, 13);
             this.CategoryLabel.TabIndex = 13;
@@ -277,7 +277,7 @@
             // 
             this.WrongDescriptionLabel.AutoSize = true;
             this.WrongDescriptionLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.WrongDescriptionLabel.Location = new System.Drawing.Point(72, 248);
+            this.WrongDescriptionLabel.Location = new System.Drawing.Point(72, 247);
             this.WrongDescriptionLabel.Name = "WrongDescriptionLabel";
             this.WrongDescriptionLabel.Size = new System.Drawing.Size(29, 13);
             this.WrongDescriptionLabel.TabIndex = 12;
@@ -297,7 +297,7 @@
             // 
             this.WrongCostLabel.AutoSize = true;
             this.WrongCostLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.WrongCostLabel.Location = new System.Drawing.Point(201, 60);
+            this.WrongCostLabel.Location = new System.Drawing.Point(193, 60);
             this.WrongCostLabel.Name = "WrongCostLabel";
             this.WrongCostLabel.Size = new System.Drawing.Size(29, 13);
             this.WrongCostLabel.TabIndex = 10;
@@ -317,7 +317,7 @@
             this.MainTableLayoutPanel.Name = "MainTableLayoutPanel";
             this.MainTableLayoutPanel.RowCount = 1;
             this.MainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainTableLayoutPanel.Size = new System.Drawing.Size(1000, 700);
+            this.MainTableLayoutPanel.Size = new System.Drawing.Size(650, 550);
             this.MainTableLayoutPanel.TabIndex = 2;
             // 
             // ItemsTab
@@ -328,7 +328,7 @@
             this.MaximumSize = new System.Drawing.Size(1000, 700);
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "ItemsTab";
-            this.Size = new System.Drawing.Size(1000, 700);
+            this.Size = new System.Drawing.Size(650, 550);
             this.ItemsListPanel.ResumeLayout(false);
             this.ItemsListPanel.PerformLayout();
             this.ButtonPanel.ResumeLayout(false);
@@ -364,6 +364,5 @@
         private System.Windows.Forms.Button AddRandomButton;
         private System.Windows.Forms.Label CategoryLabel;
         private System.Windows.Forms.ComboBox CategoryComboBox;
-        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }

@@ -1,4 +1,5 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using Newtonsoft.Json;
+using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -28,9 +29,9 @@ namespace ObjectOrientedPractics.Model
         public const float MAXIMUM_COST = 100000f;
 
         /// <summary>
-        /// Уникальный идентификатор данного товара.
+        /// Уникальный идентификатор товара.
         /// </summary>
-        private readonly int _id = IdGenerator.GetNextId();
+        private readonly int _id;
 
         /// <summary>
         /// Именование товара.
@@ -53,14 +54,11 @@ namespace ObjectOrientedPractics.Model
         public Category Category { get; set; }
 
         /// <summary>
-        /// Возвращает уникальный идентификатор данного товара.
+        /// Возвращает уникальный идентификатор товара.
         /// </summary>
-        public int Id 
-        { 
-            get 
-            { 
-                return _id; 
-            } 
+        public int Id
+        {
+            get => _id;
         }
 
         /// <summary>
@@ -120,6 +118,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Item()
         {
+            _id = IdGenerator.GetNextId();
             Name = string.Empty;
             Info = string.Empty;
             Cost = 0;
@@ -146,10 +145,34 @@ namespace ObjectOrientedPractics.Model
         ///</param>
         public Item(string name, string info, float cost, Category category)
         {
+            _id = IdGenerator.GetNextId();
             Name = name;
             Info = info;
             Cost = cost;
             Category = category;
+        }
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Item"/>.
+        /// </summary>
+        /// <param name="item">Объект класса <see cref="Item"/>.</param>
+        public Item(Item item)
+        {
+            _id = item.Id;
+            Name = item.Name;
+            Info = item.Info;
+            Cost = item.Cost;
+            Category = item.Category;
+        }
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Item"/>.
+        /// </summary>
+        /// <param name="id">Ункиальный идентификатор.</param>
+        [JsonConstructor]
+        public Item(int id)
+        {
+            _id = id;
         }
     }
 }

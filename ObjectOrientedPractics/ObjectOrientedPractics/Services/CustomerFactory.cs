@@ -35,7 +35,6 @@ namespace ObjectOrientedPractics.Services
         /// <returns>Экзепляр класса <see cref="Customer"/>.</returns>
         public static Customer GetRandomCustomer()
         {
-            Console.WriteLine(FileName);
             var random = new Random();
             var randomIndex = random.Next(0, MAX_ROWS);
 

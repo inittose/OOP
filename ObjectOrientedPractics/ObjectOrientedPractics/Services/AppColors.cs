@@ -16,6 +16,6 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Цвет <see cref="TextBox"/>, неудачно прошедшего валидацию. 
         /// </summary>
-        public static Color WrongInputColor { get; } = Color.Red;
+        public static Color WrongInputColor { get; } = Color.LightPink;
     }
 }

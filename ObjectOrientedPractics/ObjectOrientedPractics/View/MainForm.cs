@@ -1,5 +1,6 @@
 ﻿using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
+using ObjectOrientedPractics.View.Tabs;
 using System.Windows.Forms;
 
 namespace ObjectOrientedPractics
@@ -24,6 +25,9 @@ namespace ObjectOrientedPractics
             InitializeComponent();
             ItemsTab.Items = Store.Items;
             CustomersTab.Customers = Store.Customers;
+            CartsTab.Items = Store.Items;
+            CartsTab.Customers = Store.Customers;
+            OrdersTab.Customers = Store.Customers;
         }
 
         /// <summary>
@@ -34,6 +38,34 @@ namespace ObjectOrientedPractics
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Serializer.SetStore(Store);
+        }
+
+        /// <summary>
+        /// Событие при переходе на другую вкладку элемента <see cref="MainTabControl"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void MainTabControl_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            switch (MainTabControl.SelectedIndex)
+            {
+                case 2:
+                    CartsTab.RefreshData();
+                    break;
+                case 3:
+                    OrdersTab.RefreshData();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Событие при загрузки главного окна.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void MainForm_Load(object sender, System.EventArgs e)
+        {
+            CartsTab.UpdateCustomerCarts();
         }
     }
 }

@@ -47,16 +47,21 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// Обновляет данные в списке покупателей.
+        /// Обновляет данные в списке скидок покупателя.
         /// </summary>
-        private void UpdateCustomersListBox()
+        public void UpdateDiscountsListBox()
         {
+<<<<<<< HEAD
             CustomersListBox.Items.Clear();
 
             foreach (var customer in Customers)
+=======
+            if (CustomersListBox.SelectedIndex < 0)
+>>>>>>> e4c7eb1 (feature(lab5): Реализовал логику скидок)
             {
-                CustomersListBox.Items.Add(customer.FullName);
+                return;
             }
+            UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
         }
 
         /// <summary>
@@ -69,6 +74,18 @@ namespace ObjectOrientedPractics.View.Tabs
             foreach (var discount in customer.Discounts)
             {
                 DiscountsListBox.Items.Add(discount.Info);
+            }
+        }
+
+        /// <summary>
+        /// Обновляет данные в списке покупателей.
+        /// </summary>
+        private void UpdateCustomersListBox()
+        {
+            CustomersListBox.Items.Clear();
+            foreach (var customer in Customers)
+            {
+                CustomersListBox.Items.Add(customer.FullName);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using ObjectOrientedPractics.Model.Enums;
+﻿using Newtonsoft.Json;
+using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
@@ -90,6 +91,12 @@ namespace ObjectOrientedPractics.Model.Discounts
         public PointsDiscount()
         {
             Points = 0;
+        }
+
+        [JsonConstructor]
+        private PointsDiscount(int points)
+        {
+            Points = points;
         }
     }
 }

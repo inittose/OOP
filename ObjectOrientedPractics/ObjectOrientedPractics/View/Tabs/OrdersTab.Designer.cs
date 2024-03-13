@@ -49,6 +49,8 @@
             this.OrderItemsLabel = new System.Windows.Forms.Label();
             this.SelectedOrderLabel = new System.Windows.Forms.Label();
             this.AddressControl = new ObjectOrientedPractics.View.Controls.AddressControl();
+            this.TotalHeaderLabel = new System.Windows.Forms.Label();
+            this.TotalLabel = new System.Windows.Forms.Label();
             this.Priority = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,6 +58,7 @@
             this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.OrdersDataGridView)).BeginInit();
             this.MainTableLayoutPanel.SuspendLayout();
             this.DataPanel.SuspendLayout();
@@ -82,7 +85,8 @@
             this.Status,
             this.FullName,
             this.Address,
-            this.Amount});
+            this.Amount,
+            this.Total});
             this.OrdersDataGridView.Location = new System.Drawing.Point(3, 16);
             this.OrdersDataGridView.MultiSelect = false;
             this.OrdersDataGridView.Name = "OrdersDataGridView";
@@ -129,6 +133,8 @@
             // 
             // SelectedOrderPanel
             // 
+            this.SelectedOrderPanel.Controls.Add(this.TotalLabel);
+            this.SelectedOrderPanel.Controls.Add(this.TotalHeaderLabel);
             this.SelectedOrderPanel.Controls.Add(this.PriorityOprionPanel);
             this.SelectedOrderPanel.Controls.Add(this.AmountLabel);
             this.SelectedOrderPanel.Controls.Add(this.OrderItemsListBox);
@@ -196,11 +202,11 @@
             // 
             // AmountLabel
             // 
-            this.AmountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AmountLabel.AutoSize = true;
             this.AmountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.AmountLabel.Location = new System.Drawing.Point(-162, 464);
+            this.AmountLabel.Location = new System.Drawing.Point(3, 464);
             this.AmountLabel.Name = "AmountLabel";
-            this.AmountLabel.Size = new System.Drawing.Size(573, 21);
+            this.AmountLabel.Size = new System.Drawing.Size(89, 20);
             this.AmountLabel.TabIndex = 14;
             this.AmountLabel.Text = "49 999,90";
             this.AmountLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -244,10 +250,9 @@
             // 
             // AmountHeaderLabel
             // 
-            this.AmountHeaderLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AmountHeaderLabel.AutoSize = true;
             this.AmountHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.AmountHeaderLabel.Location = new System.Drawing.Point(358, 449);
+            this.AmountHeaderLabel.Location = new System.Drawing.Point(3, 451);
             this.AmountHeaderLabel.Name = "AmountHeaderLabel";
             this.AmountHeaderLabel.Size = new System.Drawing.Size(53, 13);
             this.AmountHeaderLabel.TabIndex = 8;
@@ -311,6 +316,28 @@
             this.AddressControl.Size = new System.Drawing.Size(405, 137);
             this.AddressControl.TabIndex = 12;
             // 
+            // TotalHeaderLabel
+            // 
+            this.TotalHeaderLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalHeaderLabel.AutoSize = true;
+            this.TotalHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.TotalHeaderLabel.Location = new System.Drawing.Point(358, 451);
+            this.TotalHeaderLabel.Name = "TotalHeaderLabel";
+            this.TotalHeaderLabel.Size = new System.Drawing.Size(51, 13);
+            this.TotalHeaderLabel.TabIndex = 22;
+            this.TotalHeaderLabel.Text = "TOTAL:";
+            // 
+            // TotalLabel
+            // 
+            this.TotalLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.TotalLabel.Location = new System.Drawing.Point(165, 464);
+            this.TotalLabel.Name = "TotalLabel";
+            this.TotalLabel.Size = new System.Drawing.Size(246, 20);
+            this.TotalLabel.TabIndex = 23;
+            this.TotalLabel.Text = "49 999,90";
+            this.TotalLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // Priority
             // 
             this.Priority.HeaderText = "";
@@ -366,12 +393,19 @@
             // 
             // Amount
             // 
-            this.Amount.HeaderText = "Total Cost";
+            this.Amount.HeaderText = "Amount";
             this.Amount.Name = "Amount";
             this.Amount.ReadOnly = true;
             this.Amount.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Amount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Amount.Width = 55;
+            this.Amount.Width = 49;
+            // 
+            // Total
+            // 
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
+            this.Total.Width = 56;
             // 
             // OrdersTab
             // 
@@ -416,6 +450,8 @@
         private System.Windows.Forms.Label DeliveryTimeLabel;
         private System.Windows.Forms.Label PriorityOptionLabel;
         private System.Windows.Forms.Panel PriorityOprionPanel;
+        private System.Windows.Forms.Label TotalLabel;
+        private System.Windows.Forms.Label TotalHeaderLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Priority;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedDate;
@@ -423,5 +459,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Total;
     }
 }

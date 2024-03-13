@@ -1,4 +1,5 @@
-﻿using ObjectOrientedPractics.Model.Enums;
+﻿using Newtonsoft.Json;
+using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
 using System.Collections.Generic;
 
@@ -80,13 +81,14 @@ namespace ObjectOrientedPractics.Model.Discounts
         {
             var amount = ItemsTool.GetAmountOnCategory(items, Category);
             SpendingPerCategory += amount;
-            try
+            var percentage = (int)(SpendingPerCategory / 1000) + 1;
+            if (percentage > 10)
             {
-                Discount = (int)(SpendingPerCategory / 1000) + 1;
+                Discount = 10;
             }
-            catch
+            else
             {
-
+                Discount = percentage;
             }
         }
 
@@ -98,6 +100,14 @@ namespace ObjectOrientedPractics.Model.Discounts
         { 
             Category = category;
             Discount = 1;
+        }
+
+        [JsonConstructor]
+        private PercentDiscount(Category category, int discount, double spendingPerCategory)
+        {
+            Category = category;
+            Discount = discount;
+            SpendingPerCategory = spendingPerCategory;
         }
     }
 }

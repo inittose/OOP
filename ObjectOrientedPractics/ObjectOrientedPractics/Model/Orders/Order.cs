@@ -109,10 +109,12 @@ namespace ObjectOrientedPractics.Model.Orders
         /// Создает экзепляр класса <see cref="Order"/>.
         /// </summary>
         /// <param name="id">Уникальный идентификатор.</param>
+        /// <param name="discountAmount">Размер скидки.</param>
         [JsonConstructor]
-        public Order(int id)
+        public Order(int id, double discountAmount)
         {
             _id = id;
+            DiscountAmount = discountAmount;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Model.Orders;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -12,9 +13,29 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class CartsTab : UserControl
     {
         /// <summary>
+        /// Индекс текущего покупателя.
+        /// </summary>
+        private int _currentCustomer;
+
+        /// <summary>
         /// Возращает и задает индекс текущего покупателя.
         /// </summary>
-        private int CurrentCustomer { get; set; } = -1;
+        private int CurrentCustomer
+        {
+            get => _currentCustomer;
+            set
+            {
+                var isVisible = value >= 0;
+                AmountLabel.Visible = isVisible;
+                TotalLabel.Visible = isVisible;
+                DiscountAmountLabel.Visible = isVisible;
+                AmountHeaderLabel.Visible = isVisible;
+                TotalHeaderLabel.Visible = isVisible;
+                DiscountAmountHeaderLabel.Visible = isVisible;
+                DiscountLabel.Visible = isVisible;
+                _currentCustomer = value;
+            }
+        }
 
         /// <summary>
         /// Возращает и задает список покупок.
@@ -25,6 +46,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Возращает и задает список покупателей.
         /// </summary>
         public List<Customer> Customers { get; set; }
+
+        public double DiscountAmount { get; set; }
 
         /// <summary>
         /// Создает экзепляр класса <see cref="CartsTab"/>.
@@ -106,7 +129,6 @@ namespace ObjectOrientedPractics.View.Tabs
 
             CustomerComboBox.DataSource = customersData;
             CustomerComboBox.Enabled = customersData.Count != 0;
-            AmountLabel.Text = string.Empty;
             CustomerComboBox.SelectedIndex = -1;
         }
 
@@ -133,7 +155,56 @@ namespace ObjectOrientedPractics.View.Tabs
             CartListBox.DataSource = cartsData;
             CartListBox.Enabled = cartsData.Count != 0;
             CartListBox.SelectedIndex = nextIndex;
+<<<<<<< HEAD
+=======
+
+            UpdateAmountLabels();
+        }
+
+        /// <summary>
+        /// Обновляет данные списка скидок <see cref="DiscountsCheckedListBox"/>. 
+        /// </summary>
+        private void UpdateDiscountsCheckedListBox()
+        {
+            if (Customers.Count == 0 || CurrentCustomer < 0)
+            {
+                DiscountsCheckedListBox.Items.Clear();
+                DiscountsCheckedListBox.Enabled = false;
+                return;
+            }
+
+            DiscountsCheckedListBox.Items.Clear();
+            foreach (var discount in Customers[CurrentCustomer].Discounts)
+            {
+                DiscountsCheckedListBox.Items.Add(discount.Info);
+            }
+
+            for (int i = 0; i < DiscountsCheckedListBox.Items.Count; i++)
+            {
+                DiscountsCheckedListBox.SetItemChecked(i, true);
+            }
+            
+
+>>>>>>> e4c7eb1 (feature(lab5): Реализовал логику скидок)
             AmountLabel.Text = Customers[CurrentCustomer].Cart.Amount.ToString();
+            DiscountsCheckedListBox.Enabled = true;
+            DiscountAmountLabel.Text = "0";
+            TotalLabel.Text = AmountLabel.Text;
+        }
+
+        private void UpdateAmountLabels()
+        {
+            DiscountAmount = 0.0;
+            foreach (var item in DiscountsCheckedListBox.CheckedItems)
+            {
+                var index = DiscountsCheckedListBox.Items.IndexOf(item);
+                DiscountAmount += Customers[CurrentCustomer].Discounts[index].Calculate(
+                    Customers[CurrentCustomer].Cart.Items);
+            }
+            var amount = Customers[CurrentCustomer].Cart.Amount;
+            AmountLabel.Text = amount.ToString();
+            DiscountAmountLabel.Text = DiscountAmount.ToString();
+            TotalLabel.Text = (amount - DiscountAmount).ToString();
         }
 
         /// <summary>
@@ -167,7 +238,9 @@ namespace ObjectOrientedPractics.View.Tabs
         private void CustomerComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             CurrentCustomer = CustomerComboBox.SelectedIndex;
+            UpdateDiscountsCheckedListBox();
             UpdateCartListBox();
+            
         }
 
         /// <summary>
@@ -209,6 +282,18 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateCartListBox();
         }
 
+        private void UpdateCustomerDiscounts(List<Item> items)
+        {
+            foreach (var discount in Customers[CurrentCustomer].Discounts)
+            {
+                if (DiscountsCheckedListBox.CheckedItems.Contains(discount.Info))
+                {
+                    discount.Apply(items);
+                }
+                discount.Update(items);
+            }
+        }
+
         /// <summary>
         /// Событие при нажатии кнопки создания заказа.
         /// </summary>
@@ -235,7 +320,7 @@ namespace ObjectOrientedPractics.View.Tabs
                     OrderStatus.New,
                     Customers[CurrentCustomer].Address,
                     items,
-                    0); 
+                    DiscountAmount); 
             }
             else
             {
@@ -243,12 +328,19 @@ namespace ObjectOrientedPractics.View.Tabs
                     OrderStatus.New,
                     Customers[CurrentCustomer].Address,
                     items,
-                    0);
+                    DiscountAmount);
             }
 
             Customers[CurrentCustomer].Orders.Add(order);
+            UpdateCustomerDiscounts(items);
+            UpdateDiscountsCheckedListBox();
             Customers[CurrentCustomer].Cart.Items.Clear();
             UpdateCartListBox();
+        }
+
+        private void DiscountsCheckedListBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            UpdateAmountLabels();
         }
     }
 }

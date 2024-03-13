@@ -49,6 +49,9 @@ namespace ObjectOrientedPractics
         {
             switch (MainTabControl.SelectedIndex)
             {
+                case 1:
+                    CustomersTab.UpdateDiscountsListBox();
+                    break;
                 case 2:
                     CartsTab.RefreshData();
                     break;

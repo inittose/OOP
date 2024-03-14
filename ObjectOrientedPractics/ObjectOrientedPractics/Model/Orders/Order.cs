@@ -69,6 +69,9 @@ namespace ObjectOrientedPractics.Model.Orders
             }
         }
 
+        /// <summary>
+        /// Возращает конечную стоимость заказа.
+        /// </summary>
         public double Total
         {
             get

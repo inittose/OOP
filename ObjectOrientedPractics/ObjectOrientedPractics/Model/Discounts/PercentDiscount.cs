@@ -82,6 +82,7 @@ namespace ObjectOrientedPractics.Model.Discounts
             var amount = ItemsTool.GetAmountOnCategory(items, Category);
             SpendingPerCategory += amount;
             var percentage = (int)(SpendingPerCategory / 1000) + 1;
+
             if (percentage > 10)
             {
                 Discount = 10;
@@ -102,6 +103,12 @@ namespace ObjectOrientedPractics.Model.Discounts
             Discount = 1;
         }
 
+        /// <summary>
+        /// Создает экзепляр класса <see cref="PercentDiscount"/>.
+        /// </summary>
+        /// <param name="category">Категория товара, на которую действует скидка.</param>
+        /// <param name="discount">Размер скидки в процентах.</param>
+        /// <param name="spendingPerCategory">Размер потраченных денег на категорию.</param>
         [JsonConstructor]
         private PercentDiscount(Category category, int discount, double spendingPerCategory)
         {

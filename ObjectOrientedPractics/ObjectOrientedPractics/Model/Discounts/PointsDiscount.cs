@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
@@ -50,6 +49,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         public double Calculate(List<Item> items)
         {
             var amount = ItemsTool.GetAmount(items);
+
             if (Points / amount > 0.3)
             {
                 return amount * 0.3;
@@ -93,6 +93,10 @@ namespace ObjectOrientedPractics.Model.Discounts
             Points = 0;
         }
 
+        /// <summary>
+        /// Создает экзепляр класса <see cref="PointsDiscount"/>.
+        /// </summary>
+        /// <param name="points">Размер накопительных баллов.</param>
         [JsonConstructor]
         private PointsDiscount(int points)
         {

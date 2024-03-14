@@ -10,5 +10,5 @@
   - *Vk:* [inittose](https://vk.com/inittose)
 
 ## UML-диаграмма
-**4 лабораторная работа:**
-![Practics1](/doc/Practics4.png)
+**5 лабораторная работа:**
+![Practics1](/doc/Practics5.png)

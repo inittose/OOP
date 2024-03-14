@@ -1,7 +1,6 @@
 ﻿using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Model.Orders;
-using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -85,6 +84,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateCartItems(Cart cart)
         {
             var linkedItems = new List<Item>();
+
             foreach (var cartItem in cart.Items)
             {
                 foreach (var item in Items)
@@ -156,8 +156,11 @@ namespace ObjectOrientedPractics.View.Tabs
             CartListBox.Enabled = cartsData.Count != 0;
             CartListBox.SelectedIndex = nextIndex;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
+=======
+>>>>>>> 5e19ec1 (docs(lab5): Обновил UML-диаграмму)
             UpdateAmountLabels();
         }
 
@@ -174,6 +177,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             DiscountsCheckedListBox.Items.Clear();
+
             foreach (var discount in Customers[CurrentCustomer].Discounts)
             {
                 DiscountsCheckedListBox.Items.Add(discount.Info);
@@ -183,7 +187,6 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 DiscountsCheckedListBox.SetItemChecked(i, true);
             }
-            
 
 >>>>>>> e4c7eb1 (feature(lab5): Реализовал логику скидок)
             AmountLabel.Text = Customers[CurrentCustomer].Cart.Amount.ToString();
@@ -192,15 +195,20 @@ namespace ObjectOrientedPractics.View.Tabs
             TotalLabel.Text = AmountLabel.Text;
         }
 
+        /// <summary>
+        /// Обновляет текстовые данные.
+        /// </summary>
         private void UpdateAmountLabels()
         {
             DiscountAmount = 0.0;
+
             foreach (var item in DiscountsCheckedListBox.CheckedItems)
             {
                 var index = DiscountsCheckedListBox.Items.IndexOf(item);
                 DiscountAmount += Customers[CurrentCustomer].Discounts[index].Calculate(
                     Customers[CurrentCustomer].Cart.Items);
             }
+
             var amount = Customers[CurrentCustomer].Cart.Amount;
             AmountLabel.Text = amount.ToString();
             DiscountAmountLabel.Text = DiscountAmount.ToString();
@@ -226,7 +234,11 @@ namespace ObjectOrientedPractics.View.Tabs
                     Customers[CurrentCustomer].Cart.Items.Add(item);
                 }
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 5e19ec1 (docs(lab5): Обновил UML-диаграмму)
             UpdateCartListBox();
         }
 
@@ -240,7 +252,6 @@ namespace ObjectOrientedPractics.View.Tabs
             CurrentCustomer = CustomerComboBox.SelectedIndex;
             UpdateDiscountsCheckedListBox();
             UpdateCartListBox();
-            
         }
 
         /// <summary>
@@ -282,6 +293,10 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateCartListBox();
         }
 
+        /// <summary>
+        /// Обновляет скидки покупателя по заданому списку товаров.
+        /// </summary>
+        /// <param name="items">Список товаров.</param>
         private void UpdateCustomerDiscounts(List<Item> items)
         {
             foreach (var discount in Customers[CurrentCustomer].Discounts)
@@ -290,6 +305,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 {
                     discount.Apply(items);
                 }
+
                 discount.Update(items);
             }
         }
@@ -313,7 +329,11 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 items.Add(new Item(item));
             }
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 5e19ec1 (docs(lab5): Обновил UML-диаграмму)
             if (Customers[CurrentCustomer].IsPriority)
             {
                 order = new PriorityOrder(
@@ -338,6 +358,12 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateCartListBox();
         }
 
+        /// <summary>
+        /// Событие при изменении выбора или состояния элемента в 
+        /// <see cref="DiscountsCheckedListBox"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void DiscountsCheckedListBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             UpdateAmountLabels();

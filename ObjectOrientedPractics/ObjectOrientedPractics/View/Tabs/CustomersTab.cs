@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model.Discounts;
-using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
 using ObjectOrientedPractics.View.Pop_ups;
 
@@ -61,6 +60,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
+
             UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
         }
 
@@ -71,6 +71,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateDiscountsListBox(Customer customer)
         {
             DiscountsListBox.Items.Clear();
+
             foreach (var discount in customer.Discounts)
             {
                 DiscountsListBox.Items.Add(discount.Info);
@@ -83,6 +84,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateCustomersListBox()
         {
             CustomersListBox.Items.Clear();
+
             foreach (var customer in Customers)
             {
                 CustomersListBox.Items.Add(customer.FullName);
@@ -104,7 +106,11 @@ namespace ObjectOrientedPractics.View.Tabs
 =======
             DiscountsListBox.Enabled = isSelectedIndexCorrect;
             AddDiscountButton.Enabled = isSelectedIndexCorrect;
+<<<<<<< HEAD
 >>>>>>> e67ac86 (feature(lab5): Реализовал логику добавления скидки)
+=======
+
+>>>>>>> 5e19ec1 (docs(lab5): Обновил UML-диаграмму)
             if (isSelectedIndexCorrect)
             {
                 IdTextBox.Text = Customers[CustomersListBox.SelectedIndex].Id.ToString();
@@ -279,10 +285,12 @@ namespace ObjectOrientedPractics.View.Tabs
         private void AddDiscountButton_Click(object sender, EventArgs e)
         {
             var addDiscountPopUp = new AddDiscountPopUp(Customers[CustomersListBox.SelectedIndex]);
+
             if (addDiscountPopUp.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
+
             var discount = new PercentDiscount(addDiscountPopUp.Category);
             Customers[CustomersListBox.SelectedIndex].Discounts.Add(discount);
             UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
@@ -299,6 +307,7 @@ namespace ObjectOrientedPractics.View.Tabs
             Customers[CustomersListBox.SelectedIndex].Discounts.RemoveAt(
                 DiscountsListBox.SelectedIndex);
             UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
+
             if (removedIndex >= DiscountsListBox.Items.Count)
             {
                 DiscountsListBox.SelectedIndex = removedIndex - 1;

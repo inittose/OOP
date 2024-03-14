@@ -80,7 +80,6 @@ namespace ObjectOrientedPractics.Model
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров заказа.</param>
-        /// <param name="creationDate">Дата создания заказа.</param>
         public Order(OrderStatus status, Address address, List<Item> items)
         {
             _id = IdGenerator.GetNextId();

@@ -21,10 +21,12 @@ namespace ObjectOrientedPractics.Services
             }
 
             var total = 0f;
+
             foreach (var item in items)
             {
                 total += item.Cost;
             }
+
             return total;
         }
     }

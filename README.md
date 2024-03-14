@@ -9,12 +9,6 @@
   - *Telegram:* [@inittose](https://t.me/inittose)
   - *Vk:* [inittose](https://vk.com/inittose)
 
-## UML-диаграммы
-**1 лабораторная работа:**
-![Practics1](/doc/Practics1.png)
-
-**2 лабораторная работа:**
-![Practics1](/doc/Practics2.png)
-
-**3 лабораторная работа:**
-![Practics1](/doc/Practics3.png)
+## UML-диаграмма
+**4 лабораторная работа:**
+![Practics1](/doc/Practics4.png)

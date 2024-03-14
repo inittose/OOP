@@ -70,6 +70,7 @@ namespace ObjectOrientedPractics.View.Tabs
                     }
                 }
             }
+
             cart.Items = linkedItems;
         }
 
@@ -121,6 +122,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             var cartsData = new List<string>();
+
             foreach (var item in Customers[CurrentCustomer].Cart.Items)
             {
                 cartsData.Add(item.Name);
@@ -129,7 +131,6 @@ namespace ObjectOrientedPractics.View.Tabs
             CartListBox.DataSource = cartsData;
             CartListBox.Enabled = cartsData.Count != 0;
             CartListBox.SelectedIndex = nextIndex;
-
             AmountLabel.Text = Customers[CurrentCustomer].Cart.Amount.ToString();
         }
 
@@ -153,7 +154,6 @@ namespace ObjectOrientedPractics.View.Tabs
                 }
             }
 
-            
             UpdateCartListBox();
         }
 
@@ -179,6 +179,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
+
             var selectedIndex = CartListBox.SelectedIndex;
             Customers[CurrentCustomer].Cart.Items.RemoveAt(selectedIndex);
 
@@ -219,16 +220,27 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             var items = new List<Item>();
+            Order order;
 
-            foreach(var item in Customers[CurrentCustomer].Cart.Items)
+            foreach (var item in Customers[CurrentCustomer].Cart.Items)
             {
                 items.Add(new Item(item));
             }
-
-            var order = new Order(
-                OrderStatus.New, 
-                Customers[CurrentCustomer].Address,
-                items);
+            
+            if (Customers[CurrentCustomer].IsPriority)
+            {
+                order = new PriorityOrder(
+                    OrderStatus.New,
+                    Customers[CurrentCustomer].Address,
+                    items); 
+            }
+            else
+            {
+                order = new Order(
+                    OrderStatus.New,
+                    Customers[CurrentCustomer].Address,
+                    items);
+            }
 
             Customers[CurrentCustomer].Orders.Add(order);
             Customers[CurrentCustomer].Cart.Items.Clear();

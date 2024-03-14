@@ -25,6 +25,7 @@ namespace ObjectOrientedPractics.View.Tabs
             set
             {
                 _customers = value;
+
                 if (value != null)
                 {
                     UpdateCustomersListBox();
@@ -48,6 +49,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateCustomersListBox()
         {
             CustomersListBox.Items.Clear();
+
             foreach (var customer in Customers)
             {
                 CustomersListBox.Items.Add(customer.FullName);
@@ -63,17 +65,21 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             var isSelectedIndexCorrect = selectedIndex >= 0;
             FullNameTextBox.Enabled = isSelectedIndexCorrect;
+            IsPriorityCheckBox.Enabled = isSelectedIndexCorrect;
+
             if (isSelectedIndexCorrect)
             {
                 IdTextBox.Text = Customers[CustomersListBox.SelectedIndex].Id.ToString();
                 FullNameTextBox.Text = Customers[CustomersListBox.SelectedIndex].FullName;
                 AddressControl.Address = Customers[CustomersListBox.SelectedIndex].Address;
+                IsPriorityCheckBox.Checked = Customers[CustomersListBox.SelectedIndex].IsPriority;
             }
             else
             {
                 FullNameTextBox.Text = string.Empty;
                 IdTextBox.Text = string.Empty;
                 AddressControl.Address = null;
+                IsPriorityCheckBox.Checked = false;
             }
         }
 
@@ -122,16 +128,19 @@ namespace ObjectOrientedPractics.View.Tabs
         private void RemoveButton_Click(object sender, EventArgs e)
         {
             var removeIndex = CustomersListBox.SelectedIndex;
+
             if (removeIndex < 0)
             {
                 return;
             }
 
             IdGenerator.ReleaseId(Customers[removeIndex].Id);
+
             foreach(var order in Customers[removeIndex].Orders)
             {
                 IdGenerator.ReleaseId(order.Id);
             }
+
             CustomersListBox.Items.RemoveAt(removeIndex);
             Customers.RemoveAt(removeIndex);
 
@@ -163,7 +172,9 @@ namespace ObjectOrientedPractics.View.Tabs
                 FullNameTextBox.BackColor = AppColors.RightInputColor;
                 return;
             }
+
             var currentColor = AppColors.WrongInputColor;
+
             if (FullNameTextBox.Text.Length == 0)
             {
                 WrongFullNameLabel.Text = "Full name must consist of characters.";
@@ -178,6 +189,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 WrongFullNameLabel.Text = string.Empty;
                 currentColor = AppColors.RightInputColor;
             }
+
             FullNameTextBox.BackColor = currentColor;
         }
 
@@ -192,6 +204,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
+
             if (FullNameTextBox.BackColor == AppColors.RightInputColor)
             {
                 Customers[CustomersListBox.SelectedIndex].FullName = FullNameTextBox.Text;
@@ -201,6 +214,21 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 FullNameTextBox.Text = Customers[CustomersListBox.SelectedIndex].FullName;
             }
+        }
+
+        /// <summary>
+        /// Событие при смене выбора в <see cref="IsPriorityCheckBox"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void IsPriorityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CustomersListBox.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            Customers[CustomersListBox.SelectedIndex].IsPriority = IsPriorityCheckBox.Checked;
         }
     }
 }

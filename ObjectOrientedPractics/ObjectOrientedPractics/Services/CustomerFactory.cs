@@ -25,19 +25,18 @@ namespace ObjectOrientedPractics.Services
         private const int MAX_POST_INDEX = 999999;
 
         /// <summary>
-        /// Путь до базы данных покупателей.
+        /// Возвращает путь до базы данных покупателей.
         /// </summary>
         private static string FileName { get; } = $@"..\..\Services\Databases\CustomersData.txt";
 
         /// <summary>
-        /// Возвращает экзепляр класса <see cref="Customer"/> с начальными случайными значениями.
+        /// Создает экзепляр класса <see cref="Customer"/> с начальными случайными значениями.
         /// </summary>
         /// <returns>Экзепляр класса <see cref="Customer"/>.</returns>
         public static Customer GetRandomCustomer()
         {
             var random = new Random();
             var randomIndex = random.Next(0, MAX_ROWS);
-
             var randomData = File.ReadAllLines(FileName)[randomIndex].Split('\t');
             var customerFullName = randomData[0] + ' ' +  randomData[1];
             var address = randomData[2].Split(',');

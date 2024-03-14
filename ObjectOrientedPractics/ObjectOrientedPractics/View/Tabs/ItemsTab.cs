@@ -25,6 +25,7 @@ namespace ObjectOrientedPractics.View.Tabs
             set
             {
                 _items = value;
+
                 if (value != null)
                 {
                     UpdateItemsListBox();
@@ -53,6 +54,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateItemsListBox()
         {
             ItemsListBox.Items.Clear();
+
             foreach (var item in Items) 
             {
                 ItemsListBox.Items.Add(item.Name);
@@ -71,6 +73,7 @@ namespace ObjectOrientedPractics.View.Tabs
             NameTextBox.Enabled = isSelectedIndexCorrect;
             DescriptionTextBox.Enabled = isSelectedIndexCorrect;
             CategoryComboBox.Enabled = isSelectedIndexCorrect;
+
             if (isSelectedIndexCorrect)
             {
                 NameTextBox.Text = Items[ItemsListBox.SelectedIndex].Name;
@@ -111,6 +114,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void RemoveButton_Click(object sender, EventArgs e)
         {
             var removeIndex = ItemsListBox.SelectedIndex;
+
             if (removeIndex == -1)
             {
                 return;
@@ -119,6 +123,7 @@ namespace ObjectOrientedPractics.View.Tabs
             IdGenerator.ReleaseId(Items[removeIndex].Id);
             ItemsListBox.Items.RemoveAt(removeIndex);
             Items.RemoveAt(removeIndex);
+
             if (ItemsListBox.Items.Count <= 0)
             {
                 return;
@@ -170,8 +175,10 @@ namespace ObjectOrientedPractics.View.Tabs
                 CostTextBox.BackColor = AppColors.RightInputColor;
                 return;
             }
+
             var currentColor = AppColors.WrongInputColor;
             var getParse = 0f;
+
             if (!float.TryParse(CostTextBox.Text, out getParse))
             {
                 WrongCostLabel.Text = "Cost must be a float number.";
@@ -189,6 +196,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 WrongCostLabel.Text = string.Empty;
                 currentColor = AppColors.RightInputColor;
             }
+
             CostTextBox.BackColor = currentColor;
         }
 
@@ -205,7 +213,9 @@ namespace ObjectOrientedPractics.View.Tabs
                 NameTextBox.BackColor = AppColors.RightInputColor;
                 return;
             }
+
             var currentColor = AppColors.WrongInputColor;
+
             if (NameTextBox.Text.Length == 0)
             {
                 WrongNameLabel.Text = "Name must consist of characters.";
@@ -220,6 +230,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 WrongNameLabel.Text = string.Empty;
                 currentColor = AppColors.RightInputColor;
             }
+
             NameTextBox.BackColor = currentColor;
         }
 
@@ -236,7 +247,9 @@ namespace ObjectOrientedPractics.View.Tabs
                 DescriptionTextBox.BackColor = AppColors.RightInputColor;
                 return;
             }
+
             var currentColor = AppColors.WrongInputColor;
+
             if (DescriptionTextBox.Text.Length > Item.INFO_LENGTH_LIMIT)
             {
                 WrongDescriptionLabel.Text = 
@@ -247,6 +260,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 WrongDescriptionLabel.Text = string.Empty;
                 currentColor = AppColors.RightInputColor;
             }
+
             DescriptionTextBox.BackColor = currentColor;
         }
 
@@ -261,6 +275,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
+
             if (NameTextBox.BackColor == AppColors.RightInputColor)
             {
                 Items[ItemsListBox.SelectedIndex].Name = NameTextBox.Text;
@@ -283,10 +298,12 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
+
             if (CostTextBox.BackColor == AppColors.RightInputColor)
             {
                 Items[ItemsListBox.SelectedIndex].Cost = float.Parse(CostTextBox.Text);
             }
+
             CostTextBox.Text = Items[ItemsListBox.SelectedIndex].Cost.ToString();
         }
 
@@ -301,6 +318,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
+
             if (DescriptionTextBox.BackColor == AppColors.RightInputColor)
             {
                 Items[ItemsListBox.SelectedIndex].Info = DescriptionTextBox.Text;
@@ -322,6 +340,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 return;
             }
+
             Items[ItemsListBox.SelectedIndex].Category = (Category)CategoryComboBox.SelectedIndex;
         }
     }

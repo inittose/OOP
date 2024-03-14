@@ -14,12 +14,12 @@ namespace ObjectOrientedPractics.Model
         public List<int> BusyIds { get; set; } = new List<int>();
 
         /// <summary>
-        /// Список товаров класса <see cref="Customer"/>.
+        /// Возвращает и задает список товаров класса <see cref="Customer"/>.
         /// </summary>
         public List<Item> Items { get; set; } = new List<Item>();
 
         /// <summary>
-        /// Список покупателей класса <see cref="Customer"/>.
+        /// Возвращает и задает список покупателей класса <see cref="Customer"/>.
         /// </summary>
         public List<Customer> Customers { get; set; } = new List<Customer>();
 

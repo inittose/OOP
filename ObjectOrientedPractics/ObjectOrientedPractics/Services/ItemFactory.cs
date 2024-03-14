@@ -15,7 +15,7 @@ namespace ObjectOrientedPractics.Services
         private const int MAX_ROWS = 100;
 
         /// <summary>
-        /// Путь до базы данных товаров.
+        /// Возвращает путь до базы данных товаров.
         /// </summary>
         private static string FileName { get; } = $@"..\..\Services\Databases\ItemsData.txt";
 

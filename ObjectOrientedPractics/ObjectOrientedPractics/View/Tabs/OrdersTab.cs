@@ -30,6 +30,9 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private List<Order> Orders { get; } = new List<Order>();
 
+        /// <summary>
+        /// Возвращает и задает индекс выбранного заказа.
+        /// </summary>
         private int SelectedIndex
         {
             get => _selectedIndex;
@@ -49,6 +52,7 @@ namespace ObjectOrientedPractics.View.Tabs
             set
             {
                 _isPriorityOrder = value;
+
                 if (value)
                 {
                     PriorityOprionPanel.Visible = value;
@@ -99,7 +103,6 @@ namespace ObjectOrientedPractics.View.Tabs
                 foreach (var order in customer.Orders)
                 {
                     Orders.Add(order);
-
                     var index = OrdersDataGridView.Rows.Add( 
                         "", order.Id, order.CreationDate, order.Status, customer.FullName,
                         address, order.Amount);
@@ -120,10 +123,12 @@ namespace ObjectOrientedPractics.View.Tabs
         private List<string> GetItemNames(List<Item> items)
         {
             var itemNames = new List<string>();
+
             foreach (var item in items)
             {
                 itemNames.Add(item.Name);
             }
+
             return itemNames;
         }
 

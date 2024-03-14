@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 using ObjectOrientedPractics.Model;
 
@@ -11,14 +12,14 @@ namespace ObjectOrientedPractics.Services
     public static class Serializer
     {
         /// <summary>
-        /// Путь до файла сериализации.
+        /// Возвращает путь до файла сериализации.
         /// </summary>
         private static string FilePath { get; } = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "ObjectOrientedPractics\\Serialization.json");
 
         /// <summary>
-        /// Данные о товарах и покупателях в json формате.
+        /// Возвращает и задает данные о товарах и покупателях в json формате.
         /// </summary>
         private static string StoreJson { get; set; } = string.Empty;
 
@@ -50,10 +51,21 @@ namespace ObjectOrientedPractics.Services
             }
             else
             {
-                return JsonConvert.DeserializeObject<Store>(StoreJson, new JsonSerializerSettings
+                try
                 {
-                    TypeNameHandling = TypeNameHandling.All
-                });
+                    return JsonConvert.DeserializeObject<Store>(
+                        StoreJson, 
+                        new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    });
+                }
+                catch
+                {
+                    StoreJson = string.Empty;
+                    MessageBox.Show("Данные повреждены.\nФайлы сохранения очищены.");
+                    return new Store();
+                }
             }
         }
 

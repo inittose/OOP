@@ -9,12 +9,12 @@ namespace ObjectOrientedPractics.Services
     public static class AppColors
     {
         /// <summary>
-        /// Цвет <see cref="TextBox"/>, успешно прошедшего валидацию. 
+        /// Возвращает цвет <see cref="TextBox"/>, успешно прошедшего валидацию. 
         /// </summary>
         public static Color RightInputColor { get; } = Color.White;
 
         /// <summary>
-        /// Цвет <see cref="TextBox"/>, неудачно прошедшего валидацию. 
+        /// Возвращает цвет <see cref="TextBox"/>, неудачно прошедшего валидацию. 
         /// </summary>
         public static Color WrongInputColor { get; } = Color.LightPink;
     }

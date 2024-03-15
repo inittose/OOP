@@ -333,8 +333,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Событие при изменении выбора в списке категорий товара.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ItemsListBox.SelectedIndex < 0)
@@ -343,6 +343,19 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             Items[ItemsListBox.SelectedIndex].Category = (Category)CategoryComboBox.SelectedIndex;
+        }
+
+        /// <summary>
+        /// Событие при изменении текста в текстовом поле поиска товаров.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void FindTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (FindTextBox.Text.Length == 0)
+            {
+
+            }
         }
     }
 }

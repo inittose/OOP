@@ -68,6 +68,7 @@
     <Compile Include="Model\Store.cs" />
     <Compile Include="Services\AppColors.cs" />
     <Compile Include="Services\CustomerFactory.cs" />
+    <Compile Include="Services\DataTools.cs" />
     <Compile Include="Services\IdGenerator.cs" />
     <Compile Include="Services\ItemFactory.cs" />
     <Compile Include="Services\ItemsTool.cs" />

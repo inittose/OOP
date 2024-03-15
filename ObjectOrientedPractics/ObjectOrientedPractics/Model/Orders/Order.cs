@@ -9,7 +9,7 @@ namespace ObjectOrientedPractics.Model.Orders
     /// <summary>
     /// Хранит данные о заказе.
     /// </summary>
-    public class Order
+    public class Order : IEquatable<Order>
     {
         /// <summary>
         /// Уникальный индентификатор заказа.
@@ -118,6 +118,26 @@ namespace ObjectOrientedPractics.Model.Orders
         {
             _id = id;
             DiscountAmount = discountAmount;
+        }
+
+        /// <summary>
+        /// Проверяет равенство исходного объект с передаваемым.
+        /// </summary>
+        /// <param name="other">Объект класса <see cref="Order"/>.</param>
+        /// <returns>Возвращает булевое значение, равны ли объекты.</returns>
+        public bool Equals(Order other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return this.Id == other.Id;
         }
     }
 }

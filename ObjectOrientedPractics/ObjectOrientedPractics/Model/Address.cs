@@ -1,11 +1,12 @@
 ﻿using ObjectOrientedPractics.Services;
+using System;
 
 namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Хранит данные об адресе доставки.
     /// </summary>
-    public class Address
+    public class Address : ICloneable, IEquatable<Address>
     {
         /// <summary>
         /// Разряд почтового индекса.
@@ -187,6 +188,48 @@ namespace ObjectOrientedPractics.Model
             Street = street;
             Building = building;
             Apartment = apartment;
+        }
+
+        /// <summary>
+        /// Создает копию объекта <see cref="Address"/>.
+        /// </summary>
+        /// <returns>Копия объекта в <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return new Address(
+                this.Index, 
+                this.Country, 
+                this.City, 
+                this.Street, 
+                this.Building, 
+                this.Apartment);
+        }
+
+        /// <summary>
+        /// Проверяет равенство исходного объект с передаваемым.
+        /// </summary>
+        /// <param name="other">Объект класса <see cref="Address"/>.</param>
+        /// <returns>Возвращает булевое значение, равны ли объекты.</returns>
+        public bool Equals(Address other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            var result = this.Index == other.Index;
+            result &= this.Country == other.Country;
+            result &= this.City == other.City;
+            result &= this.Street == other.Street;
+            result &= this.Building == other.Building;
+            result &= this.Apartment == other.Apartment;
+
+            return result;
         }
     }
 }

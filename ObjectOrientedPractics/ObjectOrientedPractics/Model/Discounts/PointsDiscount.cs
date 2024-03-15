@@ -8,7 +8,7 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// <summary>
     /// Хранит и вычисляет данные о накопительных баллах.
     /// </summary>
-    public class PointsDiscount : IDiscount
+    public class PointsDiscount : IDiscount, IComparable<PointsDiscount>
     {
         /// <summary>
         /// Накопительные баллы.
@@ -101,6 +101,31 @@ namespace ObjectOrientedPractics.Model.Discounts
         private PointsDiscount(int points)
         {
             Points = points;
+        }
+
+        /// <summary>
+        /// Сравнивает исходный объект с передаваемым.
+        /// </summary>
+        /// <param name="other">Объект класса <see cref="PointsDiscount"/>.</param>
+        /// <returns>
+        /// 0 - Если баллы равны;
+        /// 1 - Если у исходного объекта баллов больше;
+        /// -1 - Если у передаваемого объекта баллов больше.
+        /// </returns>
+        public int CompareTo(PointsDiscount other)
+        {
+            if (this.Points == other.Points)
+            {
+                return 0;
+            }
+            else if (this.Points > other.Points)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
         }
     }
 }

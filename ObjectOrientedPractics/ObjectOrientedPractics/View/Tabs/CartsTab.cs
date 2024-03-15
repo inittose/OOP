@@ -315,7 +315,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             foreach (var item in Customers[CurrentCustomer].Cart.Items)
             {
-                items.Add(new Item(item));
+                items.Add((Item)item.Clone());
             }
 
             if (Customers[CurrentCustomer].IsPriority)

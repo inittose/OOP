@@ -2,8 +2,9 @@
 using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
+using ObjectOrientedPractics.Model.Enums;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Хранит данные о заказе.
@@ -53,6 +54,11 @@ namespace ObjectOrientedPractics.Model
         public List<Item> Items { get; set; }
 
         /// <summary>
+        /// Суммарная скидка заказа.
+        /// </summary>
+        public double DiscountAmount { get; }
+
+        /// <summary>
         /// Возвращает общую стоимость товаров в заказе.
         /// </summary>
         public float Amount
@@ -60,6 +66,17 @@ namespace ObjectOrientedPractics.Model
             get
             {
                 return ItemsTool.GetAmount(Items);
+            }
+        }
+
+        /// <summary>
+        /// Возращает конечную стоимость заказа.
+        /// </summary>
+        public double Total
+        {
+            get
+            {
+                return Amount - DiscountAmount;
             }
         }
 
@@ -72,6 +89,7 @@ namespace ObjectOrientedPractics.Model
             Status = OrderStatus.New;
             Address = new Address();
             Items = new List<Item>();
+            DiscountAmount = 0;
         }
 
         /// <summary>
@@ -80,23 +98,26 @@ namespace ObjectOrientedPractics.Model
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров заказа.</param>
-        /// <param name="creationDate">Дата создания заказа.</param>
-        public Order(OrderStatus status, Address address, List<Item> items)
+        /// <param name="discountAmount">Размер скидки заказа.</param>
+        public Order(OrderStatus status, Address address, List<Item> items, double discountAmount)
         {
             _id = IdGenerator.GetNextId();
             Status = status;
             Address = address;
             Items = items;
+            DiscountAmount = discountAmount;
         }
 
         /// <summary>
         /// Создает экзепляр класса <see cref="Order"/>.
         /// </summary>
         /// <param name="id">Уникальный идентификатор.</param>
+        /// <param name="discountAmount">Размер скидки.</param>
         [JsonConstructor]
-        public Order(int id)
+        public Order(int id, double discountAmount)
         {
             _id = id;
+            DiscountAmount = discountAmount;
         }
     }
 }

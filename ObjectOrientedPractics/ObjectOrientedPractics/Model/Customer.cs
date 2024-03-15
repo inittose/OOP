@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using ObjectOrientedPractics.Services;
 using System.Collections.Generic;
+using ObjectOrientedPractics.Model.Orders;
+using ObjectOrientedPractics.Model.Discounts;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -68,6 +70,16 @@ namespace ObjectOrientedPractics.Model
         public List<Order> Orders { get; set; } = new List<Order>();
 
         /// <summary>
+        /// Возвращает и задает флаг, приоритетный ли покупатель.
+        /// </summary>
+        public bool IsPriority { get; set; } = false;
+
+        /// <summary>
+        /// Возвращает и задает скидки покупателя.
+        /// </summary>
+        public List<IDiscount> Discounts { get; set; }
+
+        /// <summary>
         /// Создает экземпляр класса <see cref="Customer"/>.
         /// </summary>
         public Customer()
@@ -75,6 +87,8 @@ namespace ObjectOrientedPractics.Model
             _id = IdGenerator.GetNextId();
             FullName = string.Empty;
             Address = new Address();
+            Discounts = new List<IDiscount>();
+            Discounts.Add(new PointsDiscount());
         }
 
         /// <summary>
@@ -92,6 +106,8 @@ namespace ObjectOrientedPractics.Model
             _id = IdGenerator.GetNextId();
             FullName = fullname;
             Address = address;
+            Discounts = new List<IDiscount>();
+            Discounts.Add(new PointsDiscount());
         }
 
         /// <summary>

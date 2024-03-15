@@ -9,7 +9,7 @@ namespace ObjectOrientedPractics.Model
     public class Cart
     {
         /// <summary>
-        /// Список товаров <see cref="Item"/> в корзине.
+        /// Возвращает и задает cписок товаров <see cref="Item"/> в корзине.
         /// </summary>
         public List<Item> Items { get; set; } = new List<Item>();
 

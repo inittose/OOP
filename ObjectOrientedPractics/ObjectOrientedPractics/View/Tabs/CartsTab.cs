@@ -155,12 +155,6 @@ namespace ObjectOrientedPractics.View.Tabs
             CartListBox.DataSource = cartsData;
             CartListBox.Enabled = cartsData.Count != 0;
             CartListBox.SelectedIndex = nextIndex;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-=======
->>>>>>> 5e19ec1 (docs(lab5): Обновил UML-диаграмму)
             UpdateAmountLabels();
         }
 
@@ -188,7 +182,6 @@ namespace ObjectOrientedPractics.View.Tabs
                 DiscountsCheckedListBox.SetItemChecked(i, true);
             }
 
->>>>>>> e4c7eb1 (feature(lab5): Реализовал логику скидок)
             AmountLabel.Text = Customers[CurrentCustomer].Cart.Amount.ToString();
             DiscountsCheckedListBox.Enabled = true;
             DiscountAmountLabel.Text = "0";
@@ -234,11 +227,6 @@ namespace ObjectOrientedPractics.View.Tabs
                     Customers[CurrentCustomer].Cart.Items.Add(item);
                 }
             }
-<<<<<<< HEAD
-
-=======
-            
->>>>>>> 5e19ec1 (docs(lab5): Обновил UML-диаграмму)
             UpdateCartListBox();
         }
 
@@ -329,11 +317,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 items.Add(new Item(item));
             }
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> 5e19ec1 (docs(lab5): Обновил UML-диаграмму)
             if (Customers[CurrentCustomer].IsPriority)
             {
                 order = new PriorityOrder(

@@ -21,9 +21,9 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Возвращает и задает список покупателей класса <see cref="Customer"/>.
         /// </summary>
-        public List<Customer> Customers 
-        { 
-            get => _customers; 
+        public List<Customer> Customers
+        {
+            get => _customers;
             set
             {
                 _customers = value;
@@ -50,13 +50,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         public void UpdateDiscountsListBox()
         {
-<<<<<<< HEAD
-            CustomersListBox.Items.Clear();
-
-            foreach (var customer in Customers)
-=======
             if (CustomersListBox.SelectedIndex < 0)
->>>>>>> e4c7eb1 (feature(lab5): Реализовал логику скидок)
             {
                 return;
             }
@@ -101,16 +95,9 @@ namespace ObjectOrientedPractics.View.Tabs
             var isSelectedIndexCorrect = selectedIndex >= 0;
             FullNameTextBox.Enabled = isSelectedIndexCorrect;
             IsPriorityCheckBox.Enabled = isSelectedIndexCorrect;
-<<<<<<< HEAD
-
-=======
             DiscountsListBox.Enabled = isSelectedIndexCorrect;
             AddDiscountButton.Enabled = isSelectedIndexCorrect;
-<<<<<<< HEAD
->>>>>>> e67ac86 (feature(lab5): Реализовал логику добавления скидки)
-=======
 
->>>>>>> 5e19ec1 (docs(lab5): Обновил UML-диаграмму)
             if (isSelectedIndexCorrect)
             {
                 IdTextBox.Text = Customers[CustomersListBox.SelectedIndex].Id.ToString();
@@ -182,7 +169,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             IdGenerator.ReleaseId(Customers[removeIndex].Id);
 
-            foreach(var order in Customers[removeIndex].Orders)
+            foreach (var order in Customers[removeIndex].Orders)
             {
                 IdGenerator.ReleaseId(order.Id);
             }
@@ -227,7 +214,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             else if (FullNameTextBox.Text.Length > Customer.FULLNAME_LENGTH_LIMIT)
             {
-                WrongFullNameLabel.Text = 
+                WrongFullNameLabel.Text =
                     $"Full name must be no more than {Customer.FULLNAME_LENGTH_LIMIT} characters.";
             }
             else

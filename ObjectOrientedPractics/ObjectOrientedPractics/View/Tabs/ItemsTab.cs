@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model.Enums;
@@ -36,6 +35,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 if (Items != null)
                 {
                     UpdateDisplayedItems();
+                    OrderByComboBox.SelectedIndex = 0;
                 }
             }
         }
@@ -58,6 +58,16 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
+        /// Возвращает и задает делигат критерия сортировки.
+        /// </summary>
+        private DataTools.CompareProperties SortCompare { get; set; }
+
+        /// <summary>
+        /// Возвращает и задает делигат критерия фильтрации.
+        /// </summary>
+        private Predicate<Item> FilterCompare { get; set; }
+
+        /// <summary>
         /// Инициализирует компонент, 
         /// убирает ошибки валидации и загружает сохраненные товары.
         /// </summary>
@@ -76,15 +86,22 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Обновить список товаров, который будет выведен на экран.
         /// </summary>
         /// <param name="compare">Метод критерия проверки товаров.</param>
-        private void UpdateDisplayedItems(Predicate<Item> compare = null)
+        private void UpdateDisplayedItems()
         {
-            if (compare == null)
+            var displayedItems = Items;
+
+            if (FilterCompare != null)
             {
-                DisplayedItems = Items;
-                return;
+                displayedItems = DataTools.FilterItems(displayedItems, FilterCompare);
             }
 
-            DisplayedItems = DataTools.FilterItems(Items, compare);
+            if (SortCompare != null)
+            {
+                displayedItems = DataTools.SortItems(displayedItems, SortCompare);
+            }
+
+            DisplayedItems = displayedItems;
+            SetTextBoxes();
         }
             
 
@@ -93,12 +110,15 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void UpdateItemsListBox()
         {
+            var selectedItem = ItemsListBox.SelectedItem;
             ItemsListBox.Items.Clear();
 
             foreach (var item in DisplayedItems) 
             {
                 ItemsListBox.Items.Add(item);
             }
+
+            ItemsListBox.SelectedItem = selectedItem;
         }
 
         /// <summary>
@@ -144,6 +164,7 @@ namespace ObjectOrientedPractics.View.Tabs
             newItem.Name = $"Item{newItem.Id}";
             Items.Add(newItem);
             ItemsListBox.Items.Add(newItem);
+            UpdateDisplayedItems();
             ItemsListBox.SelectedItem = newItem;
         }
 
@@ -182,6 +203,7 @@ namespace ObjectOrientedPractics.View.Tabs
             var newItem = ItemFactory.GetRandomItem();
             Items.Add(newItem);
             ItemsListBox.Items.Add(newItem);
+            UpdateDisplayedItems();
             ItemsListBox.SelectedItem = newItem;
         }
 
@@ -320,8 +342,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 NameTextBox.Text = selectedItem.Name;
             }
 
-            UpdateItemsListBox();
-            ItemsListBox.SelectedItem = selectedItem;
+            UpdateDisplayedItems();
         }
 
         /// <summary>
@@ -344,6 +365,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             CostTextBox.Text = selectedItem.Cost.ToString();
+            UpdateDisplayedItems();
         }
 
         /// <summary>
@@ -395,13 +417,50 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (FindTextBox.Text.Length == 0)
             {
-                UpdateDisplayedItems();
+                FilterCompare = null;
             }
             else
             {
-                UpdateDisplayedItems(
-                    (item) => { return item.Name.Contains(FindTextBox.Text); });
+                FilterCompare = (item) => { return item.Name.Contains(FindTextBox.Text); };
             }
+
+            UpdateDisplayedItems();
+        }
+
+        /// <summary>
+        /// Событие при изменении выбора в списке сортировок товара.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void OrderByComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch(OrderByComboBox.SelectedIndex)
+            {
+                case 0:
+                    SortCompare = (firstItem, secondItem) =>
+                    {
+                        return firstItem.Name.CompareTo(secondItem.Name) < 0;
+                    };
+
+                    break;
+                case 1:
+                    SortCompare = (firstItem, secondItem) =>
+                    {
+                        return firstItem.Cost.CompareTo(secondItem.Cost) < 0;
+                    };
+
+                    break;
+                case 2:
+                    SortCompare = (firstItem, secondItem) =>
+                    {
+                        return firstItem.Cost.CompareTo(secondItem.Cost) > 0;
+                    };
+
+                    break;
+            }
+
+            var selectedItem = ItemsListBox.SelectedItem;
+            UpdateDisplayedItems();
         }
     }
 }

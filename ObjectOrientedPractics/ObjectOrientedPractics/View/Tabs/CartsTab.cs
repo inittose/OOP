@@ -64,6 +64,7 @@ namespace ObjectOrientedPractics.View.Tabs
             UpdateItemsListBox();
             UpdateCustomersComboBox();
             UpdateCartListBox();
+            DiscountsCheckedListBox.Items.Clear();
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractics.Model;
+using System;
 using System.Collections.Generic;
 
 namespace ObjectOrientedPractics.Services
@@ -21,7 +22,7 @@ namespace ObjectOrientedPractics.Services
         /// <param name="items">Список товаров <see cref="List{Item}"/>.</param>
         /// <param name="compare">Метод критерия <see cref="CompareProperties"/>.</param>
         /// <returns>Отфильтрованный список товаров.</returns>
-        public static List<Item> FilterItems(List<Item> items, CompareProperties compare)
+        public static List<Item> FilterItems(List<Item> items, Predicate<Item> compare)
         {
             var filteredItems = new List<Item>();
 
@@ -33,7 +34,7 @@ namespace ObjectOrientedPractics.Services
                 }
             }
 
-            return items;
+            return filteredItems;
         }
     }
 }

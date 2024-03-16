@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model.Enums;
@@ -18,6 +19,11 @@ namespace ObjectOrientedPractics.View.Tabs
         private List<Item> _items;
 
         /// <summary>
+        /// Список товаров класса <see cref="Item"/>, выведенный на экран.
+        /// </summary>
+        private List<Item> _displayedItems;
+
+        /// <summary>
         /// Возвращает и задает список товаров класса <see cref="Item"/>.
         /// </summary>
         public List<Item> Items 
@@ -27,7 +33,24 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _items = value;
 
-                if (value != null)
+                if (Items != null)
+                {
+                    UpdateDisplayedItems();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Возвращает и задает список товаров класса <see cref="Item"/>, выведенный на экран.
+        /// </summary>
+        public List<Item> DisplayedItems
+        {
+            get => _displayedItems;
+            set
+            {
+                _displayedItems = value;
+
+                if (DisplayedItems != null)
                 {
                     UpdateItemsListBox();
                 }
@@ -46,8 +69,24 @@ namespace ObjectOrientedPractics.View.Tabs
             WrongCostLabel.Text = string.Empty;
             WrongNameLabel.Text = string.Empty;
             WrongDescriptionLabel.Text = string.Empty;
-            
+            ItemsListBox.DisplayMember = "Name";
         }
+
+        /// <summary>
+        /// Обновить список товаров, который будет выведен на экран.
+        /// </summary>
+        /// <param name="compare">Метод критерия проверки товаров.</param>
+        private void UpdateDisplayedItems(Predicate<Item> compare = null)
+        {
+            if (compare == null)
+            {
+                DisplayedItems = Items;
+                return;
+            }
+
+            DisplayedItems = DataTools.FilterItems(Items, compare);
+        }
+            
 
         /// <summary>
         /// Обновляет данные в списке товаров.
@@ -56,9 +95,9 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             ItemsListBox.Items.Clear();
 
-            foreach (var item in Items) 
+            foreach (var item in DisplayedItems) 
             {
-                ItemsListBox.Items.Add(item.Name);
+                ItemsListBox.Items.Add(item);
             }
         }
 
@@ -67,9 +106,9 @@ namespace ObjectOrientedPractics.View.Tabs
         /// в зависимости от индекса товара в списке.
         /// </summary>
         /// <param name="selectedIndex">Индекс товара в списке.</param>
-        private void SetTextBoxes(int selectedIndex)
+        private void SetTextBoxes()
         {
-            var isSelectedIndexCorrect = selectedIndex >= 0;
+            var isSelectedIndexCorrect = ItemsListBox.SelectedItem != null;
             CostTextBox.Enabled = isSelectedIndexCorrect;
             NameTextBox.Enabled = isSelectedIndexCorrect;
             DescriptionTextBox.Enabled = isSelectedIndexCorrect;
@@ -77,11 +116,12 @@ namespace ObjectOrientedPractics.View.Tabs
 
             if (isSelectedIndexCorrect)
             {
-                NameTextBox.Text = Items[ItemsListBox.SelectedIndex].Name;
-                CostTextBox.Text = Items[ItemsListBox.SelectedIndex].Cost.ToString();
-                IdTextBox.Text = Items[ItemsListBox.SelectedIndex].Id.ToString();
-                DescriptionTextBox.Text = Items[ItemsListBox.SelectedIndex].Info;
-                CategoryComboBox.SelectedIndex = (int)Items[ItemsListBox.SelectedIndex].Category;
+                var selectedItem = ItemsListBox.SelectedItem as Item;
+                NameTextBox.Text = selectedItem.Name;
+                CostTextBox.Text = selectedItem.Cost.ToString();
+                IdTextBox.Text = selectedItem.Id.ToString();
+                DescriptionTextBox.Text = selectedItem.Info;
+                CategoryComboBox.SelectedIndex = (int)selectedItem.Category;
             }
             else
             {
@@ -103,8 +143,8 @@ namespace ObjectOrientedPractics.View.Tabs
             var newItem = new Item();
             newItem.Name = $"Item{newItem.Id}";
             Items.Add(newItem);
-            ItemsListBox.Items.Add(newItem.Name);
-            ItemsListBox.SelectedIndex = ItemsListBox.Items.Count - 1;
+            ItemsListBox.Items.Add(newItem);
+            ItemsListBox.SelectedItem = newItem;
         }
 
         /// <summary>
@@ -114,30 +154,22 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-            var removeIndex = ItemsListBox.SelectedIndex;
+            var removingItem = ItemsListBox.SelectedItem as Item;
 
-            if (removeIndex == -1)
+            if (removingItem == null)
             {
                 return;
             }
 
-            IdGenerator.ReleaseId(Items[removeIndex].Id);
-            ItemsListBox.Items.RemoveAt(removeIndex);
-            Items.RemoveAt(removeIndex);
+            var nextIndex =
+                ItemsListBox.Items.IndexOf(removingItem) < ItemsListBox.Items.Count - 1 ? 
+                ItemsListBox.Items.IndexOf(removingItem):
+                ItemsListBox.Items.IndexOf(removingItem) - 1;
 
-            if (ItemsListBox.Items.Count <= 0)
-            {
-                return;
-            }
-
-            if (removeIndex < ItemsListBox.Items.Count)
-            {
-                ItemsListBox.SelectedIndex = removeIndex;
-            }
-            else
-            {
-                ItemsListBox.SelectedIndex = removeIndex - 1;
-            }
+            IdGenerator.ReleaseId(removingItem.Id);
+            ItemsListBox.Items.Remove(removingItem);
+            Items.Remove(removingItem);
+            ItemsListBox.SelectedIndex = nextIndex;
         }
 
         /// <summary>
@@ -149,8 +181,8 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             var newItem = ItemFactory.GetRandomItem();
             Items.Add(newItem);
-            ItemsListBox.Items.Add(newItem.Name);
-            ItemsListBox.SelectedIndex = ItemsListBox.Items.Count - 1;
+            ItemsListBox.Items.Add(newItem);
+            ItemsListBox.SelectedItem = newItem;
         }
 
         /// <summary>
@@ -160,7 +192,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetTextBoxes(ItemsListBox.SelectedIndex);
+            SetTextBoxes();
         }
 
         /// <summary>
@@ -272,20 +304,24 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void NameTextBox_Leave(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedIndex < 0)
+            if (ItemsListBox.SelectedItem == null)
             {
                 return;
             }
 
+            var selectedItem = ItemsListBox.SelectedItem as Item;
+
             if (NameTextBox.BackColor == AppColors.RightInputColor)
             {
-                Items[ItemsListBox.SelectedIndex].Name = NameTextBox.Text;
-                ItemsListBox.Items[ItemsListBox.SelectedIndex] = NameTextBox.Text;
+                selectedItem.Name = NameTextBox.Text;
             }
             else
             {
-                NameTextBox.Text = Items[ItemsListBox.SelectedIndex].Name;
+                NameTextBox.Text = selectedItem.Name;
             }
+
+            UpdateItemsListBox();
+            ItemsListBox.SelectedItem = selectedItem;
         }
 
         /// <summary>
@@ -300,12 +336,14 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
+            var selectedItem = ItemsListBox.SelectedItem as Item;
+
             if (CostTextBox.BackColor == AppColors.RightInputColor)
             {
-                Items[ItemsListBox.SelectedIndex].Cost = float.Parse(CostTextBox.Text);
+                selectedItem.Cost = float.Parse(CostTextBox.Text);
             }
 
-            CostTextBox.Text = Items[ItemsListBox.SelectedIndex].Cost.ToString();
+            CostTextBox.Text = selectedItem.Cost.ToString();
         }
 
         /// <summary>
@@ -320,13 +358,15 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
+            var selectedItem = ItemsListBox.SelectedItem as Item;
+
             if (DescriptionTextBox.BackColor == AppColors.RightInputColor)
             {
-                Items[ItemsListBox.SelectedIndex].Info = DescriptionTextBox.Text;
+                selectedItem.Info = DescriptionTextBox.Text;
             }
             else
             {
-                DescriptionTextBox.Text = Items[ItemsListBox.SelectedIndex].Info;
+                DescriptionTextBox.Text = selectedItem.Info;
             }
         }
 
@@ -342,7 +382,8 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
-            Items[ItemsListBox.SelectedIndex].Category = (Category)CategoryComboBox.SelectedIndex;
+            var selectedItem = ItemsListBox.SelectedItem as Item;
+            selectedItem.Category = (Category)CategoryComboBox.SelectedIndex;
         }
 
         /// <summary>
@@ -354,7 +395,12 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (FindTextBox.Text.Length == 0)
             {
-
+                UpdateDisplayedItems();
+            }
+            else
+            {
+                UpdateDisplayedItems(
+                    (item) => { return item.Name.Contains(FindTextBox.Text); });
             }
         }
     }

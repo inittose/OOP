@@ -12,32 +12,31 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Максимальное количество строк в базе данных.
         /// </summary>
-        private const int MAX_ROWS = 1000;
+        private const int MaxRows = 1000;
 
         /// <summary>
         /// Минимальное значение почтового индекса.
         /// </summary>
-        private const int MIN_POST_INDEX = 100000;
+        private const int MinPostIndex = 100000;
 
         /// <summary>
         /// Максимальное значение почтового индекса.
         /// </summary>
-        private const int MAX_POST_INDEX = 999999;
+        private const int MaxPostIndex = 999999;
 
         /// <summary>
-        /// Путь до базы данных покупателей.
+        /// Возвращает путь до базы данных покупателей.
         /// </summary>
         private static string FileName { get; } = $@"..\..\Services\Databases\CustomersData.txt";
 
         /// <summary>
-        /// Возвращает экзепляр класса <see cref="Customer"/> с начальными случайными значениями.
+        /// Создает экзепляр класса <see cref="Customer"/> с начальными случайными значениями.
         /// </summary>
         /// <returns>Экзепляр класса <see cref="Customer"/>.</returns>
         public static Customer GetRandomCustomer()
         {
             var random = new Random();
-            var randomIndex = random.Next(0, MAX_ROWS);
-
+            var randomIndex = random.Next(0, MaxRows);
             var randomData = File.ReadAllLines(FileName)[randomIndex].Split('\t');
             var customerFullName = randomData[0] + ' ' +  randomData[1];
             var address = randomData[2].Split(',');
@@ -60,7 +59,8 @@ namespace ObjectOrientedPractics.Services
         private static int GetRandomPostIndex()
         {
             var random = new Random();
-            return random.Next(MIN_POST_INDEX, MAX_POST_INDEX);
+
+            return random.Next(MinPostIndex, MaxPostIndex);
         }
     }
 }

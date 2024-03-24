@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace ObjectOrientedPractics.Services
 {
     /// <summary>
-    /// Фильтрует и сортирует данные.
+    /// Хранит логику по обработке данных.
     /// </summary>
     public static class DataTools
     {
@@ -45,12 +45,7 @@ namespace ObjectOrientedPractics.Services
         /// <returns>Отсортированный список товаров.</returns>
         public static List<Item> SortItems(List<Item> items, CompareProperties compare)
         {
-            var sortedItems = new List<Item>();
-
-            foreach (var item in items)
-            {
-                sortedItems.Add(item);
-            }
+            var sortedItems = new List<Item>(items);
 
             for (var i = 0; i < sortedItems.Count; i++)
             {

@@ -29,6 +29,7 @@ namespace ObjectOrientedPractics.Services
             }
 
             BusyIds.Add(Counter);
+
             return Counter++;
         }
 

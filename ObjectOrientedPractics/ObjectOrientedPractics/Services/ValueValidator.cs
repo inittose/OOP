@@ -29,10 +29,10 @@ namespace ObjectOrientedPractics.Services
         /// <param name="minimum">Минимальное число (нижняя граница).</param>
         /// <param name="maximum">Максимальное число (верхняя граница).</param>
         /// <param name="propertyName">Имя свойства класса.</param>
-        public static void AssertFloatOnLimits(
-            float value, 
-            float minimum, 
-            float maximum, 
+        public static void AssertDecimalOnLimits(
+            decimal value,
+            decimal minimum,
+            decimal maximum, 
             string propertyName)
         {
             if (value < minimum || value > maximum)

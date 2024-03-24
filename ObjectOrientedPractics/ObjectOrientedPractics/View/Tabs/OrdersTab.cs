@@ -59,7 +59,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 {
                     PriorityOprionPanel.Visible = value;
                     var priorityOrder = (PriorityOrder)Orders[SelectedIndex];
-                    DeliveryTimeComboBox.SelectedIndex = (int)priorityOrder.Time;
+                    DeliveryTimeComboBox.SelectedIndex = (int)priorityOrder.DeliveryTime;
                 }
                 else
                 {
@@ -212,7 +212,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             var priorityOrder = (PriorityOrder)Orders[SelectedIndex];
-            priorityOrder.Time = (OrderTime)DeliveryTimeComboBox.SelectedIndex;
+            priorityOrder.DeliveryTime = (OrderTime)DeliveryTimeComboBox.SelectedIndex;
         }
     }
 }

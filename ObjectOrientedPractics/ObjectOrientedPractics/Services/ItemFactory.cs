@@ -13,7 +13,7 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Максимальное количество строк в базе данных.
         /// </summary>
-        private const int MAX_ROWS = 100;
+        private const int MaxRows = 100;
 
         /// <summary>
         /// Возвращает путь до базы данных товаров.
@@ -27,13 +27,13 @@ namespace ObjectOrientedPractics.Services
         public static Item GetRandomItem()
         {
             var random = new Random();
-            var randomIndex = random.Next(0, MAX_ROWS);
-
+            var randomIndex = random.Next(0, MaxRows);
             var randomData = File.ReadAllLines(FileName)[randomIndex].Split('\t');
             var itemName = randomData[0];
-            var itemCost = float.Parse(randomData[1]);
+            var itemCost = decimal.Parse(randomData[1]);
             var itemInfo = randomData[2];
-            var randomCategory = (Category)random.Next(0, Enum.GetNames(typeof(Category)).Length);
+            var categoryLength = Enum.GetNames(typeof(Category)).Length;
+            var randomCategory = (Category)random.Next(0, categoryLength);
 
             return new Item(itemName, itemInfo, itemCost, randomCategory);
         }

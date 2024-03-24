@@ -232,19 +232,19 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             var currentColor = AppColors.WrongInputColor;
-            var getParse = 0f;
+            var getParse = 0M;
 
-            if (!float.TryParse(CostTextBox.Text, out getParse))
+            if (!decimal.TryParse(CostTextBox.Text, out getParse))
             {
                 WrongCostLabel.Text = "Cost must be a float number.";
             }
-            else if (getParse <= Item.MINIMUM_COST)
+            else if (getParse <= Item.MinimumCost)
             {
-                WrongCostLabel.Text = $"Cost must be greater than {Item.MINIMUM_COST}.";
+                WrongCostLabel.Text = $"Cost must be greater than {Item.MinimumCost}.";
             }
-            else if (getParse > Item.MAXIMUM_COST)
+            else if (getParse > Item.MaximumCost)
             {
-                WrongCostLabel.Text = $"Сost must be less than {Item.MAXIMUM_COST}.";
+                WrongCostLabel.Text = $"Сost must be less than {Item.MaximumCost}.";
             }
             else
             {
@@ -275,10 +275,10 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 WrongNameLabel.Text = "Name must consist of characters.";
             }
-            else if (NameTextBox.Text.Length > Item.NAME_LENGTH_LIMIT)
+            else if (NameTextBox.Text.Length > Item.NameLengthLimit)
             {
                 WrongNameLabel.Text = 
-                    $"Name must be no more than {Item.NAME_LENGTH_LIMIT} characters.";
+                    $"Name must be no more than {Item.NameLengthLimit} characters.";
             }
             else
             {
@@ -305,10 +305,10 @@ namespace ObjectOrientedPractics.View.Tabs
 
             var currentColor = AppColors.WrongInputColor;
 
-            if (DescriptionTextBox.Text.Length > Item.INFO_LENGTH_LIMIT)
+            if (DescriptionTextBox.Text.Length > Item.InfoLengthLimit)
             {
                 WrongDescriptionLabel.Text = 
-                    $"Description should not exceed {Item.INFO_LENGTH_LIMIT} characters";
+                    $"Description should not exceed {Item.InfoLengthLimit} characters";
             }
             else
             {
@@ -361,7 +361,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             if (CostTextBox.BackColor == AppColors.RightInputColor)
             {
-                selectedItem.Cost = float.Parse(CostTextBox.Text);
+                selectedItem.Cost = decimal.Parse(CostTextBox.Text);
             }
 
             CostTextBox.Text = selectedItem.Cost.ToString();
@@ -437,26 +437,32 @@ namespace ObjectOrientedPractics.View.Tabs
             switch(OrderByComboBox.SelectedIndex)
             {
                 case 0:
-                    SortCompare = (firstItem, secondItem) =>
                     {
-                        return firstItem.Name.CompareTo(secondItem.Name) < 0;
-                    };
+                        SortCompare = (firstItem, secondItem) =>
+                        {
+                            return firstItem.Name.CompareTo(secondItem.Name) < 0;
+                        };
 
-                    break;
+                        break;
+                    }
                 case 1:
-                    SortCompare = (firstItem, secondItem) =>
                     {
-                        return firstItem.Cost.CompareTo(secondItem.Cost) < 0;
-                    };
+                        SortCompare = (firstItem, secondItem) =>
+                        {
+                            return firstItem.Cost.CompareTo(secondItem.Cost) < 0;
+                        };
 
-                    break;
+                        break;
+                    }
                 case 2:
-                    SortCompare = (firstItem, secondItem) =>
                     {
-                        return firstItem.Cost.CompareTo(secondItem.Cost) > 0;
-                    };
+                        SortCompare = (firstItem, secondItem) =>
+                        {
+                            return firstItem.Cost.CompareTo(secondItem.Cost) > 0;
+                        };
 
-                    break;
+                        break;
+                    }
             }
 
             var selectedItem = ItemsListBox.SelectedItem;

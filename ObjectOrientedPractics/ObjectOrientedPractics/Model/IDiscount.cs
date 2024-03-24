@@ -17,14 +17,14 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// </summary>
         /// <param name="items">Список товаров.</param>
         /// <returns>Размер скидки.</returns>
-        double Calculate(List<Item> items);
+        decimal Calculate(List<Item> items);
 
         /// <summary>
         /// Применяет скидку, доступную для списка товаров.
         /// </summary>
         /// <param name="items">Список товаров.</param>
         /// <returns>Размер скидки.</returns>
-        double Apply(List<Item> items);
+        decimal Apply(List<Item> items);
 
         /// <summary>
         /// Обновляет скидку на основе полученного списка товаров.

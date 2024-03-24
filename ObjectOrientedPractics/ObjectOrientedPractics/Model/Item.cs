@@ -2,7 +2,6 @@
 using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
 using System;
-using System.Windows.Forms;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -14,22 +13,22 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Максимальное число символов именования товара.
         /// </summary>
-        public const int NAME_LENGTH_LIMIT = 200;
+        public const int NameLengthLimit = 200;
 
         /// <summary>
         /// Максимальное число символов описания товара.
         /// </summary>
-        public const int INFO_LENGTH_LIMIT = 1000;
+        public const int InfoLengthLimit = 1000;
 
         /// <summary>
         /// Минимальная цена товара.
         /// </summary>
-        public const float MINIMUM_COST = 0f;
+        public const decimal MinimumCost = 0M;
 
         /// <summary>
         /// Максимальная цена товара.
         /// </summary>
-        public const float MAXIMUM_COST = 100000f;
+        public const decimal MaximumCost = 100000M;
 
         /// <summary>
         /// Уникальный идентификатор товара.
@@ -49,7 +48,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Стоимость товара.
         /// </summary>
-        private float _cost;
+        private decimal _cost;
 
         /// <summary>
         /// Возвращает и задает категорию товара объекта <see cref="Item"/>.
@@ -76,7 +75,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                ValueValidator.AssertStringOnLength(value, NAME_LENGTH_LIMIT, nameof(Name));
+                ValueValidator.AssertStringOnLength(value, NameLengthLimit, nameof(Name));
                 _name = value;
             }
         }
@@ -93,7 +92,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                ValueValidator.AssertStringOnLength(value, INFO_LENGTH_LIMIT, nameof(Info));
+                ValueValidator.AssertStringOnLength(value, InfoLengthLimit, nameof(Info));
                 _info = value;
             }
         }
@@ -102,7 +101,7 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает и задает стоимость товара. 
         /// Должна входить в диапозон: от 0 до 100 000.
         /// </summary>
-        public float Cost
+        public decimal Cost
         {
             get
             {
@@ -110,8 +109,12 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                ValueValidator.AssertFloatOnLimits(
-                    value, MINIMUM_COST, MAXIMUM_COST, nameof(Cost));
+                ValueValidator.AssertDecimalOnLimits(
+                    value, 
+                    MinimumCost, 
+                    MaximumCost, 
+                    nameof(Cost));
+
                 _cost = value;
             }
         }
@@ -146,7 +149,7 @@ namespace ObjectOrientedPractics.Model
         /// <param name="category">
         ///     Категория товара.
         ///</param>
-        public Item(string name, string info, float cost, Category category)
+        public Item(string name, string info, decimal cost, Category category)
         {
             _id = IdGenerator.GetNextId();
             Name = name;
@@ -171,11 +174,12 @@ namespace ObjectOrientedPractics.Model
         /// <returns>Копия объекта в <see cref="object"/>.</returns>
         public object Clone()
         {
-            var item = new Item(this.Id);
-            item.Name = this.Name;
-            item.Info = this.Info;
-            item.Cost = this.Cost;
-            item.Category = this.Category;
+            var item = new Item(Id);
+            item.Name = Name;
+            item.Info = Info;
+            item.Cost = Cost;
+            item.Category = Category;
+
             return item;
         }
 
@@ -196,7 +200,7 @@ namespace ObjectOrientedPractics.Model
                 return true;
             }
 
-            return this.Id == other.Id;
+            return GetHashCode() == other.GetHashCode();
         }
 
         /// <summary>
@@ -210,11 +214,11 @@ namespace ObjectOrientedPractics.Model
         /// </returns>
         public int CompareTo(Item other)
         {
-            if (this.Cost == other.Cost)
+            if (Cost == other.Cost)
             {
                 return 0;
             }
-            else if (this.Cost > other.Cost)
+            else if (Cost > other.Cost)
             {
                 return 1;
             }

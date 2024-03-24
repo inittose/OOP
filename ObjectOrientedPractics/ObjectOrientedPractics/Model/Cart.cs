@@ -1,7 +1,6 @@
 ﻿using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -18,7 +17,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Возвращает общую стоимость товаров в корзине.
         /// </summary>
-        public float Amount
+        public decimal Amount
         {
             get
             {
@@ -34,7 +33,7 @@ namespace ObjectOrientedPractics.Model
         {
             var cart = new Cart();
 
-            foreach(var item in this.Items)
+            foreach(var item in Items)
             {
                 cart.Items.Add((Item)item.Clone());
             }

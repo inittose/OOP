@@ -56,12 +56,12 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <summary>
         /// Суммарная скидка заказа.
         /// </summary>
-        public double DiscountAmount { get; }
+        public decimal DiscountAmount { get; }
 
         /// <summary>
         /// Возвращает общую стоимость товаров в заказе.
         /// </summary>
-        public float Amount
+        public decimal Amount
         {
             get
             {
@@ -72,7 +72,7 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <summary>
         /// Возращает конечную стоимость заказа.
         /// </summary>
-        public double Total
+        public decimal Total
         {
             get
             {
@@ -99,7 +99,7 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров заказа.</param>
         /// <param name="discountAmount">Размер скидки заказа.</param>
-        public Order(OrderStatus status, Address address, List<Item> items, double discountAmount)
+        public Order(OrderStatus status, Address address, List<Item> items, decimal discountAmount)
         {
             _id = IdGenerator.GetNextId();
             Status = status;
@@ -114,7 +114,7 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <param name="id">Уникальный идентификатор.</param>
         /// <param name="discountAmount">Размер скидки.</param>
         [JsonConstructor]
-        public Order(int id, double discountAmount)
+        public Order(int id, decimal discountAmount)
         {
             _id = id;
             DiscountAmount = discountAmount;
@@ -137,7 +137,7 @@ namespace ObjectOrientedPractics.Model.Orders
                 return true;
             }
 
-            return this.Id == other.Id;
+            return GetHashCode() == other.GetHashCode();
         }
     }
 }

@@ -100,8 +100,9 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (PostIndexTextBox.Text.Length == Address.INDEX_DIGIT && 
-                                int.TryParse(PostIndexTextBox.Text, out var temp))
+            if (
+                PostIndexTextBox.Text.Length == Address.IndexDigit && 
+                int.TryParse(PostIndexTextBox.Text, out var temp))
             {
                 WrongInputLabel.Text = string.Empty;
                 PostIndexTextBox.BackColor = AppColors.RightInputColor;
@@ -125,7 +126,7 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (CountryTextBox.Text.Length <= Address.COUNTRY_LENGTH_LIMIT)
+            if (CountryTextBox.Text.Length <= Address.CountryLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 CountryTextBox.BackColor = AppColors.RightInputColor;
@@ -149,7 +150,7 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (CityTextBox.Text.Length <= Address.CITY_LENGTH_LIMIT)
+            if (CityTextBox.Text.Length <= Address.CityLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 CityTextBox.BackColor = AppColors.RightInputColor;
@@ -173,7 +174,7 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (StreetTextBox.Text.Length <= Address.STREET_LENGTH_LIMIT)
+            if (StreetTextBox.Text.Length <= Address.StreetLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 StreetTextBox.BackColor = AppColors.RightInputColor;
@@ -197,7 +198,7 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (BuildingTextBox.Text.Length <= Address.BUILDING_LENGTH_LIMIT)
+            if (BuildingTextBox.Text.Length <= Address.BuildingLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 BuildingTextBox.BackColor = AppColors.RightInputColor;
@@ -221,7 +222,7 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (ApartmentTextBox.Text.Length <= Address.APARTMENT_LENGTH_LIMIT)
+            if (ApartmentTextBox.Text.Length <= Address.ApartmentLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 ApartmentTextBox.BackColor = AppColors.RightInputColor;

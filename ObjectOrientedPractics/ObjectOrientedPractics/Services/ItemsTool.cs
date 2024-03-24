@@ -14,14 +14,14 @@ namespace ObjectOrientedPractics.Services
         /// </summary>
         /// <param name="items">Список товаров <see cref="List{Item}"/>.</param>
         /// <returns>Суммарная стоимость товаров.</returns>
-        public static float GetAmount(List<Item> items)
+        public static decimal GetAmount(List<Item> items)
         {
             if (items == null)
             {
-                return 0f;
+                return 0M;
             }
 
-            var total = 0f;
+            var total = 0M;
 
             foreach (var item in items)
             {
@@ -37,14 +37,15 @@ namespace ObjectOrientedPractics.Services
         /// <param name="items">Список товаров <see cref="List{Item}"/>.</param>
         /// <param name="category">Категория товара <see cref="Category"/>.</param>
         /// <returns>Суммарная стоимость товаров конкретной категории.</returns>
-        public static float GetAmountOnCategory(List<Item> items, Category category)
+        public static decimal GetAmountOnCategory(List<Item> items, Category category)
         {
             if (items == null)
             {
-                return 0f;
+                return 0M;
             }
 
-            var total = 0f;
+            var total = 0M;
+
             foreach (var item in items)
             {
                 if (item.Category == category)
@@ -52,6 +53,7 @@ namespace ObjectOrientedPractics.Services
                     total += item.Cost;
                 }
             }
+
             return total;
         }
     }

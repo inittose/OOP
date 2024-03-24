@@ -12,20 +12,46 @@ namespace ObjectOrientedPractics.Model.Discounts
     public class PercentDiscount : IDiscount, IComparable<PercentDiscount>
     {
         /// <summary>
+        /// Минимально возможная скидка в процентах.
+        /// </summary>
+        public const int MinimumPercent = 1;
+
+        /// <summary>
+        /// Максимально возможная скидка в процентах.
+        /// </summary>
+        public const int MaximumPercent = 10;
+
+        /// <summary>
+        /// Количество процентов, на которое повышается скидка, при выполнении условия.
+        /// </summary>
+        public const int IncreasingDiscount = 1;
+
+        /// <summary>
+        /// Количество денежных единиц необходимое для повышения скидки.
+        /// </summary>
+        public const int AmountForIncreasing = 1000;
+
+        /// <summary>
         /// Скидка в процентах.
         /// </summary>
         private int _discount;
 
         /// <summary>
         /// Возвращает и задает скидку в процентах.
-        /// Скидка должна быть не менее 1% и не более 10%.
+        /// Скидка должна быть не менее <see cref="MinimumPercent"/> процентов
+        /// и не более <see cref="MaximumPercent"/> процентов.
         /// </summary>
         public int Discount
         {
             get => _discount;
             private set
             {
-                ValueValidator.AssertIntOnLimits(value, 1, 10, nameof(Discount));
+                ValueValidator.AssertIntOnLimits(
+                    value, 
+                    MinimumPercent, 
+                    MaximumPercent, 
+                    nameof(Discount));
+
                 _discount = value;
             }
         }
@@ -38,7 +64,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <summary>
         /// Возвращает сумму, на которую покупатель уже сделал покупки данной категории товаров.
         /// </summary>
-        public double SpendingPerCategory { get; private set; } = 0;
+        public decimal SpendingPerCategory { get; private set; } = 0M;
 
         /// <summary>
         /// Информация о скидке.
@@ -56,9 +82,10 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// </summary>
         /// <param name="items">Список товаров.</param>
         /// <returns>Размер скидки.</returns>
-        public double Calculate(List<Item> items)
+        public decimal Calculate(List<Item> items)
         {
             var amount = ItemsTool.GetAmountOnCategory(items, Category);
+
             return amount * Discount / 100;
         }
 
@@ -67,15 +94,16 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// </summary>
         /// <param name="items">Список товаров.</param>
         /// <returns>Размер скидки.</returns>
-        public double Apply(List<Item> items)
+        public decimal Apply(List<Item> items)
         {
             return Calculate(items);
         }
 
         /// <summary>
         /// Обновляет процент скидки на основе полученного списка товаров.
-        /// Каждые 1000 рублей, на которую покупатель совершает покупки, 
-        /// скидка увеличивается на 1%.
+        /// Каждые <see cref="AmountForIncreasing"/> денежных единиц, 
+        /// на которую покупатель совершает покупки, 
+        /// скидка увеличивается на <see cref="IncreasingDiscount"/> процентов.
         /// </summary>
         /// <param name="items">Список товаров.</param>
         public void Update(List<Item> items)
@@ -111,7 +139,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <param name="discount">Размер скидки в процентах.</param>
         /// <param name="spendingPerCategory">Размер потраченных денег на категорию.</param>
         [JsonConstructor]
-        private PercentDiscount(Category category, int discount, double spendingPerCategory)
+        private PercentDiscount(Category category, int discount, decimal spendingPerCategory)
         {
             Category = category;
             Discount = discount;
@@ -129,11 +157,11 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// </returns>
         public int CompareTo(PercentDiscount other)
         {
-            if (this.Discount == other.Discount)
+            if (Discount == other.Discount)
             {
                 return 0;
             }
-            else if (this.Discount > other.Discount)
+            else if (Discount > other.Discount)
             {
                 return 1;
             }

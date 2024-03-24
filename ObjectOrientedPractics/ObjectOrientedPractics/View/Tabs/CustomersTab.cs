@@ -212,10 +212,10 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 WrongFullNameLabel.Text = "Full name must consist of characters.";
             }
-            else if (FullNameTextBox.Text.Length > Customer.FULLNAME_LENGTH_LIMIT)
+            else if (FullNameTextBox.Text.Length > Customer.FullnameLengthLimit)
             {
                 WrongFullNameLabel.Text =
-                    $"Full name must be no more than {Customer.FULLNAME_LENGTH_LIMIT} characters.";
+                    $"Full name must be no more than {Customer.FullnameLengthLimit} characters.";
             }
             else
             {

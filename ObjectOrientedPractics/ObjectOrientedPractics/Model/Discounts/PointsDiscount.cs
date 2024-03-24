@@ -11,6 +11,21 @@ namespace ObjectOrientedPractics.Model.Discounts
     public class PointsDiscount : IDiscount, IComparable<PointsDiscount>
     {
         /// <summary>
+        /// Минимальное количество накопительных баллов.
+        /// </summary>
+        public const int MinimumPoints = 0;
+
+        /// <summary>
+        /// Максимальное количество скидки от суммы товаров в процентах.
+        /// </summary>
+        public const int MaximumDiscountPersent = 30;
+
+        /// <summary>
+        /// Количество процентов от суммы заказа, которое будет начисленно на накопительный счет.
+        /// </summary>
+        public const int CumulativePersent = 10;
+
+        /// <summary>
         /// Накопительные баллы.
         /// </summary>
         private int _points;
@@ -24,7 +39,7 @@ namespace ObjectOrientedPractics.Model.Discounts
             get => _points;
             private set
             {
-                ValueValidator.AssertIntOnLowerLimit(value, 0, nameof(Points));
+                ValueValidator.AssertIntOnLowerLimit(value, MinimumPoints, nameof(Points));
                 _points = value;
             }
         }
@@ -42,17 +57,22 @@ namespace ObjectOrientedPractics.Model.Discounts
 
         /// <summary>
         /// Вычисляет размер скидки, доступный для списка товаров.
-        /// Скидка товаров не может быть больше 30% от общей суммы товаров.
+        /// Скидка товаров не может быть больше <see cref="MaximumDiscountPersent"/> процентов
+        /// от общей суммы товаров.
         /// </summary>
         /// <param name="items">Список товаров.</param>
         /// <returns>Размер скидки.</returns>
-        public double Calculate(List<Item> items)
+        public decimal Calculate(List<Item> items)
         {
             var amount = ItemsTool.GetAmount(items);
 
-            if (Points / amount > 0.3)
+            if (amount == 0M)
             {
-                return amount * 0.3;
+                return 0M;
+            }
+            if (Points / amount * 100M > MaximumDiscountPersent)
+            {
+                return amount * MaximumDiscountPersent / 100M;
             }
             else
             {
@@ -62,27 +82,29 @@ namespace ObjectOrientedPractics.Model.Discounts
 
         /// <summary>
         /// Применяет накопительные баллы на скидку, доступную для списка товаров.
-        /// Скидка товаров не может быть больше 30% от общей суммы товаров.
+        /// Скидка товаров не может быть больше <see cref="MaximumDiscountPersent"/> процентов 
+        /// от общей суммы товаров.
         /// </summary>
         /// <param name="items">Список товаров.</param>
         /// <returns>Размер скидки.</returns>
-        public double Apply(List<Item> items)
+        public decimal Apply(List<Item> items)
         {
             var discount = Calculate(items);
             Points -= (int)discount;
+
             return discount;
         }
 
         /// <summary>
         /// Добавляет баллы на основе полученного списка товаров.
         /// Каждая покупка увеличивает количество накопленных баллов 
-        /// на 10% от общей стоимости товаров.
+        /// на <see cref="CumulativePersent"/> от общей стоимости товаров.
         /// </summary>
         /// <param name="items">Список товаров.</param>
         public void Update(List<Item> items)
         {
             var amount = ItemsTool.GetAmount(items);
-            Points += (int)Math.Ceiling(amount * 0.1);
+            Points += (int)Math.Ceiling(amount * CumulativePersent / 100M);
         }
 
         /// <summary>
@@ -114,11 +136,11 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// </returns>
         public int CompareTo(PointsDiscount other)
         {
-            if (this.Points == other.Points)
+            if (Points == other.Points)
             {
                 return 0;
             }
-            else if (this.Points > other.Points)
+            else if (Points > other.Points)
             {
                 return 1;
             }

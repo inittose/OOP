@@ -12,12 +12,12 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <summary>
         /// Возвращает и задает дату доставки.
         /// </summary>
-        public DateTime Date { get; set; }
+        public DateTime DeliveryDate { get; set; }
 
         /// <summary>
         /// Возвращает и задает время доставки.
         /// </summary>
-        public OrderTime Time { get; set; }
+        public OrderTime DeliveryTime { get; set; }
 
         /// <summary>
         /// Создает экзепляр класса <see cref="PriorityOrder"/>.
@@ -30,9 +30,8 @@ namespace ObjectOrientedPractics.Model.Orders
             OrderStatus status, 
             Address address, 
             List<Item> items,
-            double discountAmount) : base(status, address, items, discountAmount)
+            decimal discountAmount) : base(status, address, items, discountAmount)
         {
-
         }
     }
 }

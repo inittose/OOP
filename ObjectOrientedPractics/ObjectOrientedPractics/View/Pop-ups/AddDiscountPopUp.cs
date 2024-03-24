@@ -40,6 +40,7 @@ namespace ObjectOrientedPractics.View.Pop_ups
         private void UpdateCategoryComboBox()
         {
             var customerCategories = new List<Category>();
+
             foreach (var discount in Customer.Discounts)
             {
                 if (discount is PercentDiscount)
@@ -50,6 +51,7 @@ namespace ObjectOrientedPractics.View.Pop_ups
             }
 
             var dataCategories = new List<Category>();
+
             foreach (var category in Enum.GetValues(typeof(Category)).Cast<Category>().ToList())
             {
                 if (!customerCategories.Contains(category))
@@ -71,6 +73,7 @@ namespace ObjectOrientedPractics.View.Pop_ups
             Category = (Category)Enum.Parse(
                 typeof(Category), 
                 CategoryComboBox.SelectedItem.ToString());
+
             this.DialogResult = DialogResult.OK;
         }
 

@@ -29,6 +29,7 @@ namespace ObjectOrientedPractics.Services
         static Serializer()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
+
             try
             {
                 StoreJson = File.ReadAllText(FilePath);
@@ -56,14 +57,15 @@ namespace ObjectOrientedPractics.Services
                     return JsonConvert.DeserializeObject<Store>(
                         StoreJson, 
                         new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.All
-                    });
+                        {
+                            TypeNameHandling = TypeNameHandling.All
+                        });
                 }
                 catch
                 {
                     StoreJson = string.Empty;
-                    MessageBox.Show("Данные повреждены.\nФайлы сохранения очищены.");
+                    MessageBox.Show("Data is corrupted.\nSave files have been cleared.");
+
                     return new Store();
                 }
             }
@@ -75,10 +77,13 @@ namespace ObjectOrientedPractics.Services
         /// <param name="store">Экзепляр класса <see cref="Store"/>.</param>
         public static void SetStore(Store store)
         {
-            StoreJson = JsonConvert.SerializeObject(store, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            });
+            StoreJson = JsonConvert.SerializeObject(
+                store, 
+                new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                });
+
             SaveFile();
         }
 

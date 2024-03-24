@@ -14,12 +14,12 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Максимальное число символов имени покупателя.
         /// </summary>
-        public const int FULLNAME_LENGTH_LIMIT = 200;
+        public const int FullnameLengthLimit = 200;
 
         /// <summary>
         /// Максимальное число символов адреса покупателя.
         /// </summary>
-        public const int ADDRESS_LENGTH_LIMIT = 500;
+        public const int AddressLengthLimit = 500;
 
         /// <summary>
         /// Уникальный идентификатор покупателя.
@@ -49,7 +49,7 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 ValueValidator.AssertStringOnLength(
-                    value, FULLNAME_LENGTH_LIMIT, nameof(_fullname));
+                    value, FullnameLengthLimit, nameof(_fullname));
                 _fullname = value;
             }
         }

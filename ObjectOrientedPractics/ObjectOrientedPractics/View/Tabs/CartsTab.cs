@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Discounts;
 using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Model.Orders;
 using System.Collections.Generic;
@@ -24,14 +25,7 @@ namespace ObjectOrientedPractics.View.Tabs
             get => _currentCustomer;
             set
             {
-                var isVisible = value >= 0;
-                AmountLabel.Visible = isVisible;
-                TotalLabel.Visible = isVisible;
-                DiscountAmountLabel.Visible = isVisible;
-                AmountHeaderLabel.Visible = isVisible;
-                TotalHeaderLabel.Visible = isVisible;
-                DiscountAmountHeaderLabel.Visible = isVisible;
-                DiscountLabel.Visible = isVisible;
+                SetVisible(value >= 0);
                 _currentCustomer = value;
             }
         }
@@ -46,7 +40,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         public List<Customer> Customers { get; set; }
 
-        public double DiscountAmount { get; set; }
+        public decimal DiscountAmount { get; set; }
 
         /// <summary>
         /// Создает экзепляр класса <see cref="CartsTab"/>.
@@ -76,6 +70,21 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 UpdateCartItems(customer.Cart);
             }
+        }
+
+        /// <summary>
+        /// Устанавливает видимость текста с расчетами.
+        /// </summary>
+        /// <param name="isVisible">Виден ли текст.</param>
+        private void SetVisible(bool isVisible)
+        {
+            AmountLabel.Visible = isVisible;
+            TotalLabel.Visible = isVisible;
+            DiscountAmountLabel.Visible = isVisible;
+            AmountHeaderLabel.Visible = isVisible;
+            TotalHeaderLabel.Visible = isVisible;
+            DiscountAmountHeaderLabel.Visible = isVisible;
+            DiscountLabel.Visible = isVisible;
         }
 
         /// <summary>
@@ -164,6 +173,20 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void UpdateDiscountsCheckedListBox()
         {
+            for (var i = 0; i < DiscountsCheckedListBox.Items.Count; i++)
+            {
+                DiscountsCheckedListBox.Items[i] = 
+                    Customers[CurrentCustomer].Discounts[i].Info;
+            }
+
+            UpdateAmountLabels();
+        }
+
+        /// <summary>
+        /// Устанавливает данные списка скидок <see cref="DiscountsCheckedListBox"/>. 
+        /// </summary>
+        private void SetDiscountsCheckedListBox()
+        {
             if (Customers.Count == 0 || CurrentCustomer < 0)
             {
                 DiscountsCheckedListBox.Items.Clear();
@@ -194,7 +217,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void UpdateAmountLabels()
         {
-            DiscountAmount = 0.0;
+            DiscountAmount = 0M;
 
             foreach (var item in DiscountsCheckedListBox.CheckedItems)
             {
@@ -228,6 +251,7 @@ namespace ObjectOrientedPractics.View.Tabs
                     Customers[CurrentCustomer].Cart.Items.Add(item);
                 }
             }
+
             UpdateCartListBox();
         }
 
@@ -239,7 +263,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void CustomerComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             CurrentCustomer = CustomerComboBox.SelectedIndex;
-            UpdateDiscountsCheckedListBox();
+            SetDiscountsCheckedListBox();
             UpdateCartListBox();
         }
 
@@ -290,12 +314,22 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             foreach (var discount in Customers[CurrentCustomer].Discounts)
             {
-                if (DiscountsCheckedListBox.CheckedItems.Contains(discount.Info))
+                var isChecked = DiscountsCheckedListBox.CheckedItems.Contains(discount.Info);
+
+                if (isChecked)
                 {
                     discount.Apply(items);
                 }
 
-                discount.Update(items);
+                if (discount is PointsDiscount && isChecked)
+                {
+                    discount.Update(null);
+                }
+                else
+                {
+                    discount.Update(items);
+                }    
+                
             }
         }
 
@@ -338,8 +372,8 @@ namespace ObjectOrientedPractics.View.Tabs
 
             Customers[CurrentCustomer].Orders.Add(order);
             UpdateCustomerDiscounts(items);
-            UpdateDiscountsCheckedListBox();
             Customers[CurrentCustomer].Cart.Items.Clear();
+            UpdateDiscountsCheckedListBox();
             UpdateCartListBox();
         }
 

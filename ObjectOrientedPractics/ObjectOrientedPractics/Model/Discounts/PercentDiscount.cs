@@ -110,11 +110,11 @@ namespace ObjectOrientedPractics.Model.Discounts
         {
             var amount = ItemsTool.GetAmountOnCategory(items, Category);
             SpendingPerCategory += amount;
-            var percentage = (int)(SpendingPerCategory / 1000) + 1;
+            var percentage = (int)(SpendingPerCategory / AmountForIncreasing) + MinimumPercent;
 
-            if (percentage > 10)
+            if (percentage > MaximumPercent)
             {
-                Discount = 10;
+                Discount = MaximumPercent;
             }
             else
             {
@@ -129,7 +129,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         public PercentDiscount(Category category) 
         { 
             Category = category;
-            Discount = 1;
+            Discount = MinimumPercent;
         }
 
         /// <summary>

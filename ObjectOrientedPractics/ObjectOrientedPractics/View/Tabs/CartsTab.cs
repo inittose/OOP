@@ -40,6 +40,9 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         public List<Customer> Customers { get; set; }
 
+        /// <summary>
+        /// Возвращает и задает количество скидки корзины.
+        /// </summary>
         public decimal DiscountAmount { get; set; }
 
         /// <summary>

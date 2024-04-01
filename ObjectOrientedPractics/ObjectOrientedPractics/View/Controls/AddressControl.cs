@@ -29,17 +29,17 @@ namespace ObjectOrientedPractics.View.Controls
         }
 
         /// <summary>
-        /// Сообщение о ошибке в текстовом поле ввода.
+        /// Возвращает сообщение о ошибке в текстовом поле ввода.
         /// </summary>
         private string LimitErrorMessage { get; } = "Поле превышает макс. кол-во символов.";
 
         /// <summary>
-        /// Флаг, указывающий на то, активен ли элемент управления.
+        /// Возвращает и задает флаг, указывающий на то, активен ли элемент управления.
         /// </summary>
         private bool IsControlEnabled { get; set; }
 
         /// <summary>
-        /// Флаг, указывающий на то, активны ли текстовые поля 
+        /// Возвращает и задает флаг, указывающий на то, активны ли текстовые поля 
         /// вкладки <see cref="AddressControl"/>.
         /// </summary>
         public bool IsTextBoxesEnabled { get; set; } = true;
@@ -100,8 +100,9 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (PostIndexTextBox.Text.Length == Address.INDEX_DIGIT && 
-                                int.TryParse(PostIndexTextBox.Text, out var temp))
+            if (
+                PostIndexTextBox.Text.Length == Address.IndexDigit && 
+                int.TryParse(PostIndexTextBox.Text, out var temp))
             {
                 WrongInputLabel.Text = string.Empty;
                 PostIndexTextBox.BackColor = AppColors.RightInputColor;
@@ -124,7 +125,8 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
-            if (CountryTextBox.Text.Length <= Address.COUNTRY_LENGTH_LIMIT)
+
+            if (CountryTextBox.Text.Length <= Address.CountryLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 CountryTextBox.BackColor = AppColors.RightInputColor;
@@ -147,7 +149,8 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
-            if (CityTextBox.Text.Length <= Address.CITY_LENGTH_LIMIT)
+
+            if (CityTextBox.Text.Length <= Address.CityLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 CityTextBox.BackColor = AppColors.RightInputColor;
@@ -170,7 +173,8 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
-            if (StreetTextBox.Text.Length <= Address.STREET_LENGTH_LIMIT)
+
+            if (StreetTextBox.Text.Length <= Address.StreetLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 StreetTextBox.BackColor = AppColors.RightInputColor;
@@ -193,7 +197,8 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
-            if (BuildingTextBox.Text.Length <= Address.BUILDING_LENGTH_LIMIT)
+
+            if (BuildingTextBox.Text.Length <= Address.BuildingLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 BuildingTextBox.BackColor = AppColors.RightInputColor;
@@ -216,7 +221,8 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
-            if (ApartmentTextBox.Text.Length <= Address.APARTMENT_LENGTH_LIMIT)
+
+            if (ApartmentTextBox.Text.Length <= Address.ApartmentLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
                 ApartmentTextBox.BackColor = AppColors.RightInputColor;
@@ -239,10 +245,12 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
+
             if (PostIndexTextBox.BackColor == AppColors.RightInputColor)
             {
                 Address.Index = int.Parse(PostIndexTextBox.Text);
             }
+
             PostIndexTextBox.Text = Address.Index.ToString();
         }
 
@@ -257,10 +265,12 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
+
             if (CountryTextBox.BackColor == AppColors.RightInputColor)
             {
                 Address.Country = CountryTextBox.Text;
             }
+
             CountryTextBox.Text = Address.Country;
         }
 
@@ -275,10 +285,12 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
+
             if (CityTextBox.BackColor == AppColors.RightInputColor)
             {
                 Address.City = CityTextBox.Text;
             }
+
             CityTextBox.Text = Address.City;
         }
 
@@ -293,10 +305,12 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
+
             if (StreetTextBox.BackColor == AppColors.RightInputColor)
             {
                 Address.Street = StreetTextBox.Text;
             }
+
             StreetTextBox.Text = Address.Street;
         }
 
@@ -311,10 +325,12 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
+
             if (BuildingTextBox.BackColor == AppColors.RightInputColor)
             {
                 Address.Building = BuildingTextBox.Text;
             }
+
             BuildingTextBox.Text = Address.Building;
         }
 
@@ -329,10 +345,12 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 return;
             }
+
             if (ApartmentTextBox.BackColor == AppColors.RightInputColor)
             {
                 Address.Apartment = ApartmentTextBox.Text;
             }
+
             ApartmentTextBox.Text = Address.Apartment;
         }
 

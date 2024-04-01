@@ -49,12 +49,21 @@ namespace ObjectOrientedPractics
         {
             switch (MainTabControl.SelectedIndex)
             {
+                case 1:
+                    {
+                        CustomersTab.UpdateDiscountsListBox();
+                        break;
+                    }
                 case 2:
-                    CartsTab.RefreshData();
-                    break;
+                    {
+                        CartsTab.RefreshData();
+                        break;
+                    }
                 case 3:
-                    OrdersTab.RefreshData();
-                    break;
+                    {
+                        OrdersTab.RefreshData();
+                        break;
+                    }
             }
         }
 

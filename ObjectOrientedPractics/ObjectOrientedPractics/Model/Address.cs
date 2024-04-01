@@ -1,41 +1,42 @@
 ﻿using ObjectOrientedPractics.Services;
+using System;
 
 namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Хранит данные об адресе доставки.
     /// </summary>
-    public class Address
+    public class Address : ICloneable, IEquatable<Address>
     {
         /// <summary>
         /// Разряд почтового индекса.
         /// </summary>
-        public const int INDEX_DIGIT = 6;
+        public const int IndexDigit = 6;
 
         /// <summary>
         /// Максимальное число символов названия страны.
         /// </summary>
-        public const int COUNTRY_LENGTH_LIMIT = 50;
+        public const int CountryLengthLimit = 50;
 
         /// <summary>
         /// Максимальное число символов названия города.
         /// </summary>
-        public const int CITY_LENGTH_LIMIT = 50;
+        public const int CityLengthLimit = 50;
 
         /// <summary>
         /// Максимальное число символов названии улицы.
         /// </summary>
-        public const int STREET_LENGTH_LIMIT = 100;
+        public const int StreetLengthLimit = 100;
 
         /// <summary>
         /// Максимальное число символов номера дома.
         /// </summary>
-        public const int BUILDING_LENGTH_LIMIT = 10;
+        public const int BuildingLengthLimit = 10;
 
         /// <summary>
         /// Максимальное число символов номера квартиры/помещения.
         /// </summary>
-        public const int APARTMENT_LENGTH_LIMIT = 10;
+        public const int ApartmentLengthLimit = 10;
 
         /// <summary>
         /// Почтовый индекс.
@@ -75,7 +76,7 @@ namespace ObjectOrientedPractics.Model
             get => _index;
             set
             {
-                ValueValidator.AssertIntOnDigit(value, INDEX_DIGIT, nameof(Index));
+                ValueValidator.AssertIntOnDigit(value, IndexDigit, nameof(Index));
                 _index = value;
             }
         }
@@ -88,7 +89,7 @@ namespace ObjectOrientedPractics.Model
             get => _country;
             set
             {
-                ValueValidator.AssertStringOnLength(value, COUNTRY_LENGTH_LIMIT, nameof(Country));
+                ValueValidator.AssertStringOnLength(value, CountryLengthLimit, nameof(Country));
                 _country = value;
             }
         }
@@ -101,7 +102,7 @@ namespace ObjectOrientedPractics.Model
             get => _city;
             set
             {
-                ValueValidator.AssertStringOnLength(value, CITY_LENGTH_LIMIT, nameof(City));
+                ValueValidator.AssertStringOnLength(value, CityLengthLimit, nameof(City));
                 _city = value;
             }
         }
@@ -114,7 +115,7 @@ namespace ObjectOrientedPractics.Model
             get => _street;
             set
             {
-                ValueValidator.AssertStringOnLength(value, STREET_LENGTH_LIMIT, nameof(Street));
+                ValueValidator.AssertStringOnLength(value, StreetLengthLimit, nameof(Street));
                 _street = value;
             }
         }
@@ -129,8 +130,9 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertStringOnLength(
                     value, 
-                    BUILDING_LENGTH_LIMIT, 
+                    BuildingLengthLimit, 
                     nameof(Building));
+
                 _building = value;
             }
         }
@@ -145,8 +147,9 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertStringOnLength(
                     value, 
-                    APARTMENT_LENGTH_LIMIT, 
+                    ApartmentLengthLimit, 
                     nameof(Apartment));
+
                 _apartment = value;
             }
         }
@@ -187,6 +190,41 @@ namespace ObjectOrientedPractics.Model
             Street = street;
             Building = building;
             Apartment = apartment;
+        }
+
+        /// <summary>
+        /// Создает копию объекта <see cref="Address"/>.
+        /// </summary>
+        /// <returns>Копия объекта в <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return new Address(
+                Index, 
+                Country, 
+                City, 
+                Street, 
+                Building, 
+                Apartment);
+        }
+
+        /// <summary>
+        /// Проверяет равенство исходного объект с передаваемым.
+        /// </summary>
+        /// <param name="other">Объект класса <see cref="Address"/>.</param>
+        /// <returns>Возвращает булевое значение, равны ли объекты.</returns>
+        public bool Equals(Address other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return GetHashCode() == other.GetHashCode();
         }
     }
 }

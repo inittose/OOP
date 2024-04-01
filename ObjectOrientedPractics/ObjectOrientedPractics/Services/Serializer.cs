@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 using ObjectOrientedPractics.Model;
 
@@ -11,14 +12,14 @@ namespace ObjectOrientedPractics.Services
     public static class Serializer
     {
         /// <summary>
-        /// Путь до файла сериализации.
+        /// Возвращает путь до файла сериализации.
         /// </summary>
         private static string FilePath { get; } = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "ObjectOrientedPractics\\Serialization.json");
 
         /// <summary>
-        /// Данные о товарах и покупателях в json формате.
+        /// Возвращает и задает данные о товарах и покупателях в json формате.
         /// </summary>
         private static string StoreJson { get; set; } = string.Empty;
 
@@ -28,6 +29,7 @@ namespace ObjectOrientedPractics.Services
         static Serializer()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
+
             try
             {
                 StoreJson = File.ReadAllText(FilePath);
@@ -50,7 +52,22 @@ namespace ObjectOrientedPractics.Services
             }
             else
             {
-                return JsonConvert.DeserializeObject<Store>(StoreJson);
+                try
+                {
+                    return JsonConvert.DeserializeObject<Store>(
+                        StoreJson, 
+                        new JsonSerializerSettings
+                        {
+                            TypeNameHandling = TypeNameHandling.All
+                        });
+                }
+                catch
+                {
+                    StoreJson = string.Empty;
+                    MessageBox.Show("Data is corrupted.\nSave files have been cleared.");
+
+                    return new Store();
+                }
             }
         }
 
@@ -60,7 +77,13 @@ namespace ObjectOrientedPractics.Services
         /// <param name="store">Экзепляр класса <see cref="Store"/>.</param>
         public static void SetStore(Store store)
         {
-            StoreJson = JsonConvert.SerializeObject(store);
+            StoreJson = JsonConvert.SerializeObject(
+                store, 
+                new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                });
+
             SaveFile();
         }
 

@@ -51,6 +51,21 @@ namespace ObjectOrientedPractics.Model
         private decimal _cost;
 
         /// <summary>
+        /// Событие при обновлении <see cref="Cost"/> объекта <see cref="Item"/>.
+        /// </summary>
+        public event EventHandler<EventArgs> CostChanged;
+
+        /// <summary>
+        /// Событие при обновлении <see cref="Name"/> объекта <see cref="Item"/>.
+        /// </summary>
+        public event EventHandler<EventArgs> NameChanged;
+
+        /// <summary>
+        /// Событие при обновлении <see cref="Info"/> объекта <see cref="Item"/>.
+        /// </summary>
+        public event EventHandler<EventArgs> InfoChanged;
+
+        /// <summary>
         /// Возвращает и задает категорию товара объекта <see cref="Item"/>.
         /// </summary>
         public Category Category { get; set; }
@@ -77,6 +92,7 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertStringOnLength(value, NameLengthLimit, nameof(Name));
                 _name = value;
+                NameChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -94,6 +110,7 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertStringOnLength(value, InfoLengthLimit, nameof(Info));
                 _info = value;
+                InfoChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -116,6 +133,7 @@ namespace ObjectOrientedPractics.Model
                     nameof(Cost));
 
                 _cost = value;
+                CostChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

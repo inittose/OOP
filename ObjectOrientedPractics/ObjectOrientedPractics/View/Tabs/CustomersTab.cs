@@ -19,6 +19,11 @@ namespace ObjectOrientedPractics.View.Tabs
         private List<Customer> _customers;
 
         /// <summary>
+        /// Событие при обновлении информации о покупателях <see cref="Customer"/>.
+        /// </summary>
+        public event EventHandler<EventArgs> CustomersChanged;
+
+        /// <summary>
         /// Возвращает и задает список покупателей класса <see cref="Customer"/>.
         /// </summary>
         public List<Customer> Customers
@@ -31,6 +36,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 if (value != null)
                 {
                     UpdateCustomersListBox();
+                    CustomersChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -138,6 +144,7 @@ namespace ObjectOrientedPractics.View.Tabs
             Customers.Add(newCustomer);
             CustomersListBox.Items.Add(newCustomer.FullName);
             CustomersListBox.SelectedIndex = CustomersListBox.Items.Count - 1;
+            CustomersChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -151,6 +158,7 @@ namespace ObjectOrientedPractics.View.Tabs
             Customers.Add(newCustomer);
             CustomersListBox.Items.Add(newCustomer.FullName);
             CustomersListBox.SelectedIndex = CustomersListBox.Items.Count - 1;
+            CustomersChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -190,6 +198,8 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 CustomersListBox.SelectedIndex = removeIndex - 1;
             }
+
+            CustomersChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -242,6 +252,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 Customers[CustomersListBox.SelectedIndex].FullName = FullNameTextBox.Text;
                 CustomersListBox.Items[CustomersListBox.SelectedIndex] = FullNameTextBox.Text;
+                CustomersChanged?.Invoke(this, EventArgs.Empty);
             }
             else
             {
@@ -262,6 +273,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             Customers[CustomersListBox.SelectedIndex].IsPriority = IsPriorityCheckBox.Checked;
+            CustomersChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -281,6 +293,7 @@ namespace ObjectOrientedPractics.View.Tabs
             var discount = new PercentDiscount(addDiscountPopUp.Category);
             Customers[CustomersListBox.SelectedIndex].Discounts.Add(discount);
             UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
+            CustomersChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -303,6 +316,8 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 DiscountsListBox.SelectedIndex = removedIndex;
             }
+
+            CustomersChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

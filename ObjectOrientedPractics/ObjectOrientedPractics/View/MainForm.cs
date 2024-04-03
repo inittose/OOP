@@ -1,6 +1,7 @@
 ﻿using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
 using ObjectOrientedPractics.View.Tabs;
+using System;
 using System.Windows.Forms;
 
 namespace ObjectOrientedPractics
@@ -23,11 +24,25 @@ namespace ObjectOrientedPractics
         public MainForm()
         {
             InitializeComponent();
-            ItemsTab.Items = Store.Items;
             CustomersTab.Customers = Store.Customers;
             CartsTab.Items = Store.Items;
             CartsTab.Customers = Store.Customers;
             OrdersTab.Customers = Store.Customers;
+            CustomersTab.CustomersChanged += DataChanged;
+            ItemsTab.ItemsChanged += DataChanged;
+            CartsTab.OrderCreated += DataChanged;
+            ItemsTab.Items = Store.Items;
+        }
+
+        /// <summary>
+        /// Событие при обновлении данных о товарах или покупателях.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="args">Данные о событии.</param>
+        private void DataChanged(object sender, EventArgs args)
+        {
+            CartsTab.RefreshData();
+            OrdersTab.RefreshData();
         }
 
         /// <summary>
@@ -38,33 +53,6 @@ namespace ObjectOrientedPractics
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Serializer.SetStore(Store);
-        }
-
-        /// <summary>
-        /// Событие при переходе на другую вкладку элемента <see cref="MainTabControl"/>.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void MainTabControl_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            switch (MainTabControl.SelectedIndex)
-            {
-                case 1:
-                    {
-                        CustomersTab.UpdateDiscountsListBox();
-                        break;
-                    }
-                case 2:
-                    {
-                        CartsTab.RefreshData();
-                        break;
-                    }
-                case 3:
-                    {
-                        OrdersTab.RefreshData();
-                        break;
-                    }
-            }
         }
 
         /// <summary>

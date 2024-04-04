@@ -384,7 +384,9 @@ namespace ObjectOrientedPractics.View.Tabs
             Customers[CurrentCustomer].Cart.Items.Clear();
             UpdateDiscountsCheckedListBox();
             UpdateCartListBox();
+            var currentCustomer = CurrentCustomer;
             OrderCreated?.Invoke(this, EventArgs.Empty);
+            CustomerComboBox.SelectedIndex = currentCustomer;
         }
 
         /// <summary>

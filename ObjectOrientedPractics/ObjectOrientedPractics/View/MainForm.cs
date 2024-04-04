@@ -39,14 +39,14 @@ namespace ObjectOrientedPractics
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="args">Данные о событии.</param>
-        private void DataChanged(object sender, EventArgs args)
+        private void DataChanged(object sender, EventArgs e)
         {
             CartsTab.RefreshData();
             OrdersTab.RefreshData();
         }
 
         /// <summary>
-        /// Событие при закрытии проекта.
+        /// Событие при закрытии программы.
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
@@ -60,7 +60,7 @@ namespace ObjectOrientedPractics
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
-        private void MainForm_Load(object sender, System.EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             CartsTab.UpdateCustomerCarts();
         }

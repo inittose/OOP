@@ -23,6 +23,11 @@ namespace ObjectOrientedPractics.View.Tabs
         private List<Item> _displayedItems;
 
         /// <summary>
+        /// Событие при обновлении информации о товарах <see cref="Item"/>.
+        /// </summary>
+        public event EventHandler<EventArgs> ItemsChanged;
+
+        /// <summary>
         /// Возвращает и задает список товаров класса <see cref="Item"/>.
         /// </summary>
         public List<Item> Items 
@@ -31,11 +36,12 @@ namespace ObjectOrientedPractics.View.Tabs
             set
             {
                 _items = value;
-
+                
                 if (Items != null)
                 {
                     UpdateDisplayedItems();
                     OrderByComboBox.SelectedIndex = 0;
+                    ItemsChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -166,6 +172,7 @@ namespace ObjectOrientedPractics.View.Tabs
             ItemsListBox.Items.Add(newItem);
             UpdateDisplayedItems();
             ItemsListBox.SelectedItem = newItem;
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -191,6 +198,7 @@ namespace ObjectOrientedPractics.View.Tabs
             ItemsListBox.Items.Remove(removingItem);
             Items.Remove(removingItem);
             ItemsListBox.SelectedIndex = nextIndex;
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -205,6 +213,7 @@ namespace ObjectOrientedPractics.View.Tabs
             ItemsListBox.Items.Add(newItem);
             UpdateDisplayedItems();
             ItemsListBox.SelectedItem = newItem;
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -336,6 +345,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (NameTextBox.BackColor == AppColors.RightInputColor)
             {
                 selectedItem.Name = NameTextBox.Text;
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             else
             {
@@ -362,6 +372,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (CostTextBox.BackColor == AppColors.RightInputColor)
             {
                 selectedItem.Cost = decimal.Parse(CostTextBox.Text);
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
 
             CostTextBox.Text = selectedItem.Cost.ToString();
@@ -385,6 +396,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (DescriptionTextBox.BackColor == AppColors.RightInputColor)
             {
                 selectedItem.Info = DescriptionTextBox.Text;
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             else
             {
@@ -406,6 +418,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             var selectedItem = ItemsListBox.SelectedItem as Item;
             selectedItem.Category = (Category)CategoryComboBox.SelectedIndex;
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

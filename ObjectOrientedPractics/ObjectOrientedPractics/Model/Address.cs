@@ -69,6 +69,11 @@ namespace ObjectOrientedPractics.Model
         private string _apartment;
 
         /// <summary>
+        /// Событие при обновлении любого поля объекта <see cref="Address"/>.
+        /// </summary>
+        public event EventHandler<EventArgs> AddressChanged;
+
+        /// <summary>
         /// Возвращает и задает почтовый индекс.
         /// </summary>
         public int Index
@@ -78,6 +83,7 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertIntOnDigit(value, IndexDigit, nameof(Index));
                 _index = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -91,6 +97,7 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertStringOnLength(value, CountryLengthLimit, nameof(Country));
                 _country = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -104,6 +111,7 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertStringOnLength(value, CityLengthLimit, nameof(City));
                 _city = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -117,6 +125,7 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertStringOnLength(value, StreetLengthLimit, nameof(Street));
                 _street = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -134,6 +143,7 @@ namespace ObjectOrientedPractics.Model
                     nameof(Building));
 
                 _building = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -151,6 +161,7 @@ namespace ObjectOrientedPractics.Model
                     nameof(Apartment));
 
                 _apartment = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

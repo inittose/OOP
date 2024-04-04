@@ -2,6 +2,7 @@
 using ObjectOrientedPractics.Model.Discounts;
 using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Model.Orders;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -16,6 +17,11 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Индекс текущего покупателя.
         /// </summary>
         private int _currentCustomer;
+
+        /// <summary>
+        /// Событие при создании заказа <see cref="Order"/>.
+        /// </summary>
+        public event EventHandler<EventArgs> OrderCreated;
 
         /// <summary>
         /// Возращает и задает индекс текущего покупателя.
@@ -378,6 +384,9 @@ namespace ObjectOrientedPractics.View.Tabs
             Customers[CurrentCustomer].Cart.Items.Clear();
             UpdateDiscountsCheckedListBox();
             UpdateCartListBox();
+            var currentCustomer = CurrentCustomer;
+            OrderCreated?.Invoke(this, EventArgs.Empty);
+            CustomerComboBox.SelectedIndex = currentCustomer;
         }
 
         /// <summary>

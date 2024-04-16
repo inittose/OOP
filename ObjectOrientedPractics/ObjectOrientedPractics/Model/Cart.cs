@@ -17,6 +17,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Возвращает общую стоимость товаров в корзине.
         /// </summary>
+        /// TODO: в одну строку.
         public decimal Amount
         {
             get

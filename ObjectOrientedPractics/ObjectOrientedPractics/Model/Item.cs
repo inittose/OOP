@@ -73,6 +73,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Возвращает уникальный идентификатор товара.
         /// </summary>
+        /// TODO: сделать просто get и убрать поле _id.
         public int Id
         {
             get => _id;
@@ -84,6 +85,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public string Name
         {
+            /// TODO: в одну строку.
             get
             {
                 return _name;
@@ -102,6 +104,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public string Info
         {
+            /// TODO: в одну строку.
             get
             {
                 return _info;
@@ -120,6 +123,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public decimal Cost
         {
+            /// TODO: в одну строку.
             get
             {
                 return _cost;
@@ -218,6 +222,9 @@ namespace ObjectOrientedPractics.Model
                 return true;
             }
 
+            // TODO: Для того, чтобы использовать корректно GetHashCode,...
+            // его нужно переопределить в нужном классе...
+            // и на основе всех значений объекта искать Hash
             return GetHashCode() == other.GetHashCode();
         }
 

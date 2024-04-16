@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+// TODO: namespace не соответствует реальному расположению
 namespace ObjectOrientedPractics.Model.Discounts
 {
     /// <summary>

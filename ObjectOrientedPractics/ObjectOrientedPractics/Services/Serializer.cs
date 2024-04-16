@@ -50,6 +50,7 @@ namespace ObjectOrientedPractics.Services
             {
                 return new Store();
             }
+            // TODO: лишняя вложенность. Тут не нужно писать else. Можешь сразу код писать
             else
             {
                 try

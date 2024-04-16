@@ -18,11 +18,13 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <summary>
         /// Максимальное количество скидки от суммы товаров в процентах.
         /// </summary>
+        // TODO: грамматическая ошибка Percent
         public const int MaximumDiscountPersent = 30;
 
         /// <summary>
         /// Количество процентов от суммы заказа, которое будет начисленно на накопительный счет.
         /// </summary>
+        // TODO: грамматическая ошибка Percent
         public const int CumulativePersent = 10;
 
         /// <summary>
@@ -47,6 +49,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <summary>
         /// Информация о скидке.
         /// </summary>
+        // TODO: В одну строку.
         public string Info
         {
             get
@@ -70,6 +73,7 @@ namespace ObjectOrientedPractics.Model.Discounts
             {
                 return 0M;
             }
+            // TODO: Вынеси используемые в нескольких классов константы в отдельный статический класс
             if (Points / amount * 100M > MaximumDiscountPersent)
             {
                 return amount * MaximumDiscountPersent / 100M;
@@ -108,6 +112,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         }
 
         /// <summary>
+        /// TODO: грамм ошибка.
         /// Создает экзепляр класса <see cref="PointsDiscount"/>.
         /// </summary>
         public PointsDiscount()
@@ -116,6 +121,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         }
 
         /// <summary>
+        /// TODO: грамм ошибка.
         /// Создает экзепляр класса <see cref="PointsDiscount"/>.
         /// </summary>
         /// <param name="points">Размер накопительных баллов.</param>

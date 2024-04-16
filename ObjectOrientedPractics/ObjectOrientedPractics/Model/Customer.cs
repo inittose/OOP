@@ -19,6 +19,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Максимальное число символов адреса покупателя.
         /// </summary>
+        /// TODO: не используется. Убрать
         public const int AddressLengthLimit = 500;
 
         /// <summary>
@@ -34,6 +35,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Возвращает уникальный идентификатор покупателя.
         /// </summary>
+        /// TODO: Сделать его на get без поля. Оно все равно в конструкторе устанавливается
         public int Id
         {
             get => _id;

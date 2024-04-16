@@ -54,6 +54,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Обновляет данные в списке скидок покупателя.
         /// </summary>
+        /// TODO: не используется. Убрать
         public void UpdateDiscountsListBox()
         {
             if (CustomersListBox.SelectedIndex < 0)

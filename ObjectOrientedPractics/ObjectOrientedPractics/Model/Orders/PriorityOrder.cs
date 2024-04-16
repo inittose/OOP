@@ -12,6 +12,7 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <summary>
         /// Возвращает и задает дату доставки.
         /// </summary>
+        /// TODO: нигде не используется. Оно нужно?
         public DateTime DeliveryDate { get; set; }
 
         /// <summary>
@@ -20,6 +21,7 @@ namespace ObjectOrientedPractics.Model.Orders
         public OrderTime DeliveryTime { get; set; }
 
         /// <summary>
+        /// TODO: грамм ошибка
         /// Создает экзепляр класса <see cref="PriorityOrder"/>.
         /// </summary>
         /// <param name="status">Статус заказа.</param>

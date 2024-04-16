@@ -126,6 +126,8 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
+            // TODO: у тебя есть ValueValidator. Используй его для проверки...
+            // Тогда у тебя вместо if/else будет try/catch. Так со всеми проверками
             if (CountryTextBox.Text.Length <= Address.CountryLengthLimit)
             {
                 WrongInputLabel.Text = string.Empty;
@@ -246,6 +248,12 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
+            // TODO: проверять правильность валидации по цвету не очень хорошая идея...
+            // Лучше сделать булево поле, которое будет показывать является ли данное поле валидным ...
+            // Один из вариантов это создать словарь, где ключ – поле для ввода, ...
+            // а значение это бул, который говорит прошла ли валидация этого поля...
+            // В таком случае можно решить проблему дублирования обработчиков событий...
+            // TextChanged и Leave
             if (PostIndexTextBox.BackColor == AppColors.RightInputColor)
             {
                 Address.Index = int.Parse(PostIndexTextBox.Text);
@@ -359,6 +367,7 @@ namespace ObjectOrientedPractics.View.Controls
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
+        /// TODO: дубль. Можно sender привести к TextBox и установить фокус.
         private void PostIndexTextBox_Enter(object sender, EventArgs e)
         {
             PostIndexTextBox.Focus();

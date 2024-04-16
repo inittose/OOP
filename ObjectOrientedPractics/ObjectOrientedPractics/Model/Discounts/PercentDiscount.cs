@@ -4,8 +4,13 @@ using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 
+// TODO: грамматическая ошибка Practices
 namespace ObjectOrientedPractics.Model.Discounts
 {
+    // TODO: Сделай расположение элементов класса по формату, который указан в Яндекс Диске...
+    // 50ohm_Students\ГПО\Статьи по процессу разработки (копии с Wiki 50ohm)\Стандарт оформления кода - Overview
+    // Также по типу доступа внутри каждого типа элементов класс public, protected, private.
+    // Например, сначала идут публичные поля, потом защищенные и в конце приватные
     /// <summary>
     /// Хранит и вычисляет процентную скидку на конкретную категорию товаров.
     /// </summary>
@@ -24,6 +29,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <summary>
         /// Количество процентов, на которое повышается скидка, при выполнении условия.
         /// </summary>
+        // TODO: не используется. Убрать
         public const int IncreasingDiscount = 1;
 
         /// <summary>
@@ -47,6 +53,7 @@ namespace ObjectOrientedPractics.Model.Discounts
             private set
             {
                 ValueValidator.AssertIntOnLimits(
+                    // TODO: есть лишние пробелы в концах строк. Для их обнаружения можно поставить Resharper
                     value, 
                     MinimumPercent, 
                     MaximumPercent, 
@@ -69,6 +76,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <summary>
         /// Информация о скидке.
         /// </summary>
+        // TODO: Сделай в одну строку
         public string Info
         {
             get
@@ -86,6 +94,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         {
             var amount = ItemsTool.GetAmountOnCategory(items, Category);
 
+            // TODO: вынеси 100 в отдельную константу внутри этого метода
             return amount * Discount / 100;
         }
 
@@ -101,8 +110,8 @@ namespace ObjectOrientedPractics.Model.Discounts
 
         /// <summary>
         /// Обновляет процент скидки на основе полученного списка товаров.
-        /// Каждые <see cref="AmountForIncreasing"/> денежных единиц, 
-        /// на которую покупатель совершает покупки, 
+        /// Каждые <see cref="AmountForIncreasing"/> денежных единиц,
+        /// на которую покупатель совершает покупки,
         /// скидка увеличивается на <see cref="IncreasingDiscount"/> процентов.
         /// </summary>
         /// <param name="items">Список товаров.</param>
@@ -126,8 +135,8 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// Создает экзепляр класса <see cref="PercentDiscount"/>.
         /// </summary>
         /// <param name="category">Категория товара, на которую действует скидка.</param>
-        public PercentDiscount(Category category) 
-        { 
+        public PercentDiscount(Category category)
+        {
             Category = category;
             Discount = MinimumPercent;
         }

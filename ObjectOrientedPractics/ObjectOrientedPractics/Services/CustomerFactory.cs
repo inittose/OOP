@@ -27,9 +27,14 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Возвращает путь до базы данных покупателей.
         /// </summary>
+        /// TODO: такой путь нельзя делать. Он подымается к исходному коду...
+        /// Вместо этого установи в свойствах файлов в Databases Build Action – Content,...
+        /// Copy to Output Directory Always. Тогда у тебя будет путь Services\Databases\CustomersData.txt
+        /// (потому что путь устанавливается от точки входа в приложение т.е. файла .exe)
         private static string FileName { get; } = $@"..\..\Services\Databases\CustomersData.txt";
 
         /// <summary>
+        /// TODO: грамм ошибка
         /// Создает экзепляр класса <see cref="Customer"/> с начальными случайными значениями.
         /// </summary>
         /// <returns>Экзепляр класса <see cref="Customer"/>.</returns>

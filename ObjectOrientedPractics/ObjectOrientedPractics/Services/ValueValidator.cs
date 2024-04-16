@@ -17,7 +17,8 @@ namespace ObjectOrientedPractics.Services
         {
             if (value.Length > maxLength)
             {
-                throw new 
+                throw new
+                    // TODO: у тебя некоторые строки на русском, некоторые на английском. Нужен один язык
                     ArgumentException($"{propertyName} должно быть меньше {maxLength} символов.");
             }
         }

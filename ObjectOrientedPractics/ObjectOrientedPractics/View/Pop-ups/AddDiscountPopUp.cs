@@ -43,6 +43,8 @@ namespace ObjectOrientedPractics.View.Pop_ups
 
             foreach (var discount in Customer.Discounts)
             {
+                // TODO: Сделать так: discount is PercentDiscount percentDiscount...
+                // Переменная percentDiscount сразу будет нужного типа
                 if (discount is PercentDiscount)
                 {
                     var percentDiscount = discount as PercentDiscount;

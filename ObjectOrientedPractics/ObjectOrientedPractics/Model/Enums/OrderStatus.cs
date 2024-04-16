@@ -5,6 +5,7 @@
     /// </summary>
     public enum OrderStatus
     {
+        // TODO: не хватает точек в концах комментарий
         /// <summary>
         /// Новый заказ
         /// </summary>

@@ -4,6 +4,7 @@ using ObjectOrientedPractics.View.Tabs;
 using System;
 using System.Windows.Forms;
 
+// TODO: namespace неверный.
 namespace ObjectOrientedPractics
 {
     /// <summary>
@@ -38,7 +39,7 @@ namespace ObjectOrientedPractics
         /// Событие при обновлении данных о товарах или покупателях.
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="args">Данные о событии.</param>
+        /// <param name="e">Данные о событии.</param>
         private void DataChanged(object sender, EventArgs e)
         {
             CartsTab.RefreshData();
@@ -56,7 +57,7 @@ namespace ObjectOrientedPractics
         }
 
         /// <summary>
-        /// Событие при загрузки главного окна.
+        /// Событие при загрузке главного окна.
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>

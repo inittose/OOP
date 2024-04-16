@@ -246,6 +246,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
+        /// TODO: убери System везде
         private void AddToCartButton_Click(object sender, System.EventArgs e)
         {
             if (CurrentCustomer < 0 || ItemsListBox.SelectedIndex < 0)
@@ -311,6 +312,8 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
+            // TODO: если зайти сразу после запуска приложения...
+            // в Carts с пустыми Items и Customers и нажать на Clear Cart, то программа падает
             Customers[CurrentCustomer].Cart.Items.Clear();
             UpdateCartListBox();
         }
@@ -338,7 +341,6 @@ namespace ObjectOrientedPractics.View.Tabs
                 {
                     discount.Update(items);
                 }    
-                
             }
         }
 
@@ -362,6 +364,8 @@ namespace ObjectOrientedPractics.View.Tabs
                 items.Add((Item)item.Clone());
             }
 
+            // TODO: такую логику лучше выносить в модель. Создай класс фабрики заказа, ...
+            // посылай такие же параметры плюс булево значение isPriority
             if (Customers[CurrentCustomer].IsPriority)
             {
                 order = new PriorityOrder(

@@ -12,6 +12,7 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Делегат сравнения товаров по критерию.
         /// </summary>
+        /// TODO: xml комментарии параметров неактуальны
         /// <param name="item">Товар класса <see cref="Item"/>.</param>
         /// <returns>Стоил ли поменять товары местами.</returns>
         public delegate bool CompareProperties(Item first, Item second);

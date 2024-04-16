@@ -166,6 +166,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
+        /// TODO: грамм ошибка
         /// Создает экзепляр класса <see cref="Address"/>.
         /// </summary>
         public Address()
@@ -179,6 +180,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
+        /// TODO: грамм ошибка
         /// Создает экзепляр класса <see cref="Address"/>.
         /// </summary>
         /// <param name="index">Почтовый индекс.</param>
@@ -190,7 +192,7 @@ namespace ObjectOrientedPractics.Model
         public Address(
             int index, 
             string country, 
-            string city,                           
+            string city,
             string street, 
             string building, 
             string apartment)

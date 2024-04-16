@@ -67,7 +67,6 @@ namespace ObjectOrientedPractics.View.Tabs
                 }
             }
         }
-        
 
         /// <summary>
         /// Создает экзепляр класса <see cref="OrdersTab"/>.
@@ -195,6 +194,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             Orders[SelectedIndex].Status = (OrderStatus)StatusComboBox.SelectedItem;
+            // TODO: почему именно 3? Вынеси в переменную и добавь комментарий, почему именно это число
             OrdersDataGridView[3, SelectedIndex].Value = 
                 Enum.GetName(typeof(OrderStatus), Orders[SelectedIndex].Status);
         }

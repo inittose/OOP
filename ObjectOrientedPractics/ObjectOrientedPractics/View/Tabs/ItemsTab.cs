@@ -91,6 +91,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Обновить список товаров, который будет выведен на экран.
         /// </summary>
+        /// TODO: убрать комментарий для входного параметра.
         /// <param name="compare">Метод критерия проверки товаров.</param>
         private void UpdateDisplayedItems()
         {
@@ -131,6 +132,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Устанавливает корректные данные в текстовых окнах 
         /// в зависимости от индекса товара в списке.
         /// </summary>
+        /// TODO: убрать комментарий для входного параметра.
         /// <param name="selectedIndex">Индекс товара в списке.</param>
         private void SetTextBoxes()
         {
@@ -243,6 +245,7 @@ namespace ObjectOrientedPractics.View.Tabs
             var currentColor = AppColors.WrongInputColor;
             var getParse = 0M;
 
+            // TODO: вынести в валидатор
             if (!decimal.TryParse(CostTextBox.Text, out getParse))
             {
                 WrongCostLabel.Text = "Cost must be a float number.";
@@ -280,6 +283,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             var currentColor = AppColors.WrongInputColor;
 
+            // TODO: вынести в валидатор
             if (NameTextBox.Text.Length == 0)
             {
                 WrongNameLabel.Text = "Name must consist of characters.";
@@ -314,6 +318,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             var currentColor = AppColors.WrongInputColor;
 
+            // TODO: вынести в валидатор
             if (DescriptionTextBox.Text.Length > Item.InfoLengthLimit)
             {
                 WrongDescriptionLabel.Text = 
@@ -341,7 +346,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             var selectedItem = ItemsListBox.SelectedItem as Item;
-
+            // TODO: такая же ситуация, как и в CartsTab.
             if (NameTextBox.BackColor == AppColors.RightInputColor)
             {
                 selectedItem.Name = NameTextBox.Text;
@@ -434,7 +439,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             else
             {
-                FilterCompare = (item) => { return item.Name.Contains(FindTextBox.Text); };
+                FilterCompare = (item) => item.Name.Contains(FindTextBox.Text);
             }
 
             UpdateDisplayedItems();
@@ -450,16 +455,15 @@ namespace ObjectOrientedPractics.View.Tabs
             switch(OrderByComboBox.SelectedIndex)
             {
                 case 0:
-                    {
-                        SortCompare = (firstItem, secondItem) =>
-                        {
-                            return firstItem.Name.CompareTo(secondItem.Name) < 0;
-                        };
+                {
+                    SortCompare = (firstItem, secondItem) =>
+                        firstItem.Name.CompareTo(secondItem.Name) < 0;
 
                         break;
                     }
                 case 1:
                     {
+                        // TODO: сделай по примеру case 0
                         SortCompare = (firstItem, secondItem) =>
                         {
                             return firstItem.Cost.CompareTo(secondItem.Cost) < 0;
@@ -478,6 +482,7 @@ namespace ObjectOrientedPractics.View.Tabs
                     }
             }
 
+            // TODO: не используется. Убрать
             var selectedItem = ItemsListBox.SelectedItem;
             UpdateDisplayedItems();
         }

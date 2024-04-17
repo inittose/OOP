@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using ObjectOrientedPractices.Model;
 using ObjectOrientedPractices.Services;
@@ -18,9 +19,9 @@ namespace ObjectOrientedPractices.View.Controls
         /// <summary>
         /// Возвращает и задает адрес доставки класса <see cref="Model.Address"/>.
         /// </summary>
-        public Address Address 
-        { 
-            get => _address; 
+        public Address Address
+        {
+            get => _address;
             set
             {
                 _address = value;
@@ -29,7 +30,7 @@ namespace ObjectOrientedPractices.View.Controls
         }
 
         /// <summary>
-        /// Возвращает сообщение о ошибке в текстовом поле ввода.
+        /// Возвращает сообщение о ошибке переполнения в текстовом поле ввода.
         /// </summary>
         private string LimitErrorMessage { get; } = "Поле превышает макс. кол-во символов.";
 
@@ -44,6 +45,8 @@ namespace ObjectOrientedPractices.View.Controls
         /// </summary>
         public bool IsTextBoxesEnabled { get; set; } = true;
 
+        public Dictionary<TextBox, bool> Validations { get; } = new Dictionary<TextBox, bool>();
+
         /// <summary>
         /// Инициализирует компонент, создает экземпляр класса <see cref="AddressControl"/>.
         /// </summary>
@@ -52,6 +55,13 @@ namespace ObjectOrientedPractices.View.Controls
             InitializeComponent();
             Address = null;
             WrongInputLabel.Text = string.Empty;
+
+            Validations.Add(PostIndexTextBox, true);
+            Validations.Add(CountryTextBox, true);
+            Validations.Add(CityTextBox, true);
+            Validations.Add(StreetTextBox, true);
+            Validations.Add(BuildingTextBox, true);
+            Validations.Add(ApartmentTextBox, true);
         }
 
         /// <summary>
@@ -100,16 +110,26 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
-            if (
-                PostIndexTextBox.Text.Length == ModelConstants.IndexDigit && 
-                int.TryParse(PostIndexTextBox.Text, out var temp))
+            try
             {
+                ValueValidator.AssertIntOnDigit(
+                    int.Parse(PostIndexTextBox.Text),
+                    ModelConstants.IndexDigit,
+                    nameof(PostIndexTextBox.Text));
+
                 WrongInputLabel.Text = string.Empty;
+                Validations[PostIndexTextBox] = true;
                 PostIndexTextBox.BackColor = AppColors.RightInputColor;
             }
-            else
+            catch (Exception ex)
             {
-                WrongInputLabel.Text = "Поле должно состоять из 6 цифр.";
+                if (!(ex is ArgumentException) && !(ex is FormatException))
+                {
+                    throw ex;
+                }
+
+                WrongInputLabel.Text ="Поле должно состоять из 6 цифр.";
+                Validations[PostIndexTextBox] = false;
                 PostIndexTextBox.BackColor = AppColors.WrongInputColor;
             }
         }
@@ -128,7 +148,6 @@ namespace ObjectOrientedPractices.View.Controls
 
             // TODO: у тебя есть ValueValidator. Используй его для проверки...
             // Тогда у тебя вместо if/else будет try/catch. Так со всеми проверками
-
             try
             {
                 ValueValidator.AssertStringOnLength(
@@ -137,11 +156,13 @@ namespace ObjectOrientedPractices.View.Controls
                     nameof(CountryTextBox.Text));
 
                 WrongInputLabel.Text = string.Empty;
+                Validations[CountryTextBox] = true;
                 CountryTextBox.BackColor = AppColors.RightInputColor;
             }
             catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
+                Validations[CountryTextBox] = false;
                 CountryTextBox.BackColor = AppColors.WrongInputColor;
             }
         }
@@ -166,11 +187,13 @@ namespace ObjectOrientedPractices.View.Controls
                     nameof(CityTextBox.Text));
 
                 WrongInputLabel.Text = string.Empty;
+                Validations[CityTextBox] = true;
                 CityTextBox.BackColor = AppColors.RightInputColor;
             }
             catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
+                Validations[CityTextBox] = false;
                 CityTextBox.BackColor = AppColors.WrongInputColor;
             }
         }
@@ -195,11 +218,13 @@ namespace ObjectOrientedPractices.View.Controls
                     nameof(StreetTextBox.Text));
 
                 WrongInputLabel.Text = string.Empty;
+                Validations[StreetTextBox] = true;
                 StreetTextBox.BackColor = AppColors.RightInputColor;
             }
             catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
+                Validations[StreetTextBox] = false;
                 StreetTextBox.BackColor = AppColors.WrongInputColor;
             }
         }
@@ -224,11 +249,13 @@ namespace ObjectOrientedPractices.View.Controls
                     nameof(BuildingTextBox.Text));
 
                 WrongInputLabel.Text = string.Empty;
+                Validations[BuildingTextBox] = true;
                 BuildingTextBox.BackColor = AppColors.RightInputColor;
             }
             catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
+                Validations[BuildingTextBox] = false;
                 BuildingTextBox.BackColor = AppColors.WrongInputColor;
             }
         }
@@ -253,11 +280,13 @@ namespace ObjectOrientedPractices.View.Controls
                     nameof(ApartmentTextBox.Text));
 
                 WrongInputLabel.Text = string.Empty;
+                Validations[ApartmentTextBox] = true;
                 ApartmentTextBox.BackColor = AppColors.RightInputColor;
             }
             catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
+                Validations[ApartmentTextBox] = false;
                 ApartmentTextBox.BackColor = AppColors.WrongInputColor;
             }
         }
@@ -280,7 +309,8 @@ namespace ObjectOrientedPractices.View.Controls
             // а значение это бул, который говорит прошла ли валидация этого поля...
             // В таком случае можно решить проблему дублирования обработчиков событий...
             // TextChanged и Leave
-            if (PostIndexTextBox.BackColor == AppColors.RightInputColor)
+            // UDP: Исправил, если правильно понял
+            if (Validations[PostIndexTextBox])
             {
                 Address.Index = int.Parse(PostIndexTextBox.Text);
             }
@@ -300,7 +330,7 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
-            if (CountryTextBox.BackColor == AppColors.RightInputColor)
+            if (Validations[CountryTextBox])
             {
                 Address.Country = CountryTextBox.Text;
             }
@@ -320,7 +350,7 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
-            if (CityTextBox.BackColor == AppColors.RightInputColor)
+            if (Validations[CityTextBox])
             {
                 Address.City = CityTextBox.Text;
             }
@@ -340,7 +370,7 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
-            if (StreetTextBox.BackColor == AppColors.RightInputColor)
+            if (Validations[StreetTextBox])
             {
                 Address.Street = StreetTextBox.Text;
             }
@@ -360,7 +390,7 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
-            if (BuildingTextBox.BackColor == AppColors.RightInputColor)
+            if (Validations[BuildingTextBox])
             {
                 Address.Building = BuildingTextBox.Text;
             }
@@ -380,7 +410,7 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
-            if (ApartmentTextBox.BackColor == AppColors.RightInputColor)
+            if (Validations[ApartmentTextBox])
             {
                 Address.Apartment = ApartmentTextBox.Text;
             }
@@ -388,65 +418,7 @@ namespace ObjectOrientedPractices.View.Controls
             ApartmentTextBox.Text = Address.Apartment;
         }
 
-        /// <summary>
-        /// Событие при входе в текстового поля ввода номера почтового индекса доставки.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
         /// TODO: дубль. Можно sender привести к TextBox и установить фокус.
-        private void PostIndexTextBox_Enter(object sender, EventArgs e)
-        {
-            PostIndexTextBox.Focus();
-        }
-
-        /// <summary>
-        /// Событие при входе в текстового поля ввода страны доставки.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void CountryTextBox_Enter(object sender, EventArgs e)
-        {
-            CountryTextBox.Focus();
-        }
-
-        /// <summary>
-        /// Событие при входе в текстового поля ввода города доставки.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void CityTextBox_Enter(object sender, EventArgs e)
-        {
-            CityTextBox.Focus();
-        }
-
-        /// <summary>
-        /// Событие при входе в текстового поля ввода улицы доставки.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void StreetTextBox_Enter(object sender, EventArgs e)
-        {
-            StreetTextBox.Focus();
-        }
-
-        /// <summary>
-        /// Событие при входе в текстового поля ввода номера дома доставки.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void BuildingTextBox_Enter(object sender, EventArgs e)
-        {
-            BuildingTextBox.Focus();
-        }
-
-        /// <summary>
-        /// Событие при входе в текстового поля ввода номера квартиры/помещения доставки.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void ApartmentTextBox_Enter(object sender, EventArgs e)
-        {
-            ApartmentTextBox.Focus();
-        }
+        /// UPD: Удалил, не давало эффекта
     }
 }

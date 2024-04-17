@@ -115,7 +115,6 @@
             this.PostIndexTextBox.Size = new System.Drawing.Size(128, 20);
             this.PostIndexTextBox.TabIndex = 7;
             this.PostIndexTextBox.TextChanged += new System.EventHandler(this.PostIndexTextBox_TextChanged);
-            this.PostIndexTextBox.Enter += new System.EventHandler(this.PostIndexTextBox_Enter);
             this.PostIndexTextBox.Leave += new System.EventHandler(this.PostIndexTextBox_Leave);
             // 
             // CountryTextBox
@@ -125,7 +124,6 @@
             this.CountryTextBox.Size = new System.Drawing.Size(175, 20);
             this.CountryTextBox.TabIndex = 8;
             this.CountryTextBox.TextChanged += new System.EventHandler(this.CountryTextBox_TextChanged);
-            this.CountryTextBox.Enter += new System.EventHandler(this.CountryTextBox_Enter);
             this.CountryTextBox.Leave += new System.EventHandler(this.CountryTextBox_Leave);
             // 
             // StreetTextBox
@@ -137,7 +135,6 @@
             this.StreetTextBox.Size = new System.Drawing.Size(421, 20);
             this.StreetTextBox.TabIndex = 9;
             this.StreetTextBox.TextChanged += new System.EventHandler(this.StreetTextBox_TextChanged);
-            this.StreetTextBox.Enter += new System.EventHandler(this.StreetTextBox_Enter);
             this.StreetTextBox.Leave += new System.EventHandler(this.StreetTextBox_Leave);
             // 
             // BuildingTextBox
@@ -147,7 +144,6 @@
             this.BuildingTextBox.Size = new System.Drawing.Size(75, 20);
             this.BuildingTextBox.TabIndex = 10;
             this.BuildingTextBox.TextChanged += new System.EventHandler(this.BuildingTextBox_TextChanged);
-            this.BuildingTextBox.Enter += new System.EventHandler(this.BuildingTextBox_Enter);
             this.BuildingTextBox.Leave += new System.EventHandler(this.BuildingTextBox_Leave);
             // 
             // ApartmentTextBox
@@ -157,7 +153,6 @@
             this.ApartmentTextBox.Size = new System.Drawing.Size(75, 20);
             this.ApartmentTextBox.TabIndex = 11;
             this.ApartmentTextBox.TextChanged += new System.EventHandler(this.ApartmentTextBox_TextChanged);
-            this.ApartmentTextBox.Enter += new System.EventHandler(this.ApartmentTextBox_Enter);
             this.ApartmentTextBox.Leave += new System.EventHandler(this.ApartmentTextBox_Leave);
             // 
             // CityTextBox
@@ -169,7 +164,6 @@
             this.CityTextBox.Size = new System.Drawing.Size(194, 20);
             this.CityTextBox.TabIndex = 12;
             this.CityTextBox.TextChanged += new System.EventHandler(this.CityTextBox_TextChanged);
-            this.CityTextBox.Enter += new System.EventHandler(this.CityTextBox_Enter);
             this.CityTextBox.Leave += new System.EventHandler(this.CityTextBox_Leave);
             // 
             // WrongInputLabel

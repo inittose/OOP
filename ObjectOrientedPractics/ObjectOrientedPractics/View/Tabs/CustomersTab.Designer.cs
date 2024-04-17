@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractics.View.Tabs
+﻿namespace ObjectOrientedPractices.View.Tabs
 {
     partial class CustomersTab
     {
@@ -43,7 +43,7 @@
             this.DiscountsListBox = new System.Windows.Forms.ListBox();
             this.DiscountsLabel = new System.Windows.Forms.Label();
             this.IsPriorityCheckBox = new System.Windows.Forms.CheckBox();
-            this.AddressControl = new ObjectOrientedPractics.View.Controls.AddressControl();
+            this.AddressControl = new ObjectOrientedPractices.View.Controls.AddressControl();
             this.WrongFullNameLabel = new System.Windows.Forms.Label();
             this.FullNameTextBox = new System.Windows.Forms.TextBox();
             this.IdTextBox = new System.Windows.Forms.TextBox();

@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractics.Model.Enums
+﻿namespace ObjectOrientedPractices.Model.Enums
 {
     /// <summary>
     /// Состояние товара.
@@ -7,37 +7,37 @@
     {
         // TODO: не хватает точек в концах комментарий
         /// <summary>
-        /// Новый заказ
+        /// Новый заказ.
         /// </summary>
         New,
 
         /// <summary>
-        /// Заказ в обработке
+        /// Заказ в обработке.
         /// </summary>
         Processing,
 
         /// <summary>
-        /// Сборка заказа
+        /// Сборка заказа.
         /// </summary>
         Assembly,
 
         /// <summary>
-        /// Заказ отправлен
+        /// Заказ отправлен.
         /// </summary>
         Sent,
 
         /// <summary>
-        /// Заказ доставлен
+        /// Заказ доставлен.
         /// </summary>
         Delivered,
 
         /// <summary>
-        /// Заказ возвращен
+        /// Заказ возвращен.
         /// </summary>
         Returned,
 
         /// <summary>
-        /// Заказ отменен
+        /// Заказ отменен.
         /// </summary>
         Abandoned
     }

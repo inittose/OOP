@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Services;
+using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Services;
 
-namespace ObjectOrientedPractics.View.Controls
+namespace ObjectOrientedPractices.View.Controls
 {
     /// <summary>
     /// Отвечает за логику работы с полями ввода адреса.
@@ -101,7 +101,7 @@ namespace ObjectOrientedPractics.View.Controls
             }
 
             if (
-                PostIndexTextBox.Text.Length == Address.IndexDigit && 
+                PostIndexTextBox.Text.Length == ModelConstants.IndexDigit && 
                 int.TryParse(PostIndexTextBox.Text, out var temp))
             {
                 WrongInputLabel.Text = string.Empty;
@@ -128,12 +128,18 @@ namespace ObjectOrientedPractics.View.Controls
 
             // TODO: у тебя есть ValueValidator. Используй его для проверки...
             // Тогда у тебя вместо if/else будет try/catch. Так со всеми проверками
-            if (CountryTextBox.Text.Length <= Address.CountryLengthLimit)
+
+            try
             {
+                ValueValidator.AssertStringOnLength(
+                    CountryTextBox.Text, 
+                    ModelConstants.CountryLengthLimit, 
+                    nameof(CountryTextBox.Text));
+
                 WrongInputLabel.Text = string.Empty;
                 CountryTextBox.BackColor = AppColors.RightInputColor;
             }
-            else
+            catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
                 CountryTextBox.BackColor = AppColors.WrongInputColor;
@@ -152,12 +158,17 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (CityTextBox.Text.Length <= Address.CityLengthLimit)
+            try
             {
+                ValueValidator.AssertStringOnLength(
+                    CityTextBox.Text,
+                    ModelConstants.CityLengthLimit,
+                    nameof(CityTextBox.Text));
+
                 WrongInputLabel.Text = string.Empty;
                 CityTextBox.BackColor = AppColors.RightInputColor;
             }
-            else
+            catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
                 CityTextBox.BackColor = AppColors.WrongInputColor;
@@ -176,12 +187,17 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (StreetTextBox.Text.Length <= Address.StreetLengthLimit)
+            try
             {
+                ValueValidator.AssertStringOnLength(
+                    StreetTextBox.Text,
+                    ModelConstants.StreetLengthLimit,
+                    nameof(StreetTextBox.Text));
+
                 WrongInputLabel.Text = string.Empty;
                 StreetTextBox.BackColor = AppColors.RightInputColor;
             }
-            else
+            catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
                 StreetTextBox.BackColor = AppColors.WrongInputColor;
@@ -200,12 +216,17 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (BuildingTextBox.Text.Length <= Address.BuildingLengthLimit)
+            try
             {
+                ValueValidator.AssertStringOnLength(
+                    BuildingTextBox.Text,
+                    ModelConstants.BuildingLengthLimit,
+                    nameof(BuildingTextBox.Text));
+
                 WrongInputLabel.Text = string.Empty;
                 BuildingTextBox.BackColor = AppColors.RightInputColor;
             }
-            else
+            catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
                 BuildingTextBox.BackColor = AppColors.WrongInputColor;
@@ -224,12 +245,17 @@ namespace ObjectOrientedPractics.View.Controls
                 return;
             }
 
-            if (ApartmentTextBox.Text.Length <= Address.ApartmentLengthLimit)
+            try
             {
+                ValueValidator.AssertStringOnLength(
+                    ApartmentTextBox.Text,
+                    ModelConstants.ApartmentLengthLimit,
+                    nameof(ApartmentTextBox.Text));
+
                 WrongInputLabel.Text = string.Empty;
                 ApartmentTextBox.BackColor = AppColors.RightInputColor;
             }
-            else
+            catch (ArgumentException)
             {
                 WrongInputLabel.Text = LimitErrorMessage;
                 ApartmentTextBox.BackColor = AppColors.WrongInputColor;

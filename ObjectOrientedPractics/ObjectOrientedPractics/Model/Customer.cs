@@ -1,31 +1,18 @@
 ﻿using Newtonsoft.Json;
-using ObjectOrientedPractics.Services;
+using ObjectOrientedPractices.Services;
 using System.Collections.Generic;
-using ObjectOrientedPractics.Model.Orders;
-using ObjectOrientedPractics.Model.Discounts;
+using ObjectOrientedPractices.Model.Orders;
+using ObjectOrientedPractices.Model.Discounts;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractices.Model
 {
     /// <summary>
     /// Хранит данные о покупателе.
     /// </summary>
     public class Customer
     {
-        /// <summary>
-        /// Максимальное число символов имени покупателя.
-        /// </summary>
-        public const int FullnameLengthLimit = 200;
-
-        /// <summary>
-        /// Максимальное число символов адреса покупателя.
-        /// </summary>
         /// TODO: не используется. Убрать
-        public const int AddressLengthLimit = 500;
-
-        /// <summary>
-        /// Уникальный идентификатор покупателя.
-        /// </summary>
-        private readonly int _id;
+        /// UDP: Удалил
 
         /// <summary>
         /// Имя покупателя.
@@ -36,10 +23,7 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает уникальный идентификатор покупателя.
         /// </summary>
         /// TODO: Сделать его на get без поля. Оно все равно в конструкторе устанавливается
-        public int Id
-        {
-            get => _id;
-        }
+        public int Id { get; }
 
         /// <summary>
         /// Возвращает и задает имя покупателя. 
@@ -51,7 +35,7 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 ValueValidator.AssertStringOnLength(
-                    value, FullnameLengthLimit, nameof(_fullname));
+                    value, ModelConstants.FullnameLengthLimit, nameof(_fullname));
                 _fullname = value;
             }
         }
@@ -86,7 +70,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Customer()
         {
-            _id = IdGenerator.GetNextId();
+            Id = IdGenerator.GetNextId();
             FullName = string.Empty;
             Address = new Address();
             Discounts = new List<IDiscount>();
@@ -105,7 +89,7 @@ namespace ObjectOrientedPractics.Model
         /// </param>
         public Customer(string fullname, Address address)
         {
-            _id = IdGenerator.GetNextId();
+            Id = IdGenerator.GetNextId();
             FullName = fullname;
             Address = address;
             Discounts = new List<IDiscount>();
@@ -119,7 +103,7 @@ namespace ObjectOrientedPractics.Model
         [JsonConstructor]
         public Customer(int id)
         {
-            _id = id;
+            Id = id;
         }
     }
 }

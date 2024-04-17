@@ -1,40 +1,15 @@
 ﻿using Newtonsoft.Json;
-using ObjectOrientedPractics.Model.Enums;
-using ObjectOrientedPractics.Services;
+using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Services;
 using System;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractices.Model
 {
     /// <summary>
     /// Хранит данные о товаре.
     /// </summary>
     public class Item : ICloneable, IEquatable<Item>, IComparable<Item>
     {
-        /// <summary>
-        /// Максимальное число символов именования товара.
-        /// </summary>
-        public const int NameLengthLimit = 200;
-
-        /// <summary>
-        /// Максимальное число символов описания товара.
-        /// </summary>
-        public const int InfoLengthLimit = 1000;
-
-        /// <summary>
-        /// Минимальная цена товара.
-        /// </summary>
-        public const decimal MinimumCost = 0M;
-
-        /// <summary>
-        /// Максимальная цена товара.
-        /// </summary>
-        public const decimal MaximumCost = 100000M;
-
-        /// <summary>
-        /// Уникальный идентификатор товара.
-        /// </summary>
-        private readonly int _id;
-
         /// <summary>
         /// Именование товара.
         /// </summary>
@@ -74,10 +49,7 @@ namespace ObjectOrientedPractics.Model
         /// Возвращает уникальный идентификатор товара.
         /// </summary>
         /// TODO: сделать просто get и убрать поле _id.
-        public int Id
-        {
-            get => _id;
-        }
+        public int Id { get; }
 
         /// <summary>
         /// Возвращает и задает наименование товара. 
@@ -86,13 +58,14 @@ namespace ObjectOrientedPractics.Model
         public string Name
         {
             /// TODO: в одну строку.
-            get
-            {
-                return _name;
-            }
+            get => _name;
             set
             {
-                ValueValidator.AssertStringOnLength(value, NameLengthLimit, nameof(Name));
+                ValueValidator.AssertStringOnLength(
+                    value, 
+                    ModelConstants.NameLengthLimit, 
+                    nameof(Name));
+
                 _name = value;
                 NameChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -105,13 +78,14 @@ namespace ObjectOrientedPractics.Model
         public string Info
         {
             /// TODO: в одну строку.
-            get
-            {
-                return _info;
-            }
+            get => _info;
             set
             {
-                ValueValidator.AssertStringOnLength(value, InfoLengthLimit, nameof(Info));
+                ValueValidator.AssertStringOnLength(
+                    value, 
+                    ModelConstants.InfoLengthLimit, 
+                    nameof(Info));
+
                 _info = value;
                 InfoChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -124,16 +98,13 @@ namespace ObjectOrientedPractics.Model
         public decimal Cost
         {
             /// TODO: в одну строку.
-            get
-            {
-                return _cost;
-            }
+            get => _cost;
             set
             {
                 ValueValidator.AssertDecimalOnLimits(
-                    value, 
-                    MinimumCost, 
-                    MaximumCost, 
+                    value,
+                    ModelConstants.MinimumCost,
+                    ModelConstants.MaximumCost, 
                     nameof(Cost));
 
                 _cost = value;
@@ -146,7 +117,7 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         public Item()
         {
-            _id = IdGenerator.GetNextId();
+            Id = IdGenerator.GetNextId();
             Name = string.Empty;
             Info = string.Empty;
             Cost = 0;
@@ -173,7 +144,7 @@ namespace ObjectOrientedPractics.Model
         ///</param>
         public Item(string name, string info, decimal cost, Category category)
         {
-            _id = IdGenerator.GetNextId();
+            Id = IdGenerator.GetNextId();
             Name = name;
             Info = info;
             Cost = cost;
@@ -187,7 +158,7 @@ namespace ObjectOrientedPractics.Model
         [JsonConstructor]
         public Item(int id)
         {
-            _id = id;
+            Id = id;
         }
 
         /// <summary>
@@ -250,6 +221,21 @@ namespace ObjectOrientedPractics.Model
             else
             {
                 return -1;
+            }
+        }
+
+        /// <summary>
+        /// Возвращает хэш-код объекта.
+        /// </summary>
+        /// <returns>Хэш-код объекта.</returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = Category.GetHashCode() + Id.GetHashCode() + 
+                    Name.GetHashCode() + Info.GetHashCode() + Cost.GetHashCode();
+
+                return hash;
             }
         }
     }

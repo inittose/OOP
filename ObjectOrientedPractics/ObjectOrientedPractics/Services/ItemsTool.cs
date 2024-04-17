@@ -1,8 +1,8 @@
-﻿using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Enums;
+﻿using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Enums;
 using System.Collections.Generic;
 
-namespace ObjectOrientedPractics.Services
+namespace ObjectOrientedPractices.Services
 {
     /// <summary>
     /// Вычисляет различные характеристики товаров.

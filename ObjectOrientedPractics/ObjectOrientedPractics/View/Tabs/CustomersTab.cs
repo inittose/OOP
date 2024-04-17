@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Discounts;
-using ObjectOrientedPractics.Services;
-using ObjectOrientedPractics.View.Pop_ups;
+using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Discounts;
+using ObjectOrientedPractices.Services;
+using ObjectOrientedPractices.View.Pop_ups;
 
-namespace ObjectOrientedPractics.View.Tabs
+namespace ObjectOrientedPractices.View.Tabs
 {
     /// <summary>
     /// Отвечает за логику работы вкладки с покупателями.
@@ -51,19 +51,8 @@ namespace ObjectOrientedPractics.View.Tabs
             WrongFullNameLabel.Text = string.Empty;
         }
 
-        /// <summary>
-        /// Обновляет данные в списке скидок покупателя.
-        /// </summary>
         /// TODO: не используется. Убрать
-        public void UpdateDiscountsListBox()
-        {
-            if (CustomersListBox.SelectedIndex < 0)
-            {
-                return;
-            }
-
-            UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
-        }
+        /// UDP: Убрал
 
         /// <summary>
         /// Обновляет данные в списке скидок покупателя.
@@ -223,10 +212,10 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 WrongFullNameLabel.Text = "Full name must consist of characters.";
             }
-            else if (FullNameTextBox.Text.Length > Customer.FullnameLengthLimit)
+            else if (FullNameTextBox.Text.Length > ModelConstants.FullnameLengthLimit)
             {
                 WrongFullNameLabel.Text =
-                    $"Full name must be no more than {Customer.FullnameLengthLimit} characters.";
+                    $"Full name must be no more than {ModelConstants.FullnameLengthLimit} characters.";
             }
             else
             {

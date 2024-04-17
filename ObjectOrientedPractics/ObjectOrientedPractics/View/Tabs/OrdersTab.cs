@@ -1,11 +1,11 @@
-﻿using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Enums;
-using ObjectOrientedPractics.Model.Orders;
+﻿using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Model.Orders;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace ObjectOrientedPractics.View.Tabs
+namespace ObjectOrientedPractices.View.Tabs
 {
     /// <summary>
     /// Отвечает за логику работы вкладки заказов покупателей.

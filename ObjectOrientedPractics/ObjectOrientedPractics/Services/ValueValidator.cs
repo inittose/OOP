@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ObjectOrientedPractics.Services
+namespace ObjectOrientedPractices.Services
 {
     /// <summary>
     /// Проводит валидацию входных данных.
@@ -19,7 +19,7 @@ namespace ObjectOrientedPractics.Services
             {
                 throw new
                     // TODO: у тебя некоторые строки на русском, некоторые на английском. Нужен один язык
-                    ArgumentException($"{propertyName} должно быть меньше {maxLength} символов.");
+                    ArgumentException($"{propertyName} must be less than {maxLength} characters.");
             }
         }
 
@@ -40,7 +40,7 @@ namespace ObjectOrientedPractics.Services
             {
                 throw new 
                     ArgumentException(
-                    $"{propertyName} не входит в границы от {minimum} до {maximum}.");
+                    $"{propertyName} does not fall within the {minimum} to {maximum} boundary.");
             }
         }
 
@@ -56,7 +56,7 @@ namespace ObjectOrientedPractics.Services
             {
                 throw new
                     ArgumentException(
-                    $"{propertyName} должно состоять из {digit} разрядов.");
+                    $"{propertyName} must consist of {digit} digits.");
             }
         }
 
@@ -72,7 +72,7 @@ namespace ObjectOrientedPractics.Services
             {
                 throw new
                     ArgumentException(
-                    $"{propertyName} должно быть больше {minimum}.");
+                    $"{propertyName} must be greater than {minimum}.");
             }
         }
 
@@ -93,7 +93,7 @@ namespace ObjectOrientedPractics.Services
             {
                 throw new
                     ArgumentException(
-                    $"{propertyName} не входит в границы от {minimum} до {maximum}.");
+                    $"{propertyName} does not fall within the {minimum} to {maximum} boundary.");
             }
         }
     }

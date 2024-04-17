@@ -1,11 +1,8 @@
-﻿using ObjectOrientedPractics.Model;
+﻿using ObjectOrientedPractices.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ObjectOrientedPractics
+namespace ObjectOrientedPractices
 {
     internal static class Program
     {

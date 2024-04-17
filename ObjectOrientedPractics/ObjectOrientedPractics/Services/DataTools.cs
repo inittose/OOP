@@ -1,8 +1,8 @@
-﻿using ObjectOrientedPractics.Model;
+﻿using ObjectOrientedPractices.Model;
 using System;
 using System.Collections.Generic;
 
-namespace ObjectOrientedPractics.Services
+namespace ObjectOrientedPractices.Services
 {
     /// <summary>
     /// Хранит логику по обработке данных.
@@ -13,8 +13,9 @@ namespace ObjectOrientedPractics.Services
         /// Делегат сравнения товаров по критерию.
         /// </summary>
         /// TODO: xml комментарии параметров неактуальны
-        /// <param name="item">Товар класса <see cref="Item"/>.</param>
-        /// <returns>Стоил ли поменять товары местами.</returns>
+        /// <param name="first">Товар класса <see cref="Item"/>.</param>
+        /// <param name="second">Товар класса <see cref="Item"/>.</param>
+        /// <returns>Значение <see cref="bool"/>.</returns>
         public delegate bool CompareProperties(Item first, Item second);
 
         /// <summary>

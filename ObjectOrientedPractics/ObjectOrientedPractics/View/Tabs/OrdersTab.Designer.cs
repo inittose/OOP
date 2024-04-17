@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractics.View.Tabs
+﻿namespace ObjectOrientedPractices.View.Tabs
 {
     partial class OrdersTab
     {
@@ -48,7 +48,7 @@
             this.IdLabel = new System.Windows.Forms.Label();
             this.OrderItemsLabel = new System.Windows.Forms.Label();
             this.SelectedOrderLabel = new System.Windows.Forms.Label();
-            this.AddressControl = new ObjectOrientedPractics.View.Controls.AddressControl();
+            this.AddressControl = new ObjectOrientedPractices.View.Controls.AddressControl();
             this.TotalHeaderLabel = new System.Windows.Forms.Label();
             this.TotalLabel = new System.Windows.Forms.Label();
             this.Priority = new System.Windows.Forms.DataGridViewTextBoxColumn();

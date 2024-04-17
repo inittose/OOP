@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Enums;
-using ObjectOrientedPractics.Services;
+using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Services;
 
-namespace ObjectOrientedPractics.View.Tabs
+namespace ObjectOrientedPractices.View.Tabs
 {
     /// <summary>
     /// Отвечает за логику работы вкладки с товарами.
@@ -92,7 +92,6 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Обновить список товаров, который будет выведен на экран.
         /// </summary>
         /// TODO: убрать комментарий для входного параметра.
-        /// <param name="compare">Метод критерия проверки товаров.</param>
         private void UpdateDisplayedItems()
         {
             var displayedItems = Items;
@@ -133,7 +132,6 @@ namespace ObjectOrientedPractics.View.Tabs
         /// в зависимости от индекса товара в списке.
         /// </summary>
         /// TODO: убрать комментарий для входного параметра.
-        /// <param name="selectedIndex">Индекс товара в списке.</param>
         private void SetTextBoxes()
         {
             var isSelectedIndexCorrect = ItemsListBox.SelectedItem != null;
@@ -250,13 +248,13 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 WrongCostLabel.Text = "Cost must be a float number.";
             }
-            else if (getParse <= Item.MinimumCost)
+            else if (getParse <= ModelConstants.MinimumCost)
             {
-                WrongCostLabel.Text = $"Cost must be greater than {Item.MinimumCost}.";
+                WrongCostLabel.Text = $"Cost must be greater than {ModelConstants.MinimumCost}.";
             }
-            else if (getParse > Item.MaximumCost)
+            else if (getParse > ModelConstants.MaximumCost)
             {
-                WrongCostLabel.Text = $"Сost must be less than {Item.MaximumCost}.";
+                WrongCostLabel.Text = $"Сost must be less than {ModelConstants.MaximumCost}.";
             }
             else
             {
@@ -288,10 +286,10 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 WrongNameLabel.Text = "Name must consist of characters.";
             }
-            else if (NameTextBox.Text.Length > Item.NameLengthLimit)
+            else if (NameTextBox.Text.Length > ModelConstants.NameLengthLimit)
             {
                 WrongNameLabel.Text = 
-                    $"Name must be no more than {Item.NameLengthLimit} characters.";
+                    $"Name must be no more than {ModelConstants.NameLengthLimit} characters.";
             }
             else
             {
@@ -319,10 +317,10 @@ namespace ObjectOrientedPractics.View.Tabs
             var currentColor = AppColors.WrongInputColor;
 
             // TODO: вынести в валидатор
-            if (DescriptionTextBox.Text.Length > Item.InfoLengthLimit)
+            if (DescriptionTextBox.Text.Length > ModelConstants.InfoLengthLimit)
             {
                 WrongDescriptionLabel.Text = 
-                    $"Description should not exceed {Item.InfoLengthLimit} characters";
+                    $"Description should not exceed {ModelConstants.InfoLengthLimit} characters";
             }
             else
             {
@@ -465,25 +463,20 @@ namespace ObjectOrientedPractics.View.Tabs
                     {
                         // TODO: сделай по примеру case 0
                         SortCompare = (firstItem, secondItem) =>
-                        {
-                            return firstItem.Cost.CompareTo(secondItem.Cost) < 0;
-                        };
+                            firstItem.Cost.CompareTo(secondItem.Cost) < 0;
 
                         break;
                     }
                 case 2:
                     {
                         SortCompare = (firstItem, secondItem) =>
-                        {
-                            return firstItem.Cost.CompareTo(secondItem.Cost) > 0;
-                        };
+                            firstItem.Cost.CompareTo(secondItem.Cost) > 0;
 
                         break;
                     }
             }
 
             // TODO: не используется. Убрать
-            var selectedItem = ItemsListBox.SelectedItem;
             UpdateDisplayedItems();
         }
     }

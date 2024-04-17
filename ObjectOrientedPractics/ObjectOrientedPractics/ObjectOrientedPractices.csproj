@@ -59,6 +59,7 @@
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\IDiscount.cs" />
     <Compile Include="Model\Item.cs" />
+    <Compile Include="Model\ModelConstants.cs" />
     <Compile Include="Model\Orders\Order.cs" />
     <Compile Include="Model\Enums\OrderStatus.cs" />
     <Compile Include="Model\Enums\OrderTime.cs" />
@@ -163,8 +164,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Services\Databases\CustomersData.txt" />
-    <Content Include="Services\Databases\ItemsData.txt" />
+    <Content Include="Services\Databases\CustomersData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Databases\ItemsData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="View\Images\box.ico" />
     <Content Include="View\Images\box.svg" />
   </ItemGroup>

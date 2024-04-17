@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
-using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Enums;
 
-namespace ObjectOrientedPractics.Services
+namespace ObjectOrientedPractices.Services
 {
     /// <summary>
     /// TODO: грамм ошибка посмотри везде слово "экзепляр"
-    /// Генерирует экзепляр класса <see cref="Item"/> из базы данных.
+    /// Генерирует экземпляр класса <see cref="Item"/> из базы данных.
     /// </summary>
     public static class ItemFactory
     {
@@ -23,12 +23,12 @@ namespace ObjectOrientedPractics.Services
         /// Вместо этого установи в свойствах файлов в Databases Build Action – Content,...
         /// Copy to Output Directory Always. Тогда у тебя будет путь Services\Databases\ItemsData.txt
         /// (потому что путь устанавливается от точки входа в приложение т.е. файла .exe)
-        private static string FileName { get; } = $@"..\..\Services\Databases\ItemsData.txt";
+        private static string FileName { get; } = $@"Services\Databases\ItemsData.txt";
 
         /// <summary>
-        /// Возвращает экзепляр класса <see cref="Item"/> с начальными случайными значениями.
+        /// Возвращает экземпляр класса <see cref="Item"/> с начальными случайными значениями.
         /// </summary>
-        /// <returns>Экзепляр класса <see cref="Item"/>.</returns>
+        /// <returns>экземпляр класса <see cref="Item"/>.</returns>
         public static Item GetRandomItem()
         {
             var random = new Random();

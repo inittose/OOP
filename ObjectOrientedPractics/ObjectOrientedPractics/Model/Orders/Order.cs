@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using ObjectOrientedPractics.Services;
+using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
-using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractices.Model.Enums;
 
-namespace ObjectOrientedPractics.Model.Orders
+namespace ObjectOrientedPractices.Model.Orders
 {
     /// <summary>
     /// Хранит данные о заказе.
@@ -12,34 +12,16 @@ namespace ObjectOrientedPractics.Model.Orders
     public class Order : IEquatable<Order>
     {
         /// <summary>
-        /// TODO: грамм ошибка
-        /// Уникальный индентификатор заказа.
-        /// </summary>
-        private readonly int _id;
-
-        /// <summary>
-        /// Дата создания заказа.
-        /// </summary>
-        [JsonProperty]
-        private readonly DateTime _date = DateTime.Now;
-
-        /// <summary>
         /// TODO: грамм ошибки
-        /// Возвращает уникальный индентификатор заказа.
+        /// Возвращает уникальный идентификатор заказа.
         /// </summary>
         // TODO: Убери поля, дополни JSON конструктор всеми свойствами. Должно работать точно также
-        public int Id
-        {
-            get => _id;
-        }
+        public int Id { get; set; }
 
         /// <summary>
         /// Возвращает дату создания заказа.
         /// </summary>
-        public DateTime CreationDate
-        {
-            get => _date;
-        }
+        public DateTime CreationDate { get; }
 
         /// <summary>
         /// Возвращает и задает статус заказа.
@@ -94,7 +76,7 @@ namespace ObjectOrientedPractics.Model.Orders
         /// </summary>
         public Order() 
         {
-            _id = IdGenerator.GetNextId();
+            Id = IdGenerator.GetNextId();
             Status = OrderStatus.New;
             Address = new Address();
             Items = new List<Item>();
@@ -111,7 +93,7 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <param name="discountAmount">Размер скидки заказа.</param>
         public Order(OrderStatus status, Address address, List<Item> items, decimal discountAmount)
         {
-            _id = IdGenerator.GetNextId();
+            Id = IdGenerator.GetNextId();
             Status = status;
             Address = address;
             Items = items;
@@ -125,9 +107,10 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <param name="id">Уникальный идентификатор.</param>
         /// <param name="discountAmount">Размер скидки.</param>
         [JsonConstructor]
-        public Order(int id, decimal discountAmount)
+        public Order(int id, DateTime date, decimal discountAmount)
         {
-            _id = id;
+            Id = id;
+            CreationDate = date;
             DiscountAmount = discountAmount;
         }
 
@@ -152,6 +135,21 @@ namespace ObjectOrientedPractics.Model.Orders
             // его нужно переопределить в нужном классе...
             // и на основе всех значений объекта искать Hash
             return GetHashCode() == other.GetHashCode();
+        }
+
+        /// <summary>
+        /// Возвращает хэш-код объекта.
+        /// </summary>
+        /// <returns>Хэш-код объекта.</returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = Id.GetHashCode() + CreationDate.GetHashCode() +
+                Status.GetHashCode() + Items.GetHashCode() + DiscountAmount.GetHashCode();
+
+                return hash;
+            }
         }
     }
 }

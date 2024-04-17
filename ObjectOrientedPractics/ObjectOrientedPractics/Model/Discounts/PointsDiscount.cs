@@ -1,32 +1,15 @@
 ﻿using Newtonsoft.Json;
-using ObjectOrientedPractics.Services;
+using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
 
-namespace ObjectOrientedPractics.Model.Discounts
+namespace ObjectOrientedPractices.Model.Discounts
 {
     /// <summary>
     /// Хранит и вычисляет данные о накопительных баллах.
     /// </summary>
     public class PointsDiscount : IDiscount, IComparable<PointsDiscount>
     {
-        /// <summary>
-        /// Минимальное количество накопительных баллов.
-        /// </summary>
-        public const int MinimumPoints = 0;
-
-        /// <summary>
-        /// Максимальное количество скидки от суммы товаров в процентах.
-        /// </summary>
-        // TODO: грамматическая ошибка Percent
-        public const int MaximumDiscountPersent = 30;
-
-        /// <summary>
-        /// Количество процентов от суммы заказа, которое будет начисленно на накопительный счет.
-        /// </summary>
-        // TODO: грамматическая ошибка Percent
-        public const int CumulativePersent = 10;
-
         /// <summary>
         /// Накопительные баллы.
         /// </summary>
@@ -41,7 +24,11 @@ namespace ObjectOrientedPractics.Model.Discounts
             get => _points;
             private set
             {
-                ValueValidator.AssertIntOnLowerLimit(value, MinimumPoints, nameof(Points));
+                ValueValidator.AssertIntOnLowerLimit(
+                    value, 
+                    ModelConstants.MinimumPoints, 
+                    nameof(Points));
+
                 _points = value;
             }
         }
@@ -52,15 +39,12 @@ namespace ObjectOrientedPractics.Model.Discounts
         // TODO: В одну строку.
         public string Info
         {
-            get
-            {
-                return $"Накопительная - {Points} баллов";
-            }
+            get => $"Накопительная - {Points} баллов";
         }
 
         /// <summary>
         /// Вычисляет размер скидки, доступный для списка товаров.
-        /// Скидка товаров не может быть больше <see cref="MaximumDiscountPersent"/> процентов
+        /// Скидка товаров не может быть больше <see cref="MaximumDiscountPercent"/> процентов
         /// от общей суммы товаров.
         /// </summary>
         /// <param name="items">Список товаров.</param>
@@ -74,9 +58,9 @@ namespace ObjectOrientedPractics.Model.Discounts
                 return 0M;
             }
             // TODO: Вынеси используемые в нескольких классов константы в отдельный статический класс
-            if (Points / amount * 100M > MaximumDiscountPersent)
+            if (Points / amount * 100M > ModelConstants.MaximumDiscountPercent)
             {
-                return amount * MaximumDiscountPersent / 100M;
+                return amount * ModelConstants.MaximumDiscountPercent / 100M;
             }
             else
             {
@@ -86,7 +70,7 @@ namespace ObjectOrientedPractics.Model.Discounts
 
         /// <summary>
         /// Применяет накопительные баллы на скидку, доступную для списка товаров.
-        /// Скидка товаров не может быть больше <see cref="MaximumDiscountPersent"/> процентов 
+        /// Скидка товаров не может быть больше <see cref="MaximumDiscountPercent"/> процентов 
         /// от общей суммы товаров.
         /// </summary>
         /// <param name="items">Список товаров.</param>
@@ -102,13 +86,13 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <summary>
         /// Добавляет баллы на основе полученного списка товаров.
         /// Каждая покупка увеличивает количество накопленных баллов 
-        /// на <see cref="CumulativePersent"/> от общей стоимости товаров.
+        /// на <see cref="CumulativePercent"/> от общей стоимости товаров.
         /// </summary>
         /// <param name="items">Список товаров.</param>
         public void Update(List<Item> items)
         {
             var amount = ItemsTool.GetAmount(items);
-            Points += (int)Math.Ceiling(amount * CumulativePersent / 100M);
+            Points += (int)Math.Ceiling(amount * ModelConstants.CumulativePercent / 100M);
         }
 
         /// <summary>

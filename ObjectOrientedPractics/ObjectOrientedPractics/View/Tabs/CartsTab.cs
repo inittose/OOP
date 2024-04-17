@@ -1,12 +1,12 @@
-﻿using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Discounts;
-using ObjectOrientedPractics.Model.Enums;
-using ObjectOrientedPractics.Model.Orders;
+﻿using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Discounts;
+using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Model.Orders;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace ObjectOrientedPractics.View.Tabs
+namespace ObjectOrientedPractices.View.Tabs
 {
     /// <summary>
     /// Отвечает за логику работы вкладки с корзиной покупателя.
@@ -247,7 +247,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
         /// TODO: убери System везде
-        private void AddToCartButton_Click(object sender, System.EventArgs e)
+        private void AddToCartButton_Click(object sender, EventArgs e)
         {
             if (CurrentCustomer < 0 || ItemsListBox.SelectedIndex < 0)
             {
@@ -270,7 +270,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
-        private void CustomerComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void CustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CurrentCustomer = CustomerComboBox.SelectedIndex;
             SetDiscountsCheckedListBox();
@@ -282,7 +282,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
-        private void RemoveItemButton_Click(object sender, System.EventArgs e)
+        private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             if (CurrentCustomer < 0 || CartListBox.SelectedIndex < 0)
             {
@@ -305,9 +305,9 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
-        private void ClearCartButton_Click(object sender, System.EventArgs e)
+        private void ClearCartButton_Click(object sender, EventArgs e)
         {
-            if (CurrentCustomer < 0)
+            if (CurrentCustomer < 0 || Customers.Count == 0)
             {
                 return;
             }
@@ -349,7 +349,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
-        private void CreateOrderButton_Click(object sender, System.EventArgs e)
+        private void CreateOrderButton_Click(object sender, EventArgs e)
         {
             if (CurrentCustomer < 0 || CartListBox.Items.Count == 0)
             {
@@ -399,7 +399,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
-        private void DiscountsCheckedListBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void DiscountsCheckedListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateAmountLabels();
         }

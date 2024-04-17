@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractics.View.Pop_ups
+﻿namespace ObjectOrientedPractices.View.Pop_ups
 {
     partial class AddDiscountPopUp
     {

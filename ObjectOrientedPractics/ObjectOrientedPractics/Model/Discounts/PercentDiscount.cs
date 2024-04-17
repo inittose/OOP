@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using ObjectOrientedPractics.Model.Enums;
-using ObjectOrientedPractics.Services;
+using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
 
 // TODO: грамматическая ошибка Practices
-namespace ObjectOrientedPractics.Model.Discounts
+namespace ObjectOrientedPractices.Model.Discounts
 {
     // TODO: Сделай расположение элементов класса по формату, который указан в Яндекс Диске...
     // 50ohm_Students\ГПО\Статьи по процессу разработки (копии с Wiki 50ohm)\Стандарт оформления кода - Overview
@@ -16,27 +16,6 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// </summary>
     public class PercentDiscount : IDiscount, IComparable<PercentDiscount>
     {
-        /// <summary>
-        /// Минимально возможная скидка в процентах.
-        /// </summary>
-        public const int MinimumPercent = 1;
-
-        /// <summary>
-        /// Максимально возможная скидка в процентах.
-        /// </summary>
-        public const int MaximumPercent = 10;
-
-        /// <summary>
-        /// Количество процентов, на которое повышается скидка, при выполнении условия.
-        /// </summary>
-        // TODO: не используется. Убрать
-        public const int IncreasingDiscount = 1;
-
-        /// <summary>
-        /// Количество денежных единиц необходимое для повышения скидки.
-        /// </summary>
-        public const int AmountForIncreasing = 1000;
-
         /// <summary>
         /// Скидка в процентах.
         /// </summary>
@@ -54,9 +33,9 @@ namespace ObjectOrientedPractics.Model.Discounts
             {
                 ValueValidator.AssertIntOnLimits(
                     // TODO: есть лишние пробелы в концах строк. Для их обнаружения можно поставить Resharper
-                    value, 
-                    MinimumPercent, 
-                    MaximumPercent, 
+                    value,
+                    ModelConstants.MinimumPercent,
+                    ModelConstants.MaximumPercent,
                     nameof(Discount));
 
                 _discount = value;
@@ -79,10 +58,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         // TODO: Сделай в одну строку
         public string Info
         {
-            get
-            {
-                return $"Процентная \"{Category}\" - {Discount}%";
-            }
+            get => $"Процентная \"{Category}\" - {Discount}%";
         }
 
         /// <summary>
@@ -93,9 +69,10 @@ namespace ObjectOrientedPractics.Model.Discounts
         public decimal Calculate(List<Item> items)
         {
             var amount = ItemsTool.GetAmountOnCategory(items, Category);
+            var percents = 100;
 
             // TODO: вынеси 100 в отдельную константу внутри этого метода
-            return amount * Discount / 100;
+            return amount * Discount / percents;
         }
 
         /// <summary>
@@ -119,11 +96,14 @@ namespace ObjectOrientedPractics.Model.Discounts
         {
             var amount = ItemsTool.GetAmountOnCategory(items, Category);
             SpendingPerCategory += amount;
-            var percentage = (int)(SpendingPerCategory / AmountForIncreasing) + MinimumPercent;
 
-            if (percentage > MaximumPercent)
+            var percentage = 
+                (int)(SpendingPerCategory / ModelConstants.AmountForIncreasing) + 
+                ModelConstants.IncreasingDiscount;
+
+            if (percentage > ModelConstants.MaximumPercent)
             {
-                Discount = MaximumPercent;
+                Discount = ModelConstants.MaximumPercent;
             }
             else
             {
@@ -138,7 +118,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         public PercentDiscount(Category category)
         {
             Category = category;
-            Discount = MinimumPercent;
+            Discount = ModelConstants.MinimumPercent;
         }
 
         /// <summary>

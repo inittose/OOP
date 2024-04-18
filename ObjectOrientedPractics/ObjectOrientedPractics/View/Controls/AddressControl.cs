@@ -423,6 +423,35 @@ namespace ObjectOrientedPractices.View.Controls
         }
 
         /// TODO: дубль. Можно sender привести к TextBox и установить фокус.
-        /// UPD: +, Удалил, не давало эффекта
+        /// UPD: +
+        private void PostIndexTextBox_Enter(object sender, EventArgs e)
+        {
+            (sender as TextBox).Focus();
+        }
+
+        private void CountryTextBox_Enter(object sender, EventArgs e)
+        {
+            (sender as TextBox).Focus();
+        }
+
+        private void CityTextBox_Enter(object sender, EventArgs e)
+        {
+            (sender as TextBox).Focus();
+        }
+
+        private void StreetTextBox_Enter(object sender, EventArgs e)
+        {
+            (sender as TextBox).Focus();
+        }
+
+        private void BuildingTextBox_Enter(object sender, EventArgs e)
+        {
+            (sender as TextBox).Focus();
+        }
+
+        private void ApartmentTextBox_Enter(object sender, EventArgs e)
+        {
+            (sender as TextBox).Focus();
+        }
     }
 }

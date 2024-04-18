@@ -193,9 +193,12 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
+            // Индекс столбца со статусом заказа.
+            var statusIndex = 3;
             Orders[SelectedIndex].Status = (OrderStatus)StatusComboBox.SelectedItem;
             // TODO: почему именно 3? Вынеси в переменную и добавь комментарий, почему именно это число
-            OrdersDataGridView[3, SelectedIndex].Value = 
+            // UPD: +
+            OrdersDataGridView[statusIndex, SelectedIndex].Value = 
                 Enum.GetName(typeof(OrderStatus), Orders[SelectedIndex].Status);
         }
 

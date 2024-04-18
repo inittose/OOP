@@ -263,7 +263,8 @@
             // 
             // WrongFullNameLabel
             // 
-            this.WrongFullNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.WrongFullNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.WrongFullNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.WrongFullNameLabel.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.WrongFullNameLabel.Location = new System.Drawing.Point(172, 41);

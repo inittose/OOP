@@ -42,6 +42,11 @@ namespace ObjectOrientedPractices.View.Tabs
         }
 
         /// <summary>
+        /// Возвращает словарь, который хранит валидность текстовых полей.
+        /// </summary>
+        public Dictionary<TextBox, bool> Validations { get; } = new Dictionary<TextBox, bool>();
+
+        /// <summary>
         /// Инициализирует компонент, 
         /// убирает ошибки валидации и загружает сохраненных покупателей.
         /// </summary>
@@ -49,6 +54,7 @@ namespace ObjectOrientedPractices.View.Tabs
         {
             InitializeComponent();
             WrongFullNameLabel.Text = string.Empty;
+            Validations.Add(FullNameTextBox, true);
         }
 
         /// TODO: не используется. Убрать
@@ -206,24 +212,24 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            var currentColor = AppColors.WrongInputColor;
+            try
+            {
+                ValueValidator.AssertStringOnLengthLimits(
+                    FullNameTextBox.Text, 
+                    0, 
+                    ModelConstants.FullnameLengthLimit, 
+                    "FullName");
 
-            if (FullNameTextBox.Text.Length == 0)
-            {
-                WrongFullNameLabel.Text = "Full name must consist of characters.";
-            }
-            else if (FullNameTextBox.Text.Length > ModelConstants.FullnameLengthLimit)
-            {
-                WrongFullNameLabel.Text =
-                    $"Full name must be no more than {ModelConstants.FullnameLengthLimit} characters.";
-            }
-            else
-            {
                 WrongFullNameLabel.Text = string.Empty;
-                currentColor = AppColors.RightInputColor;
+                FullNameTextBox.BackColor = AppColors.RightInputColor;
+                Validations[FullNameTextBox] = true;
             }
-
-            FullNameTextBox.BackColor = currentColor;
+            catch (ArgumentException ex)
+            {
+                WrongFullNameLabel.Text = ex.Message;
+                FullNameTextBox.BackColor = AppColors.WrongInputColor;
+                Validations[FullNameTextBox] = false;
+            }
         }
 
         /// <summary>
@@ -238,7 +244,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            if (FullNameTextBox.BackColor == AppColors.RightInputColor)
+            if (Validations[FullNameTextBox])
             {
                 Customers[CustomersListBox.SelectedIndex].FullName = FullNameTextBox.Text;
                 CustomersListBox.Items[CustomersListBox.SelectedIndex] = FullNameTextBox.Text;

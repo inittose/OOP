@@ -64,6 +64,11 @@ namespace ObjectOrientedPractices.View.Tabs
         }
 
         /// <summary>
+        /// Возвращает словарь, который хранит валидность текстовых полей.
+        /// </summary>
+        public Dictionary<TextBox, bool> Validations { get; } = new Dictionary<TextBox, bool>();
+
+        /// <summary>
         /// Возвращает и задает делигат критерия сортировки.
         /// </summary>
         private DataTools.CompareProperties SortCompare { get; set; }
@@ -86,12 +91,16 @@ namespace ObjectOrientedPractices.View.Tabs
             WrongNameLabel.Text = string.Empty;
             WrongDescriptionLabel.Text = string.Empty;
             ItemsListBox.DisplayMember = "Name";
+            Validations.Add(CostTextBox, true);
+            Validations.Add(NameTextBox, true);
+            Validations.Add(DescriptionTextBox, true);
         }
 
         /// <summary>
         /// Обновить список товаров, который будет выведен на экран.
         /// </summary>
         /// TODO: убрать комментарий для входного параметра.
+        /// UPD: +
         private void UpdateDisplayedItems()
         {
             var displayedItems = Items;
@@ -132,6 +141,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// в зависимости от индекса товара в списке.
         /// </summary>
         /// TODO: убрать комментарий для входного параметра.
+        /// UPD: +
         private void SetTextBoxes()
         {
             var isSelectedIndexCorrect = ItemsListBox.SelectedItem != null;
@@ -240,29 +250,26 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            var currentColor = AppColors.WrongInputColor;
-            var getParse = 0M;
-
             // TODO: вынести в валидатор
-            if (!decimal.TryParse(CostTextBox.Text, out getParse))
+            // UPD: +
+            try
             {
-                WrongCostLabel.Text = "Cost must be a float number.";
-            }
-            else if (getParse <= ModelConstants.MinimumCost)
-            {
-                WrongCostLabel.Text = $"Cost must be greater than {ModelConstants.MinimumCost}.";
-            }
-            else if (getParse > ModelConstants.MaximumCost)
-            {
-                WrongCostLabel.Text = $"Сost must be less than {ModelConstants.MaximumCost}.";
-            }
-            else
-            {
-                WrongCostLabel.Text = string.Empty;
-                currentColor = AppColors.RightInputColor;
-            }
+                ValueValidator.AssertStringOnDecimalLimits(
+                    CostTextBox.Text, 
+                    ModelConstants.MinimumCost, 
+                    ModelConstants.MaximumCost,
+                    "Cost");
 
-            CostTextBox.BackColor = currentColor;
+                WrongCostLabel.Text = string.Empty;
+                CostTextBox.BackColor = AppColors.RightInputColor;
+                Validations[CostTextBox] = true;
+            }
+            catch (ArgumentException ex)
+            {
+                WrongCostLabel.Text = ex.Message;
+                CostTextBox.BackColor = AppColors.WrongInputColor;
+                Validations[CostTextBox] = false;
+            }
         }
 
         /// <summary>
@@ -279,25 +286,26 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            var currentColor = AppColors.WrongInputColor;
-
             // TODO: вынести в валидатор
-            if (NameTextBox.Text.Length == 0)
+            // UPD: +
+            try
             {
-                WrongNameLabel.Text = "Name must consist of characters.";
-            }
-            else if (NameTextBox.Text.Length > ModelConstants.NameLengthLimit)
-            {
-                WrongNameLabel.Text = 
-                    $"Name must be no more than {ModelConstants.NameLengthLimit} characters.";
-            }
-            else
-            {
-                WrongNameLabel.Text = string.Empty;
-                currentColor = AppColors.RightInputColor;
-            }
+                ValueValidator.AssertStringOnLengthLimits(
+                    NameTextBox.Text, 
+                    0, 
+                    ModelConstants.NameLengthLimit, 
+                    "Name");
 
-            NameTextBox.BackColor = currentColor;
+                WrongNameLabel.Text = string.Empty;
+                NameTextBox.BackColor = AppColors.RightInputColor;
+                Validations[NameTextBox] = true;
+            }
+            catch (ArgumentException ex)
+            {
+                WrongNameLabel.Text = ex.Message;
+                NameTextBox.BackColor = AppColors.WrongInputColor;
+                Validations[NameTextBox] = false;
+            }
         }
 
         /// <summary>
@@ -314,21 +322,23 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            var currentColor = AppColors.WrongInputColor;
+            try
+            {
+                ValueValidator.AssertStringOnLength(
+                    DescriptionTextBox.Text, 
+                    ModelConstants.InfoLengthLimit, 
+                    "Description");
 
-            // TODO: вынести в валидатор
-            if (DescriptionTextBox.Text.Length > ModelConstants.InfoLengthLimit)
-            {
-                WrongDescriptionLabel.Text = 
-                    $"Description should not exceed {ModelConstants.InfoLengthLimit} characters";
-            }
-            else
-            {
                 WrongDescriptionLabel.Text = string.Empty;
-                currentColor = AppColors.RightInputColor;
+                DescriptionTextBox.BackColor = AppColors.RightInputColor;
+                Validations[DescriptionTextBox] = true;
             }
-
-            DescriptionTextBox.BackColor = currentColor;
+            catch (ArgumentException ex)
+            {
+                WrongDescriptionLabel.Text = ex.Message;
+                DescriptionTextBox.BackColor = AppColors.WrongInputColor;
+                Validations[DescriptionTextBox] = false;
+            }
         }
 
         /// <summary>
@@ -345,7 +355,8 @@ namespace ObjectOrientedPractices.View.Tabs
 
             var selectedItem = ItemsListBox.SelectedItem as Item;
             // TODO: такая же ситуация, как и в CartsTab.
-            if (NameTextBox.BackColor == AppColors.RightInputColor)
+            // UPD: +
+            if (Validations[NameTextBox])
             {
                 selectedItem.Name = NameTextBox.Text;
                 ItemsChanged?.Invoke(this, EventArgs.Empty);
@@ -372,7 +383,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
             var selectedItem = ItemsListBox.SelectedItem as Item;
 
-            if (CostTextBox.BackColor == AppColors.RightInputColor)
+            if (Validations[CostTextBox])
             {
                 selectedItem.Cost = decimal.Parse(CostTextBox.Text);
                 ItemsChanged?.Invoke(this, EventArgs.Empty);
@@ -396,7 +407,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
             var selectedItem = ItemsListBox.SelectedItem as Item;
 
-            if (DescriptionTextBox.BackColor == AppColors.RightInputColor)
+            if (Validations[DescriptionTextBox])
             {
                 selectedItem.Info = DescriptionTextBox.Text;
                 ItemsChanged?.Invoke(this, EventArgs.Empty);
@@ -462,6 +473,7 @@ namespace ObjectOrientedPractices.View.Tabs
                 case 1:
                     {
                         // TODO: сделай по примеру case 0
+                        // UPD: +
                         SortCompare = (firstItem, secondItem) =>
                             firstItem.Cost.CompareTo(secondItem.Cost) < 0;
 
@@ -477,6 +489,7 @@ namespace ObjectOrientedPractices.View.Tabs
             }
 
             // TODO: не используется. Убрать
+            // UPD: +
             UpdateDisplayedItems();
         }
     }

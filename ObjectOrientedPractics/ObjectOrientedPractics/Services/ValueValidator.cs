@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ObjectOrientedPractices.Model;
+using System;
 
 namespace ObjectOrientedPractices.Services
 {
@@ -25,6 +26,27 @@ namespace ObjectOrientedPractices.Services
         }
 
         /// <summary>
+        /// Проверка, входит ли длина строки в заданные границы.
+        /// </summary>
+        /// <param name="value">Входное значение.</param>
+        /// <param name="minLength">Минимальная длина строки.</param>
+        /// <param name="maxLength">Максимальная длина строки.</param>
+        /// <param name="propertyName">Имя свойства класса.</param>
+        public static void AssertStringOnLengthLimits(string value, int minLength, int maxLength, string propertyName)
+        {
+            if (value.Length >= maxLength)
+            {
+                throw new
+                    ArgumentException($"{propertyName} must be less than {maxLength} characters.");
+            }
+            else if (value.Length <= minLength)
+            {
+                throw new
+                    ArgumentException($"{propertyName} must be greater than {minLength} characters.");
+            }
+        }
+
+        /// <summary>
         /// Проверка, входит ли вещественное число в заданные границы.
         /// </summary>
         /// <param name="value">Входное значение.</param>
@@ -42,6 +64,36 @@ namespace ObjectOrientedPractices.Services
                 throw new 
                     ArgumentException(
                     $"{propertyName} does not fall within the {minimum} to {maximum} boundary.");
+            }
+        }
+
+        /// <summary>
+        /// Проверка, является ли строка вещественным числом и
+        /// входит ли вещественное число в заданные границы.
+        /// </summary>
+        /// <param name="value">Входное значение.</param>
+        /// <param name="minimum">Минимальное число (нижняя граница).</param>
+        /// <param name="maximum">Максимальное число (верхняя граница).</param>
+        /// <param name="propertyName">Имя свойства класса.</param>
+        public static void AssertStringOnDecimalLimits(
+            string value,
+            decimal minimum,
+            decimal maximum,
+            string propertyName)
+        {
+            decimal parseValue;
+
+            if (!decimal.TryParse(value, out parseValue))
+            {
+                throw new ArgumentException($"{propertyName} must be a decimal number.");
+            }
+            else if (parseValue <= ModelConstants.MinimumCost)
+            {
+                throw new ArgumentException($"Cost must be greater than { minimum }.");
+            }
+            else if (parseValue > ModelConstants.MaximumCost)
+            {
+                throw new ArgumentException($"Сost must be less than {maximum}.");
             }
         }
 

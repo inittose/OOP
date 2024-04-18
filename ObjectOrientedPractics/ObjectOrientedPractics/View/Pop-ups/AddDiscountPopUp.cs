@@ -45,6 +45,7 @@ namespace ObjectOrientedPractices.View.Pop_ups
             {
                 // TODO: Сделать так: discount is PercentDiscount percentDiscount...
                 // Переменная percentDiscount сразу будет нужного типа
+                // UPD: +, не знал
                 if (discount is PercentDiscount percentDiscount)
                 {
                     customerCategories.Add(percentDiscount.Category);

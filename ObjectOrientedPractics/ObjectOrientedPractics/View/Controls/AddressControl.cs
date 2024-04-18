@@ -45,6 +45,9 @@ namespace ObjectOrientedPractices.View.Controls
         /// </summary>
         public bool IsTextBoxesEnabled { get; set; } = true;
 
+        /// <summary>
+        /// Возвращает словарь, который хранит валидность текстовых полей.
+        /// </summary>
         public Dictionary<TextBox, bool> Validations { get; } = new Dictionary<TextBox, bool>();
 
         /// <summary>
@@ -148,6 +151,7 @@ namespace ObjectOrientedPractices.View.Controls
 
             // TODO: у тебя есть ValueValidator. Используй его для проверки...
             // Тогда у тебя вместо if/else будет try/catch. Так со всеми проверками
+            // UPD: +
             try
             {
                 ValueValidator.AssertStringOnLength(
@@ -309,7 +313,7 @@ namespace ObjectOrientedPractices.View.Controls
             // а значение это бул, который говорит прошла ли валидация этого поля...
             // В таком случае можно решить проблему дублирования обработчиков событий...
             // TextChanged и Leave
-            // UDP: Исправил, если правильно понял
+            // UDP: +, Исправил, если правильно понял
             if (Validations[PostIndexTextBox])
             {
                 Address.Index = int.Parse(PostIndexTextBox.Text);
@@ -419,6 +423,6 @@ namespace ObjectOrientedPractices.View.Controls
         }
 
         /// TODO: дубль. Можно sender привести к TextBox и установить фокус.
-        /// UPD: Удалил, не давало эффекта
+        /// UPD: +, Удалил, не давало эффекта
     }
 }

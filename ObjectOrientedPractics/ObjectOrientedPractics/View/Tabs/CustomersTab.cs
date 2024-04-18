@@ -52,7 +52,7 @@ namespace ObjectOrientedPractices.View.Tabs
         }
 
         /// TODO: не используется. Убрать
-        /// UDP: Убрал
+        /// UDP: +, Убрал
 
         /// <summary>
         /// Обновляет данные в списке скидок покупателя.

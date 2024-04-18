@@ -1,5 +1,8 @@
 ﻿namespace ObjectOrientedPractices.Model
 {
+    /// <summary>
+    /// Хранит константы классов Model.
+    /// </summary>
     public static class ModelConstants
     {
         /// <summary>

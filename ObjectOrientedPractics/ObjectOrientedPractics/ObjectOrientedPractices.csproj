@@ -73,6 +73,7 @@
     <Compile Include="Services\IdGenerator.cs" />
     <Compile Include="Services\ItemFactory.cs" />
     <Compile Include="Services\ItemsTool.cs" />
+    <Compile Include="Services\OrderFactory.cs" />
     <Compile Include="Services\Serializer.cs" />
     <Compile Include="Services\ValueValidator.cs" />
     <Compile Include="View\Controls\AddressControl.cs">

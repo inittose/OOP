@@ -2,6 +2,7 @@
 using ObjectOrientedPractices.Model.Discounts;
 using ObjectOrientedPractices.Model.Enums;
 using ObjectOrientedPractices.Model.Orders;
+using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -356,35 +357,14 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            var items = new List<Item>();
-            Order order;
-
-            foreach (var item in Customers[CurrentCustomer].Cart.Items)
-            {
-                items.Add((Item)item.Clone());
-            }
-
             // TODO: такую логику лучше выносить в модель. Создай класс фабрики заказа, ...
             // посылай такие же параметры плюс булево значение isPriority
-            if (Customers[CurrentCustomer].IsPriority)
-            {
-                order = new PriorityOrder(
-                    OrderStatus.New,
-                    Customers[CurrentCustomer].Address,
-                    items,
-                    DiscountAmount); 
-            }
-            else
-            {
-                order = new Order(
-                    OrderStatus.New,
-                    Customers[CurrentCustomer].Address,
-                    items,
-                    DiscountAmount);
-            }
+            // UPD: +
+            Customers[CurrentCustomer].Orders.Add(
+                OrderFactory.Create(Customers[CurrentCustomer], 
+                DiscountAmount));
 
-            Customers[CurrentCustomer].Orders.Add(order);
-            UpdateCustomerDiscounts(items);
+            UpdateCustomerDiscounts(Customers[CurrentCustomer].Cart.Items);
             Customers[CurrentCustomer].Cart.Items.Clear();
             UpdateDiscountsCheckedListBox();
             UpdateCartListBox();

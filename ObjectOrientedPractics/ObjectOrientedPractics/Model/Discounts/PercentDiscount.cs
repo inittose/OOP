@@ -5,12 +5,20 @@ using System;
 using System.Collections.Generic;
 
 // TODO: грамматическая ошибка Practices
+// UPD: ошибка из методички, поправил
 namespace ObjectOrientedPractices.Model.Discounts
 {
     // TODO: Сделай расположение элементов класса по формату, который указан в Яндекс Диске...
     // 50ohm_Students\ГПО\Статьи по процессу разработки (копии с Wiki 50ohm)\Стандарт оформления кода - Overview
     // Также по типу доступа внутри каждого типа элементов класс public, protected, private.
     // Например, сначала идут публичные поля, потом защищенные и в конце приватные
+    //
+    // UPD: Если правильно понял, то формат надо было брать из "4.10 Содержимое классов"
+    // файла, что противоречит методичке "Задание 1 - Инкапсуляция/Создание классов":
+    //  12. Убедитесь, что все члены созданных классов расположены в правильном
+    // порядке: константы, статические поля, readonly-поля, обычные поля, свойства,
+    // конструкторы, открытые методы, закрытые методы.
+    //  В конечном итоге переделал по файлу из ЯД
     /// <summary>
     /// Хранит и вычисляет процентную скидку на конкретную категорию товаров.
     /// </summary>
@@ -20,6 +28,20 @@ namespace ObjectOrientedPractices.Model.Discounts
         /// Скидка в процентах.
         /// </summary>
         private int _discount;
+
+        /// <summary>
+        /// Создает экзепляр класса <see cref="PercentDiscount"/>.
+        /// </summary>
+        /// <param name="category">Категория товара, на которую действует скидка.</param>
+        /// <param name="discount">Размер скидки в процентах.</param>
+        /// <param name="spendingPerCategory">Размер потраченных денег на категорию.</param>
+        [JsonConstructor]
+        private PercentDiscount(Category category, int discount, decimal spendingPerCategory)
+        {
+            Category = category;
+            Discount = discount;
+            SpendingPerCategory = spendingPerCategory;
+        }
 
         /// <summary>
         /// Возвращает и задает скидку в процентах.
@@ -56,9 +78,32 @@ namespace ObjectOrientedPractices.Model.Discounts
         /// Информация о скидке.
         /// </summary>
         // TODO: Сделай в одну строку
-        public string Info
+        // UPD: +
+        public string Info => $"Процентная \"{Category}\" - {Discount}%";
+
+        /// <summary>
+        /// Сравнивает исходный объект с передаваемым.
+        /// </summary>
+        /// <param name="other">Объект класса <see cref="PercentDiscount"/>.</param>
+        /// <returns>
+        /// 0 - Если размер скидки равен;
+        /// 1 - Если у исходного объекта скидка больше;
+        /// -1 - Если у передаваемого объекта скидка больше.
+        /// </returns>
+        public int CompareTo(PercentDiscount other)
         {
-            get => $"Процентная \"{Category}\" - {Discount}%";
+            if (Discount == other.Discount)
+            {
+                return 0;
+            }
+            else if (Discount > other.Discount)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
         }
 
         /// <summary>
@@ -97,8 +142,8 @@ namespace ObjectOrientedPractices.Model.Discounts
             var amount = ItemsTool.GetAmountOnCategory(items, Category);
             SpendingPerCategory += amount;
 
-            var percentage = 
-                (int)(SpendingPerCategory / ModelConstants.AmountForIncreasing) + 
+            var percentage =
+                (int)(SpendingPerCategory / ModelConstants.AmountForIncreasing) +
                 ModelConstants.IncreasingDiscount;
 
             if (percentage > ModelConstants.MaximumPercent)
@@ -119,45 +164,6 @@ namespace ObjectOrientedPractices.Model.Discounts
         {
             Category = category;
             Discount = ModelConstants.MinimumPercent;
-        }
-
-        /// <summary>
-        /// Создает экзепляр класса <see cref="PercentDiscount"/>.
-        /// </summary>
-        /// <param name="category">Категория товара, на которую действует скидка.</param>
-        /// <param name="discount">Размер скидки в процентах.</param>
-        /// <param name="spendingPerCategory">Размер потраченных денег на категорию.</param>
-        [JsonConstructor]
-        private PercentDiscount(Category category, int discount, decimal spendingPerCategory)
-        {
-            Category = category;
-            Discount = discount;
-            SpendingPerCategory = spendingPerCategory;
-        }
-
-        /// <summary>
-        /// Сравнивает исходный объект с передаваемым.
-        /// </summary>
-        /// <param name="other">Объект класса <see cref="PercentDiscount"/>.</param>
-        /// <returns>
-        /// 0 - Если размер скидки равен;
-        /// 1 - Если у исходного объекта скидка больше;
-        /// -1 - Если у передаваемого объекта скидка больше.
-        /// </returns>
-        public int CompareTo(PercentDiscount other)
-        {
-            if (Discount == other.Discount)
-            {
-                return 0;
-            }
-            else if (Discount > other.Discount)
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
         }
     }
 }

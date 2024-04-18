@@ -30,16 +30,6 @@ namespace ObjectOrientedPractices.View.Controls
         }
 
         /// <summary>
-        /// Возвращает сообщение о ошибке переполнения в текстовом поле ввода.
-        /// </summary>
-        private string LimitErrorMessage { get; } = "Поле превышает макс. кол-во символов.";
-
-        /// <summary>
-        /// Возвращает и задает флаг, указывающий на то, активен ли элемент управления.
-        /// </summary>
-        private bool IsControlEnabled { get; set; }
-
-        /// <summary>
         /// Возвращает и задает флаг, указывающий на то, активны ли текстовые поля 
         /// вкладки <see cref="AddressControl"/>.
         /// </summary>
@@ -49,6 +39,16 @@ namespace ObjectOrientedPractices.View.Controls
         /// Возвращает словарь, который хранит валидность текстовых полей.
         /// </summary>
         public Dictionary<TextBox, bool> Validations { get; } = new Dictionary<TextBox, bool>();
+
+        /// <summary>
+        /// Возвращает сообщение о ошибке переполнения в текстовом поле ввода.
+        /// </summary>
+        private string LimitErrorMessage { get; } = "Поле превышает макс. кол-во символов.";
+
+        /// <summary>
+        /// Возвращает и задает флаг, указывающий на то, активен ли элемент управления.
+        /// </summary>
+        private bool IsControlEnabled { get; set; }
 
         /// <summary>
         /// Инициализирует компонент, создает экземпляр класса <see cref="AddressControl"/>.

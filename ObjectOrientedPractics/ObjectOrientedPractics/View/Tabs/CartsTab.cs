@@ -25,19 +25,6 @@ namespace ObjectOrientedPractices.View.Tabs
         public event EventHandler<EventArgs> OrderCreated;
 
         /// <summary>
-        /// Возращает и задает индекс текущего покупателя.
-        /// </summary>
-        private int CurrentCustomer
-        {
-            get => _currentCustomer;
-            set
-            {
-                SetVisible(value >= 0);
-                _currentCustomer = value;
-            }
-        }
-
-        /// <summary>
         /// Возращает и задает список покупок.
         /// </summary>
         public List<Item> Items { get; set; }
@@ -51,6 +38,19 @@ namespace ObjectOrientedPractices.View.Tabs
         /// Возвращает и задает количество скидки корзины.
         /// </summary>
         public decimal DiscountAmount { get; set; }
+
+        /// <summary>
+        /// Возращает и задает индекс текущего покупателя.
+        /// </summary>
+        private int CurrentCustomer
+        {
+            get => _currentCustomer;
+            set
+            {
+                SetVisible(value >= 0);
+                _currentCustomer = value;
+            }
+        }
 
         /// <summary>
         /// Создает экзепляр класса <see cref="CartsTab"/>.

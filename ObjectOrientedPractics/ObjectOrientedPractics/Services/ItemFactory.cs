@@ -7,6 +7,7 @@ namespace ObjectOrientedPractices.Services
 {
     /// <summary>
     /// TODO: грамм ошибка посмотри везде слово "экзепляр"
+    /// UPD: +
     /// Генерирует экземпляр класса <see cref="Item"/> из базы данных.
     /// </summary>
     public static class ItemFactory
@@ -23,6 +24,7 @@ namespace ObjectOrientedPractices.Services
         /// Вместо этого установи в свойствах файлов в Databases Build Action – Content,...
         /// Copy to Output Directory Always. Тогда у тебя будет путь Services\Databases\ItemsData.txt
         /// (потому что путь устанавливается от точки входа в приложение т.е. файла .exe)
+        /// UPD: +
         private static string FileName { get; } = $@"Services\Databases\ItemsData.txt";
 
         /// <summary>

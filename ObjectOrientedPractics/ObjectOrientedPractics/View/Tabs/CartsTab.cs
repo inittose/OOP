@@ -248,6 +248,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
         /// TODO: убери System везде
+        /// UPD: +
         private void AddToCartButton_Click(object sender, EventArgs e)
         {
             if (CurrentCustomer < 0 || ItemsListBox.SelectedIndex < 0)
@@ -315,6 +316,7 @@ namespace ObjectOrientedPractices.View.Tabs
 
             // TODO: если зайти сразу после запуска приложения...
             // в Carts с пустыми Items и Customers и нажать на Clear Cart, то программа падает
+            // UPD: +
             Customers[CurrentCustomer].Cart.Items.Clear();
             UpdateCartListBox();
         }

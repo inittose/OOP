@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 // TODO: namespace не соответствует реальному расположению
+// UPD: +
 namespace ObjectOrientedPractices.Model
 {
     /// <summary>

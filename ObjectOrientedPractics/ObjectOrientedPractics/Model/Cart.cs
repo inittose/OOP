@@ -18,10 +18,8 @@ namespace ObjectOrientedPractices.Model
         /// Возвращает общую стоимость товаров в корзине.
         /// </summary>
         /// TODO: в одну строку.
-        public decimal Amount
-        {
-            get => ItemsTool.GetAmount(Items);
-        }
+        /// UPD: +
+        public decimal Amount => ItemsTool.GetAmount(Items);
 
         /// <summary>
         /// Создает копию объекта <see cref="Cart"/>.

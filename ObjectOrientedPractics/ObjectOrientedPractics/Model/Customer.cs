@@ -12,7 +12,7 @@ namespace ObjectOrientedPractices.Model
     public class Customer
     {
         /// TODO: не используется. Убрать
-        /// UDP: Удалил
+        /// UDP: +, Удалил
 
         /// <summary>
         /// Имя покупателя.
@@ -23,6 +23,7 @@ namespace ObjectOrientedPractices.Model
         /// Возвращает уникальный идентификатор покупателя.
         /// </summary>
         /// TODO: Сделать его на get без поля. Оно все равно в конструкторе устанавливается
+        /// UPD: +
         public int Id { get; }
 
         /// <summary>

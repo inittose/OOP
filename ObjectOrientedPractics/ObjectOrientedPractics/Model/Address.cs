@@ -149,6 +149,7 @@ namespace ObjectOrientedPractices.Model
 
         /// <summary>
         /// TODO: грамм ошибка
+        /// UPD: +
         /// Создает экземпляр класса <see cref="Address"/>.
         /// </summary>
         public Address()
@@ -163,6 +164,7 @@ namespace ObjectOrientedPractices.Model
 
         /// <summary>
         /// TODO: грамм ошибка
+        /// UPD: +
         /// Создает экземпляр класса <see cref="Address"/>.
         /// </summary>
         /// <param name="index">Почтовый индекс.</param>

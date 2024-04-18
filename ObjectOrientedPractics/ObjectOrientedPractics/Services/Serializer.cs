@@ -51,6 +51,7 @@ namespace ObjectOrientedPractices.Services
                 return new Store();
             }
             // TODO: лишняя вложенность. Тут не нужно писать else. Можешь сразу код писать
+            // UPD: +
             try
             {
                 return JsonConvert.DeserializeObject<Store>(

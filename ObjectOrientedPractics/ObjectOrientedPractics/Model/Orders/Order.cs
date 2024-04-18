@@ -13,9 +13,11 @@ namespace ObjectOrientedPractices.Model.Orders
     {
         /// <summary>
         /// TODO: грамм ошибки
+        /// UPD: +
         /// Возвращает уникальный идентификатор заказа.
         /// </summary>
         // TODO: Убери поля, дополни JSON конструктор всеми свойствами. Должно работать точно также
+        // UPD: +
         public int Id { get; set; }
 
         /// <summary>
@@ -30,13 +32,15 @@ namespace ObjectOrientedPractices.Model.Orders
 
         /// <summary>
         /// TODO: грамм ошибка
-        /// Возращает и задает адрес доставки.
+        /// UPD: +
+        /// Возвращает и задает адрес доставки.
         /// </summary>
         public Address Address { get; set; }
 
         /// <summary>
         /// TODO: грамм ошибка
-        /// Возращает и задает адрес доставки.
+        /// UPD: +
+        /// Возвращает и задает адрес доставки.
         /// </summary>
         public List<Item> Items { get; set; }
 
@@ -49,30 +53,23 @@ namespace ObjectOrientedPractices.Model.Orders
         /// Возвращает общую стоимость товаров в заказе.
         /// </summary>
         /// TODO: в одну строку.
-        public decimal Amount
-        {
-            get
-            {
-                return ItemsTool.GetAmount(Items);
-            }
-        }
+        /// UPD: +
+        public decimal Amount => ItemsTool.GetAmount(Items);
+
 
         /// <summary>
         /// TODO: грамм ошибка
-        /// Возращает конечную стоимость заказа.
+        /// UPD: +
+        /// Возвращает конечную стоимость заказа.
         /// </summary>
         /// TODO: в одну строку.
-        public decimal Total
-        {
-            get
-            {
-                return Amount - DiscountAmount;
-            }
-        }
+        /// UPD: +
+        public decimal Total => Amount - DiscountAmount;
 
         /// <summary>
         /// TODO: грамм ошибка
-        /// Создает экзепляр класса <see cref="Order"/>.
+        /// UPD: +
+        /// Создает экземпляр класса <see cref="Order"/>.
         /// </summary>
         public Order() 
         {
@@ -85,7 +82,8 @@ namespace ObjectOrientedPractices.Model.Orders
 
         /// <summary>
         /// TODO: грамм ошибка
-        /// Создает экзепляр класса <see cref="Order"/>.
+        /// UPD: +
+        /// Создает экземпляр класса <see cref="Order"/>.
         /// </summary>
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
@@ -102,7 +100,8 @@ namespace ObjectOrientedPractices.Model.Orders
 
         /// <summary>
         /// TODO: грамм ошибка
-        /// Создает экзепляр класса <see cref="Order"/>.
+        /// UPD: +
+        /// Создает экземпляр класса <see cref="Order"/>.
         /// </summary>
         /// <param name="id">Уникальный идентификатор.</param>
         /// <param name="discountAmount">Размер скидки.</param>
@@ -134,6 +133,7 @@ namespace ObjectOrientedPractices.Model.Orders
             // TODO: Для того, чтобы использовать корректно GetHashCode,...
             // его нужно переопределить в нужном классе...
             // и на основе всех значений объекта искать Hash
+            // UPD: +
             return GetHashCode() == other.GetHashCode();
         }
 

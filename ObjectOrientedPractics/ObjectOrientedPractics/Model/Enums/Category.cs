@@ -6,6 +6,7 @@
     public enum Category
     {
         // TODO: не хватает точек в концах комментарий
+        // UPD: +
         /// <summary>
         /// Другое.
         /// </summary>

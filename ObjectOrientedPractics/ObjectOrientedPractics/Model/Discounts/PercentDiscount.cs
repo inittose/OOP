@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 // TODO: грамматическая ошибка Practices
-// UPD: ошибка из методички, поправил
+// UPD: ошибка потянулась из методички, поправил
 namespace ObjectOrientedPractices.Model.Discounts
 {
     // TODO: Сделай расположение элементов класса по формату, который указан в Яндекс Диске...
@@ -13,12 +13,12 @@ namespace ObjectOrientedPractices.Model.Discounts
     // Также по типу доступа внутри каждого типа элементов класс public, protected, private.
     // Например, сначала идут публичные поля, потом защищенные и в конце приватные
     //
-    // UPD: Если правильно понял, то формат надо было брать из "4.10 Содержимое классов"
+    // UPD: +,
+    // Если правильно понял, то формат надо было брать из  раздела "4.10 Содержимое классов"
     // файла, что противоречит методичке "Задание 1 - Инкапсуляция/Создание классов":
     //  12. Убедитесь, что все члены созданных классов расположены в правильном
     // порядке: константы, статические поля, readonly-поля, обычные поля, свойства,
     // конструкторы, открытые методы, закрытые методы.
-    //  В конечном итоге переделал по файлу из ЯД
     /// <summary>
     /// Хранит и вычисляет процентную скидку на конкретную категорию товаров.
     /// </summary>
@@ -55,6 +55,7 @@ namespace ObjectOrientedPractices.Model.Discounts
             {
                 ValueValidator.AssertIntOnLimits(
                     // TODO: есть лишние пробелы в концах строк. Для их обнаружения можно поставить Resharper
+                    // UPD: +, в VS есть возможность отображения пробелов (Win + R, Win + W)
                     value,
                     ModelConstants.MinimumPercent,
                     ModelConstants.MaximumPercent,
@@ -117,6 +118,7 @@ namespace ObjectOrientedPractices.Model.Discounts
             var percents = 100;
 
             // TODO: вынеси 100 в отдельную константу внутри этого метода
+            // UPD: +
             return amount * Discount / percents;
         }
 

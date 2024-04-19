@@ -4,15 +4,8 @@ using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
 
-// TODO: грамматическая ошибка Practices
-// UPD: +, ошибка потянулась из методички, поправил
 namespace ObjectOrientedPractices.Model.Discounts
 {
-    // TODO: Сделай расположение элементов класса по формату, который указан в Яндекс Диске...
-    // 50ohm_Students\ГПО\Статьи по процессу разработки (копии с Wiki 50ohm)\Стандарт оформления кода - Overview
-    // Также по типу доступа внутри каждого типа элементов класс public, protected, private.
-    // Например, сначала идут публичные поля, потом защищенные и в конце приватные
-    // UPD: +
     /// <summary>
     /// Хранит и вычисляет процентную скидку на конкретную категорию товаров.
     /// </summary>
@@ -25,6 +18,7 @@ namespace ObjectOrientedPractices.Model.Discounts
 
         /// <summary>
         /// Возвращает и задает скидку в процентах.
+        /// TODO: неизвестный MinimumPercent. Сошлись тогда на <класс констант>.MinimumPercent
         /// Скидка должна быть не менее <see cref="MinimumPercent"/> процентов
         /// и не более <see cref="MaximumPercent"/> процентов.
         /// </summary>
@@ -34,8 +28,6 @@ namespace ObjectOrientedPractices.Model.Discounts
             private set
             {
                 ValueValidator.AssertIntOnLimits(
-                    // TODO: есть лишние пробелы в концах строк. Для их обнаружения можно поставить Resharper
-                    // UPD: +, в VS есть возможность отображения пробелов (Win + R, Win + W)
                     value,
                     ModelConstants.MinimumPercent,
                     ModelConstants.MaximumPercent,
@@ -58,8 +50,6 @@ namespace ObjectOrientedPractices.Model.Discounts
         /// <summary>
         /// Информация о скидке.
         /// </summary>
-        // TODO: Сделай в одну строку
-        // UPD: +
         public string Info => $"Процентная \"{Category}\" - {Discount}%";
 
         /// <summary>
@@ -120,9 +110,6 @@ namespace ObjectOrientedPractices.Model.Discounts
         {
             var amount = ItemsTool.GetAmountOnCategory(items, Category);
             var percents = 100;
-
-            // TODO: вынеси 100 в отдельную константу внутри этого метода
-            // UPD: +
             return amount * Discount / percents;
         }
 

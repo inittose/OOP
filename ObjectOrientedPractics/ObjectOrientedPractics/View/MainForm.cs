@@ -5,7 +5,6 @@ using System;
 using System.Windows.Forms;
 
 // TODO: namespace неверный.
-// UPD: +
 namespace ObjectOrientedPractices.View
 {
     /// <summary>

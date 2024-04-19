@@ -12,8 +12,6 @@ namespace ObjectOrientedPractices.Services
         /// <summary>
         /// Делегат сравнения товаров по критерию.
         /// </summary>
-        /// TODO: xml комментарии параметров неактуальны
-        /// UPD: +
         /// <param name="first">Товар класса <see cref="Item"/>.</param>
         /// <param name="second">Товар класса <see cref="Item"/>.</param>
         /// <returns>Значение <see cref="bool"/>.</returns>

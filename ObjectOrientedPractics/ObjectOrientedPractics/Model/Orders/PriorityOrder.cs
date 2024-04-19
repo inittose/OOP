@@ -9,17 +9,12 @@ namespace ObjectOrientedPractices.Model.Orders
     /// </summary>
     public class PriorityOrder : Order
     {
-        /// TODO: нигде не используется. Оно нужно?
-        /// UPD: +, Удалил
-
         /// <summary>
         /// Возвращает и задает время доставки.
         /// </summary>
         public OrderTime DeliveryTime { get; set; }
 
         /// <summary>
-        /// TODO: грамм ошибка
-        /// UPD: +
         /// Создает экземпляр класса <see cref="PriorityOrder"/>.
         /// </summary>
         /// <param name="status">Статус заказа.</param>

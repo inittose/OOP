@@ -57,9 +57,6 @@ namespace ObjectOrientedPractices.View.Tabs
             Validations.Add(FullNameTextBox, true);
         }
 
-        /// TODO: не используется. Убрать
-        /// UDP: +, Убрал
-
         /// <summary>
         /// Обновляет данные в списке скидок покупателя.
         /// </summary>

@@ -17,8 +17,6 @@ namespace ObjectOrientedPractices.Model
         /// <summary>
         /// Возвращает общую стоимость товаров в корзине.
         /// </summary>
-        /// TODO: в одну строку.
-        /// UPD: +
         public decimal Amount => ItemsTool.GetAmount(Items);
 
         /// <summary>

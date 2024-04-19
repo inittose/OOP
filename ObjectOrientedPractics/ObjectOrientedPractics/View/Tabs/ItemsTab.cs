@@ -99,8 +99,6 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <summary>
         /// Обновить список товаров, который будет выведен на экран.
         /// </summary>
-        /// TODO: убрать комментарий для входного параметра.
-        /// UPD: +
         private void UpdateDisplayedItems()
         {
             var displayedItems = Items;
@@ -140,8 +138,6 @@ namespace ObjectOrientedPractices.View.Tabs
         /// Устанавливает корректные данные в текстовых окнах 
         /// в зависимости от индекса товара в списке.
         /// </summary>
-        /// TODO: убрать комментарий для входного параметра.
-        /// UPD: +
         private void SetTextBoxes()
         {
             var isSelectedIndexCorrect = ItemsListBox.SelectedItem != null;
@@ -250,8 +246,6 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            // TODO: вынести в валидатор
-            // UPD: +
             try
             {
                 ValueValidator.AssertStringOnDecimalLimits(
@@ -286,8 +280,6 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            // TODO: вынести в валидатор
-            // UPD: +
             try
             {
                 ValueValidator.AssertStringOnLengthLimits(
@@ -354,8 +346,6 @@ namespace ObjectOrientedPractices.View.Tabs
             }
 
             var selectedItem = ItemsListBox.SelectedItem as Item;
-            // TODO: такая же ситуация, как и в CartsTab.
-            // UPD: +
             if (Validations[NameTextBox])
             {
                 selectedItem.Name = NameTextBox.Text;
@@ -461,35 +451,33 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void OrderByComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(OrderByComboBox.SelectedIndex)
+            switch (OrderByComboBox.SelectedIndex)
             {
                 case 0:
                 {
                     SortCompare = (firstItem, secondItem) =>
                         firstItem.Name.CompareTo(secondItem.Name) < 0;
 
-                        break;
-                    }
+                    break;
+                }
+
                 case 1:
-                    {
-                        // TODO: сделай по примеру case 0
-                        // UPD: +
-                        SortCompare = (firstItem, secondItem) =>
-                            firstItem.Cost.CompareTo(secondItem.Cost) < 0;
+                {
+                    SortCompare = (firstItem, secondItem) =>
+                        firstItem.Cost.CompareTo(secondItem.Cost) < 0;
 
-                        break;
-                    }
+                    break;
+                }
+
                 case 2:
-                    {
-                        SortCompare = (firstItem, secondItem) =>
-                            firstItem.Cost.CompareTo(secondItem.Cost) > 0;
+                {
+                    SortCompare = (firstItem, secondItem) =>
+                        firstItem.Cost.CompareTo(secondItem.Cost) > 0;
 
-                        break;
-                    }
+                    break;
+                }
             }
 
-            // TODO: не используется. Убрать
-            // UPD: +
             UpdateDisplayedItems();
         }
     }

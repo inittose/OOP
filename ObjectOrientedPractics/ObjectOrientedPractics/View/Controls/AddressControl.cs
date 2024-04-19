@@ -106,6 +106,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
+        // TODO: Обработчики событий дублируются. Нужно вынести дубль в отдельный метод и вызывать его из каждого обработчика
         private void PostIndexTextBox_TextChanged(object sender, EventArgs e)
         {
             if (!IsControlEnabled)
@@ -131,6 +132,7 @@ namespace ObjectOrientedPractices.View.Controls
                     throw ex;
                 }
 
+                // TODO: как я понял, ты на английском все делаешь. Так что нужно перевести
                 WrongInputLabel.Text ="Поле должно состоять из 6 цифр.";
                 Validations[PostIndexTextBox] = false;
                 PostIndexTextBox.BackColor = AppColors.WrongInputColor;
@@ -149,9 +151,6 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
-            // TODO: у тебя есть ValueValidator. Используй его для проверки...
-            // Тогда у тебя вместо if/else будет try/catch. Так со всеми проверками
-            // UPD: +
             try
             {
                 ValueValidator.AssertStringOnLength(
@@ -307,13 +306,6 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
-            // TODO: проверять правильность валидации по цвету не очень хорошая идея...
-            // Лучше сделать булево поле, которое будет показывать является ли данное поле валидным ...
-            // Один из вариантов это создать словарь, где ключ – поле для ввода, ...
-            // а значение это бул, который говорит прошла ли валидация этого поля...
-            // В таком случае можно решить проблему дублирования обработчиков событий...
-            // TextChanged и Leave
-            // UDP: +, Исправил, если правильно понял
             if (Validations[PostIndexTextBox])
             {
                 Address.Index = int.Parse(PostIndexTextBox.Text);
@@ -424,6 +416,10 @@ namespace ObjectOrientedPractices.View.Controls
 
         /// TODO: дубль. Можно sender привести к TextBox и установить фокус.
         /// UPD: +
+        /// TODO: можно один обработчик сделать для всех TextBox...
+        /// Тыкни на TextBox и зайди в свойства (кнопка Event с иконкой молнии).
+        /// Там найдешь событие Enter и выбери один обработчик.
+        /// Так можно сделать и для других обработчиков. Посмотри другие контролы и табы.
         private void PostIndexTextBox_Enter(object sender, EventArgs e)
         {
             (sender as TextBox).Focus();

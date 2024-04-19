@@ -18,8 +18,6 @@
         /// <summary>
         /// Количество процентов, на которое повышается скидка, при выполнении условия.
         /// </summary>
-        // TODO: не используется. Убрать
-        // UPD: +, Начало использоваться
         public const int IncreasingDiscount = 1;
 
         /// <summary>
@@ -35,15 +33,11 @@
         /// <summary>
         /// Максимальное количество скидки от суммы товаров в процентах.
         /// </summary>
-        // TODO: грамматическая ошибка Percent
-        // UPD: +
         public const int MaximumDiscountPercent = 30;
 
         /// <summary>
         /// Количество процентов от суммы заказа, которое будет начисленно на накопительный счет.
         /// </summary>
-        // TODO: грамматическая ошибка Percent
-        // UPD: +
         public const int CumulativePercent = 10;
 
         /// <summary>

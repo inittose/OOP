@@ -5,8 +5,6 @@
     /// </summary>
     public enum OrderTime
     {
-        // TODO: не хватает точек в концах комментарий
-        // UPD: +
         /// <summary>
         /// 9:00 - 11:00.
         /// </summary>

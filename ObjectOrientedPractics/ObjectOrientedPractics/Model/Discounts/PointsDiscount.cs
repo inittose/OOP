@@ -36,8 +36,6 @@ namespace ObjectOrientedPractices.Model.Discounts
         /// <summary>
         /// Информация о скидке.
         /// </summary>
-        // TODO: В одну строку.
-        // UPD: +
         public string Info => $"Накопительная - {Points} баллов";
 
         /// <summary>
@@ -55,8 +53,7 @@ namespace ObjectOrientedPractices.Model.Discounts
             {
                 return 0M;
             }
-            // TODO: Вынеси используемые в нескольких классов константы в отдельный статический класс
-            // UPD: +, создал ModelConstants
+
             if (Points / amount * 100M > ModelConstants.MaximumDiscountPercent)
             {
                 return amount * ModelConstants.MaximumDiscountPercent / 100M;
@@ -95,8 +92,6 @@ namespace ObjectOrientedPractices.Model.Discounts
         }
 
         /// <summary>
-        /// TODO: грамм ошибка.
-        /// UPD: +
         /// Создает экземпляр класса <see cref="PointsDiscount"/>.
         /// </summary>
         public PointsDiscount()
@@ -105,8 +100,6 @@ namespace ObjectOrientedPractices.Model.Discounts
         }
 
         /// <summary>
-        /// TODO: грамм ошибка.
-        /// UPD: +
         /// Создает экземпляр класса <see cref="PointsDiscount"/>.
         /// </summary>
         /// <param name="points">Размер накопительных баллов.</param>

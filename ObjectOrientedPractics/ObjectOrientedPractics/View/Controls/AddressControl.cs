@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using ObjectOrientedPractices.Model;
 using ObjectOrientedPractices.Services;
@@ -43,12 +44,12 @@ namespace ObjectOrientedPractices.View.Controls
         /// <summary>
         /// Возвращает сообщение о ошибке переполнения в текстовом поле ввода.
         /// </summary>
-        private string LimitErrorMessage { get; } = "Поле превышает макс. кол-во символов.";
+        private string LimitErrorMessage { get; } = "Field exceeds maximum number of characters.";
 
         /// <summary>
         /// Возвращает и задает флаг, указывающий на то, активен ли элемент управления.
         /// </summary>
-        private bool IsControlEnabled { get; set; }
+        private bool IsControlEnabled => Address != null;
 
         /// <summary>
         /// Инициализирует компонент, создает экземпляр класса <see cref="AddressControl"/>.
@@ -72,7 +73,6 @@ namespace ObjectOrientedPractices.View.Controls
         /// </summary>
         private void UpdateTextBoxes()
         {
-            IsControlEnabled = Address != null;
             var isTextBoxesEnabled = IsControlEnabled && IsTextBoxesEnabled;
             PostIndexTextBox.Enabled = isTextBoxesEnabled;
             CountryTextBox.Enabled = isTextBoxesEnabled;
@@ -81,23 +81,16 @@ namespace ObjectOrientedPractices.View.Controls
             BuildingTextBox.Enabled = isTextBoxesEnabled;
             ApartmentTextBox.Enabled = isTextBoxesEnabled;
 
-            if (IsControlEnabled)
+            PostIndexTextBox.Text = Address?.Index.ToString() ?? string.Empty;
+            CountryTextBox.Text = Address?.Country ?? string.Empty;
+            CityTextBox.Text = Address?.City ?? string.Empty;
+            StreetTextBox.Text = Address?.Street ?? string.Empty;
+            BuildingTextBox.Text = Address?.Building ?? string.Empty;
+            ApartmentTextBox.Text = Address?.Apartment ?? string.Empty;
+
+            foreach (var key in Validations.Keys.ToList())
             {
-                PostIndexTextBox.Text = Address.Index.ToString();
-                CountryTextBox.Text = Address.Country;
-                CityTextBox.Text = Address.City;
-                StreetTextBox.Text = Address.Street;
-                BuildingTextBox.Text = Address.Building;
-                ApartmentTextBox.Text = Address.Apartment;
-            }
-            else
-            {
-                PostIndexTextBox.Text = string.Empty;
-                CountryTextBox.Text = string.Empty;
-                CityTextBox.Text = string.Empty;
-                StreetTextBox.Text = string.Empty;
-                BuildingTextBox.Text = string.Empty;
-                ApartmentTextBox.Text = string.Empty;
+                Validations[key] = IsControlEnabled;
             }
         }
 
@@ -107,11 +100,17 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
         // TODO: Обработчики событий дублируются. Нужно вынести дубль в отдельный метод и вызывать его из каждого обработчика
+        // UPD: +
         private void PostIndexTextBox_TextChanged(object sender, EventArgs e)
         {
             if (!IsControlEnabled)
             {
                 return;
+            }
+
+            if (ActiveControl != null)
+            {
+                (sender as TextBox).Focus();
             }
 
             try
@@ -133,7 +132,8 @@ namespace ObjectOrientedPractices.View.Controls
                 }
 
                 // TODO: как я понял, ты на английском все делаешь. Так что нужно перевести
-                WrongInputLabel.Text ="Поле должно состоять из 6 цифр.";
+                // UPD: +
+                WrongInputLabel.Text = "The field must consist of 6 digits.";
                 Validations[PostIndexTextBox] = false;
                 PostIndexTextBox.BackColor = AppColors.WrongInputColor;
             }
@@ -149,6 +149,11 @@ namespace ObjectOrientedPractices.View.Controls
             if (!IsControlEnabled)
             {
                 return;
+            }
+
+            if (ActiveControl != null)
+            {
+                (sender as TextBox).Focus();
             }
 
             try
@@ -182,6 +187,11 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
+            if (ActiveControl != null)
+            {
+                (sender as TextBox).Focus();
+            }
+
             try
             {
                 ValueValidator.AssertStringOnLength(
@@ -211,6 +221,11 @@ namespace ObjectOrientedPractices.View.Controls
             if (!IsControlEnabled)
             {
                 return;
+            }
+
+            if (ActiveControl != null)
+            {
+                (sender as TextBox).Focus();
             }
 
             try
@@ -244,6 +259,11 @@ namespace ObjectOrientedPractices.View.Controls
                 return;
             }
 
+            if (ActiveControl != null)
+            {
+                (sender as TextBox).Focus();
+            }
+
             try
             {
                 ValueValidator.AssertStringOnLength(
@@ -273,6 +293,11 @@ namespace ObjectOrientedPractices.View.Controls
             if (!IsControlEnabled)
             {
                 return;
+            }
+
+            if (ActiveControl != null)
+            {
+                (sender as TextBox).Focus();
             }
 
             try
@@ -420,34 +445,6 @@ namespace ObjectOrientedPractices.View.Controls
         /// Тыкни на TextBox и зайди в свойства (кнопка Event с иконкой молнии).
         /// Там найдешь событие Enter и выбери один обработчик.
         /// Так можно сделать и для других обработчиков. Посмотри другие контролы и табы.
-        private void PostIndexTextBox_Enter(object sender, EventArgs e)
-        {
-            (sender as TextBox).Focus();
-        }
-
-        private void CountryTextBox_Enter(object sender, EventArgs e)
-        {
-            (sender as TextBox).Focus();
-        }
-
-        private void CityTextBox_Enter(object sender, EventArgs e)
-        {
-            (sender as TextBox).Focus();
-        }
-
-        private void StreetTextBox_Enter(object sender, EventArgs e)
-        {
-            (sender as TextBox).Focus();
-        }
-
-        private void BuildingTextBox_Enter(object sender, EventArgs e)
-        {
-            (sender as TextBox).Focus();
-        }
-
-        private void ApartmentTextBox_Enter(object sender, EventArgs e)
-        {
-            (sender as TextBox).Focus();
-        }
+        /// UPD: +
     }
 }

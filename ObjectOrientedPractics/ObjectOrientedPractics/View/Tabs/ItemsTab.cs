@@ -246,23 +246,42 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            try
+            if ((sender as TextBox).Focused)
             {
-                ValueValidator.AssertStringOnDecimalLimits(
-                    CostTextBox.Text, 
-                    ModelConstants.MinimumCost, 
-                    ModelConstants.MaximumCost,
-                    "Cost");
+                try
+                {
+                    ValueValidator.AssertStringOnDecimalLimits(
+                        CostTextBox.Text,
+                        ModelConstants.MinimumCost,
+                        ModelConstants.MaximumCost,
+                        "Cost");
 
+                    WrongCostLabel.Text = string.Empty;
+                    CostTextBox.BackColor = AppColors.RightInputColor;
+                    Validations[CostTextBox] = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    WrongCostLabel.Text = ex.Message;
+                    CostTextBox.BackColor = AppColors.WrongInputColor;
+                    Validations[CostTextBox] = false;
+                }
+            }
+            else
+            {
+                var selectedItem = ItemsListBox.SelectedItem as Item;
+
+                if (Validations[CostTextBox])
+                {
+                    selectedItem.Cost = decimal.Parse(CostTextBox.Text);
+                    ItemsChanged?.Invoke(this, EventArgs.Empty);
+                }
+
+                CostTextBox.Text = selectedItem.Cost.ToString();
                 WrongCostLabel.Text = string.Empty;
                 CostTextBox.BackColor = AppColors.RightInputColor;
                 Validations[CostTextBox] = true;
-            }
-            catch (ArgumentException ex)
-            {
-                WrongCostLabel.Text = ex.Message;
-                CostTextBox.BackColor = AppColors.WrongInputColor;
-                Validations[CostTextBox] = false;
+                UpdateDisplayedItems();
             }
         }
 
@@ -280,23 +299,44 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            try
+            if ((sender as TextBox).Focused)
             {
-                ValueValidator.AssertStringOnLengthLimits(
-                    NameTextBox.Text, 
-                    0, 
-                    ModelConstants.NameLengthLimit, 
-                    "Name");
+                try
+                {
+                    ValueValidator.AssertStringOnLengthLimits(
+                        NameTextBox.Text,
+                        0,
+                        ModelConstants.NameLengthLimit,
+                        "Name");
 
-                WrongNameLabel.Text = string.Empty;
-                NameTextBox.BackColor = AppColors.RightInputColor;
-                Validations[NameTextBox] = true;
+                    WrongNameLabel.Text = string.Empty;
+                    NameTextBox.BackColor = AppColors.RightInputColor;
+                    Validations[NameTextBox] = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    WrongNameLabel.Text = ex.Message;
+                    NameTextBox.BackColor = AppColors.WrongInputColor;
+                    Validations[NameTextBox] = false;
+                }
             }
-            catch (ArgumentException ex)
+            else
             {
-                WrongNameLabel.Text = ex.Message;
-                NameTextBox.BackColor = AppColors.WrongInputColor;
-                Validations[NameTextBox] = false;
+                var selectedItem = ItemsListBox.SelectedItem as Item;
+                if (Validations[NameTextBox])
+                {
+                    selectedItem.Name = NameTextBox.Text;
+                    ItemsChanged?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    NameTextBox.Text = selectedItem.Name;
+                    WrongNameLabel.Text = string.Empty;
+                    NameTextBox.BackColor = AppColors.RightInputColor;
+                    Validations[NameTextBox] = true;
+                }
+
+                UpdateDisplayedItems();
             }
         }
 
@@ -314,97 +354,42 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            try
+            if ((sender as TextBox).Focused)
             {
-                ValueValidator.AssertStringOnLength(
-                    DescriptionTextBox.Text, 
-                    ModelConstants.InfoLengthLimit, 
-                    "Description");
+                try
+                {
+                    ValueValidator.AssertStringOnLength(
+                        DescriptionTextBox.Text,
+                        ModelConstants.InfoLengthLimit,
+                        "Description");
 
-                WrongDescriptionLabel.Text = string.Empty;
-                DescriptionTextBox.BackColor = AppColors.RightInputColor;
-                Validations[DescriptionTextBox] = true;
-            }
-            catch (ArgumentException ex)
-            {
-                WrongDescriptionLabel.Text = ex.Message;
-                DescriptionTextBox.BackColor = AppColors.WrongInputColor;
-                Validations[DescriptionTextBox] = false;
-            }
-        }
-
-        /// <summary>
-        /// Событие при выходе из текстового поля ввода наименования товара.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void NameTextBox_Leave(object sender, EventArgs e)
-        {
-            if (ItemsListBox.SelectedItem == null)
-            {
-                return;
-            }
-
-            var selectedItem = ItemsListBox.SelectedItem as Item;
-            if (Validations[NameTextBox])
-            {
-                selectedItem.Name = NameTextBox.Text;
-                ItemsChanged?.Invoke(this, EventArgs.Empty);
+                    WrongDescriptionLabel.Text = string.Empty;
+                    DescriptionTextBox.BackColor = AppColors.RightInputColor;
+                    Validations[DescriptionTextBox] = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    WrongDescriptionLabel.Text = ex.Message;
+                    DescriptionTextBox.BackColor = AppColors.WrongInputColor;
+                    Validations[DescriptionTextBox] = false;
+                }
             }
             else
             {
-                NameTextBox.Text = selectedItem.Name;
-            }
+                var selectedItem = ItemsListBox.SelectedItem as Item;
 
-            UpdateDisplayedItems();
-        }
-
-        /// <summary>
-        /// Событие при выходе из текстового поля ввода цены товара.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void CostTextBox_Leave(object sender, EventArgs e)
-        {
-            if (ItemsListBox.SelectedIndex < 0)
-            {
-                return;
-            }
-
-            var selectedItem = ItemsListBox.SelectedItem as Item;
-
-            if (Validations[CostTextBox])
-            {
-                selectedItem.Cost = decimal.Parse(CostTextBox.Text);
-                ItemsChanged?.Invoke(this, EventArgs.Empty);
-            }
-
-            CostTextBox.Text = selectedItem.Cost.ToString();
-            UpdateDisplayedItems();
-        }
-
-        /// <summary>
-        /// Событие при выходе из текстового поля ввода описания товара.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void DescriptionTextBox_Leave(object sender, EventArgs e)
-        {
-            if (ItemsListBox.SelectedIndex < 0)
-            {
-                return;
-            }
-
-            var selectedItem = ItemsListBox.SelectedItem as Item;
-
-            if (Validations[DescriptionTextBox])
-            {
-                selectedItem.Info = DescriptionTextBox.Text;
-                ItemsChanged?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                DescriptionTextBox.Text = selectedItem.Info;
+                if (Validations[DescriptionTextBox])
+                {
+                    selectedItem.Info = DescriptionTextBox.Text;
+                    ItemsChanged?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    DescriptionTextBox.Text = selectedItem.Info;
+                    WrongDescriptionLabel.Text = string.Empty;
+                    DescriptionTextBox.BackColor = AppColors.RightInputColor;
+                    Validations[DescriptionTextBox] = true;
+                }
             }
         }
 

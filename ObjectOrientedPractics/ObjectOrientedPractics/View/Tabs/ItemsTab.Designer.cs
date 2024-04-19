@@ -256,7 +256,7 @@
             this.CostTextBox.Size = new System.Drawing.Size(121, 20);
             this.CostTextBox.TabIndex = 6;
             this.CostTextBox.TextChanged += new System.EventHandler(this.CostTextBox_TextChanged);
-            this.CostTextBox.Leave += new System.EventHandler(this.CostTextBox_Leave);
+            this.CostTextBox.Leave += new System.EventHandler(this.CostTextBox_TextChanged);
             // 
             // NameTextBox
             // 
@@ -269,7 +269,7 @@
             this.NameTextBox.Size = new System.Drawing.Size(378, 94);
             this.NameTextBox.TabIndex = 7;
             this.NameTextBox.TextChanged += new System.EventHandler(this.NameTextBox_TextChanged);
-            this.NameTextBox.Leave += new System.EventHandler(this.NameTextBox_Leave);
+            this.NameTextBox.Leave += new System.EventHandler(this.NameTextBox_TextChanged);
             // 
             // DescriptionTextBox
             // 
@@ -282,7 +282,7 @@
             this.DescriptionTextBox.Size = new System.Drawing.Size(378, 157);
             this.DescriptionTextBox.TabIndex = 8;
             this.DescriptionTextBox.TextChanged += new System.EventHandler(this.DescriptionTextBox_TextChanged);
-            this.DescriptionTextBox.Leave += new System.EventHandler(this.DescriptionTextBox_Leave);
+            this.DescriptionTextBox.Leave += new System.EventHandler(this.DescriptionTextBox_TextChanged);
             // 
             // SelectedItemPanel
             // 

@@ -18,8 +18,6 @@ namespace ObjectOrientedPractices.Model.Discounts
 
         /// <summary>
         /// Возвращает и задает скидку в процентах.
-        /// TODO: неизвестный MinimumPercent. Сошлись тогда на <класс констант>.MinimumPercent
-        /// UPD: +
         /// Скидка должна быть не менее <see cref="ModelConstants.MinimumPercent"/> процентов
         /// и не более <see cref="ModelConstants.MaximumPercent"/> процентов.
         /// </summary>

@@ -101,6 +101,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         // TODO: Обработчики событий дублируются. Нужно вынести дубль в отдельный метод и вызывать его из каждого обработчика
         // UPD: +
+        // TODO: не исправил см. сообщение в дискорде.
         private void PostIndexTextBox_TextChanged(object sender, EventArgs e)
         {
             if (!IsControlEnabled)
@@ -131,8 +132,6 @@ namespace ObjectOrientedPractices.View.Controls
                     throw ex;
                 }
 
-                // TODO: как я понял, ты на английском все делаешь. Так что нужно перевести
-                // UPD: +
                 WrongInputLabel.Text = "The field must consist of 6 digits.";
                 Validations[PostIndexTextBox] = false;
                 PostIndexTextBox.BackColor = AppColors.WrongInputColor;
@@ -438,13 +437,5 @@ namespace ObjectOrientedPractices.View.Controls
 
             ApartmentTextBox.Text = Address.Apartment;
         }
-
-        /// TODO: дубль. Можно sender привести к TextBox и установить фокус.
-        /// UPD: +
-        /// TODO: можно один обработчик сделать для всех TextBox...
-        /// Тыкни на TextBox и зайди в свойства (кнопка Event с иконкой молнии).
-        /// Там найдешь событие Enter и выбери один обработчик.
-        /// Так можно сделать и для других обработчиков. Посмотри другие контролы и табы.
-        /// UPD: +
     }
 }

@@ -95,6 +95,51 @@ namespace ObjectOrientedPractices.View.Controls
         }
 
         /// <summary>
+        /// Отвечает за валидацию текстового поля ввода при его изменении.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="value">Новое значение поля ввода или длина строки.</param>
+        /// <param name="limit">Предел значения.</param>
+        /// <param name="errorMessage">Сообщение об ошибке.</param>
+        /// <param name="validationMethod">Делегат метода валидации.</param>
+        private void TextChanged(
+            TextBox sender,
+            int value,
+            int limit,
+            string errorMessage,
+            Action<int, int, string> validationMethod)
+        {
+            if (!IsControlEnabled)
+            {
+                return;
+            }
+
+            if (ActiveControl != null)
+            {
+                sender.Focus();
+            }
+
+            try
+            {
+                validationMethod(value, limit, errorMessage);
+                WrongInputLabel.Text = string.Empty;
+                Validations[sender] = true;
+                sender.BackColor = AppColors.RightInputColor;
+            }
+            catch (Exception ex)
+            {
+                if (!(ex is ArgumentException) && !(ex is FormatException))
+                {
+                    throw ex;
+                }
+
+                WrongInputLabel.Text = errorMessage;
+                Validations[sender] = false;
+                sender.BackColor = AppColors.WrongInputColor;
+            }
+        }
+
+        /// <summary>
         /// Событие при изменении текста в текстовом поле ввода почтового индекса доставки.
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
@@ -104,38 +149,15 @@ namespace ObjectOrientedPractices.View.Controls
         // TODO: не исправил см. сообщение в дискорде.
         private void PostIndexTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
+            int value;
+            int.TryParse((sender as TextBox).Text, out value);
 
-            if (ActiveControl != null)
-            {
-                (sender as TextBox).Focus();
-            }
-
-            try
-            {
-                ValueValidator.AssertIntOnDigit(
-                    int.Parse(PostIndexTextBox.Text),
-                    ModelConstants.IndexDigit,
-                    nameof(PostIndexTextBox.Text));
-
-                WrongInputLabel.Text = string.Empty;
-                Validations[PostIndexTextBox] = true;
-                PostIndexTextBox.BackColor = AppColors.RightInputColor;
-            }
-            catch (Exception ex)
-            {
-                if (!(ex is ArgumentException) && !(ex is FormatException))
-                {
-                    throw ex;
-                }
-
-                WrongInputLabel.Text = "The field must consist of 6 digits.";
-                Validations[PostIndexTextBox] = false;
-                PostIndexTextBox.BackColor = AppColors.WrongInputColor;
-            }
+            TextChanged(
+                sender as TextBox,
+                value,
+                ModelConstants.IndexDigit,
+                "The field must consist of 6 digits.",
+                ValueValidator.AssertIntOnDigit);
         }
 
         /// <summary>
@@ -145,33 +167,12 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void CountryTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
-
-            if (ActiveControl != null)
-            {
-                (sender as TextBox).Focus();
-            }
-
-            try
-            {
-                ValueValidator.AssertStringOnLength(
-                    CountryTextBox.Text, 
-                    ModelConstants.CountryLengthLimit, 
-                    nameof(CountryTextBox.Text));
-
-                WrongInputLabel.Text = string.Empty;
-                Validations[CountryTextBox] = true;
-                CountryTextBox.BackColor = AppColors.RightInputColor;
-            }
-            catch (ArgumentException)
-            {
-                WrongInputLabel.Text = LimitErrorMessage;
-                Validations[CountryTextBox] = false;
-                CountryTextBox.BackColor = AppColors.WrongInputColor;
-            }
+            TextChanged(
+                sender as TextBox,
+                ModelConstants.CountryLengthLimit,
+                (sender as TextBox).Text.Length,
+                LimitErrorMessage,
+                ValueValidator.AssertIntOnUpperLimit);
         }
 
         /// <summary>
@@ -181,33 +182,12 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void CityTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
-
-            if (ActiveControl != null)
-            {
-                (sender as TextBox).Focus();
-            }
-
-            try
-            {
-                ValueValidator.AssertStringOnLength(
-                    CityTextBox.Text,
-                    ModelConstants.CityLengthLimit,
-                    nameof(CityTextBox.Text));
-
-                WrongInputLabel.Text = string.Empty;
-                Validations[CityTextBox] = true;
-                CityTextBox.BackColor = AppColors.RightInputColor;
-            }
-            catch (ArgumentException)
-            {
-                WrongInputLabel.Text = LimitErrorMessage;
-                Validations[CityTextBox] = false;
-                CityTextBox.BackColor = AppColors.WrongInputColor;
-            }
+            TextChanged(
+                sender as TextBox,
+                ModelConstants.CityLengthLimit,
+                (sender as TextBox).Text.Length,
+                LimitErrorMessage,
+                ValueValidator.AssertIntOnUpperLimit);
         }
 
         /// <summary>
@@ -217,33 +197,12 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void StreetTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
-
-            if (ActiveControl != null)
-            {
-                (sender as TextBox).Focus();
-            }
-
-            try
-            {
-                ValueValidator.AssertStringOnLength(
-                    StreetTextBox.Text,
-                    ModelConstants.StreetLengthLimit,
-                    nameof(StreetTextBox.Text));
-
-                WrongInputLabel.Text = string.Empty;
-                Validations[StreetTextBox] = true;
-                StreetTextBox.BackColor = AppColors.RightInputColor;
-            }
-            catch (ArgumentException)
-            {
-                WrongInputLabel.Text = LimitErrorMessage;
-                Validations[StreetTextBox] = false;
-                StreetTextBox.BackColor = AppColors.WrongInputColor;
-            }
+            TextChanged(
+                sender as TextBox,
+                ModelConstants.StreetLengthLimit,
+                (sender as TextBox).Text.Length,
+                LimitErrorMessage,
+                ValueValidator.AssertIntOnUpperLimit);
         }
 
         /// <summary>
@@ -253,33 +212,12 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void BuildingTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
-
-            if (ActiveControl != null)
-            {
-                (sender as TextBox).Focus();
-            }
-
-            try
-            {
-                ValueValidator.AssertStringOnLength(
-                    BuildingTextBox.Text,
-                    ModelConstants.BuildingLengthLimit,
-                    nameof(BuildingTextBox.Text));
-
-                WrongInputLabel.Text = string.Empty;
-                Validations[BuildingTextBox] = true;
-                BuildingTextBox.BackColor = AppColors.RightInputColor;
-            }
-            catch (ArgumentException)
-            {
-                WrongInputLabel.Text = LimitErrorMessage;
-                Validations[BuildingTextBox] = false;
-                BuildingTextBox.BackColor = AppColors.WrongInputColor;
-            }
+            TextChanged(
+                sender as TextBox,
+                ModelConstants.BuildingLengthLimit,
+                (sender as TextBox).Text.Length,
+                LimitErrorMessage,
+                ValueValidator.AssertIntOnUpperLimit);
         }
 
         /// <summary>
@@ -289,33 +227,34 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void ApartmentTextBox_TextChanged(object sender, EventArgs e)
         {
+            TextChanged(
+                sender as TextBox,
+                ModelConstants.ApartmentLengthLimit,
+                (sender as TextBox).Text.Length,
+                LimitErrorMessage,
+                ValueValidator.AssertIntOnUpperLimit);
+        }
+
+        /// <summary>
+        /// Отвечает за обновление свойств объекта <see cref="Address"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="propertyName">Имя свойства объекта <see cref="Address"/>.</param>
+        private void Leave(TextBox sender, string propertyName)
+        {
             if (!IsControlEnabled)
             {
                 return;
             }
 
-            if (ActiveControl != null)
+            var property = Address.GetType().GetProperty(propertyName);
+
+            if (Validations[sender])
             {
-                (sender as TextBox).Focus();
+                property.SetValue(Address, sender.Text);
             }
 
-            try
-            {
-                ValueValidator.AssertStringOnLength(
-                    ApartmentTextBox.Text,
-                    ModelConstants.ApartmentLengthLimit,
-                    nameof(ApartmentTextBox.Text));
-
-                WrongInputLabel.Text = string.Empty;
-                Validations[ApartmentTextBox] = true;
-                ApartmentTextBox.BackColor = AppColors.RightInputColor;
-            }
-            catch (ArgumentException)
-            {
-                WrongInputLabel.Text = LimitErrorMessage;
-                Validations[ApartmentTextBox] = false;
-                ApartmentTextBox.BackColor = AppColors.WrongInputColor;
-            }
+            sender.Text = property.GetValue(Address).ToString();
         }
 
         /// <summary>
@@ -345,17 +284,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void CountryTextBox_Leave(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
-
-            if (Validations[CountryTextBox])
-            {
-                Address.Country = CountryTextBox.Text;
-            }
-
-            CountryTextBox.Text = Address.Country;
+            Leave(sender as TextBox, nameof(Address.Country));
         }
 
         /// <summary>
@@ -365,17 +294,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void CityTextBox_Leave(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
-
-            if (Validations[CityTextBox])
-            {
-                Address.City = CityTextBox.Text;
-            }
-
-            CityTextBox.Text = Address.City;
+            Leave(sender as TextBox, nameof(Address.City));
         }
 
         /// <summary>
@@ -385,17 +304,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void StreetTextBox_Leave(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
-
-            if (Validations[StreetTextBox])
-            {
-                Address.Street = StreetTextBox.Text;
-            }
-
-            StreetTextBox.Text = Address.Street;
+            Leave(sender as TextBox, nameof(Address.Street));
         }
 
         /// <summary>
@@ -405,17 +314,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void BuildingTextBox_Leave(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
-
-            if (Validations[BuildingTextBox])
-            {
-                Address.Building = BuildingTextBox.Text;
-            }
-
-            BuildingTextBox.Text = Address.Building;
+            Leave(sender as TextBox, nameof(Address.Building));
         }
 
         /// <summary>
@@ -425,17 +324,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void ApartmentTextBox_Leave(object sender, EventArgs e)
         {
-            if (!IsControlEnabled)
-            {
-                return;
-            }
-
-            if (Validations[ApartmentTextBox])
-            {
-                Address.Apartment = ApartmentTextBox.Text;
-            }
-
-            ApartmentTextBox.Text = Address.Apartment;
+            Leave(sender as TextBox, nameof(Address.Apartment));
         }
     }
 }

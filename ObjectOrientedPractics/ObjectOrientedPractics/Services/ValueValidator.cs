@@ -128,6 +128,22 @@ namespace ObjectOrientedPractices.Services
         }
 
         /// <summary>
+        /// Проверка, входит ли целочисленное значение в заданный верхний предел.
+        /// </summary>
+        /// <param name="value">Входное значение.</param>
+        /// <param name="maximum">Максимальное число (верхняя граница).</param>
+        /// <param name="propertyName">Имя свойства класса.</param>
+        public static void AssertIntOnUpperLimit(int value, int maximum, string propertyName)
+        {
+            if (value < maximum)
+            {
+                throw new
+                    ArgumentException(
+                    $"{propertyName} must be less than {maximum}.");
+            }
+        }
+
+        /// <summary>
         /// Проверка, входит ли целочисленное значение в заданные границы.
         /// </summary>
         /// <param name="value">Входное значение.</param>

@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractics
+﻿namespace ObjectOrientedPractices.View
 {
     partial class MainForm
     {
@@ -31,13 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainTabControl = new System.Windows.Forms.TabControl();
             this.ItemsTabPage = new System.Windows.Forms.TabPage();
-            this.ItemsTab = new ObjectOrientedPractics.View.Tabs.ItemsTab();
+            this.ItemsTab = new ObjectOrientedPractices.View.Tabs.ItemsTab();
             this.CustomersTabPage = new System.Windows.Forms.TabPage();
-            this.CustomersTab = new ObjectOrientedPractics.View.Tabs.CustomersTab();
+            this.CustomersTab = new ObjectOrientedPractices.View.Tabs.CustomersTab();
             this.CartsPage = new System.Windows.Forms.TabPage();
-            this.CartsTab = new ObjectOrientedPractics.View.Tabs.CartsTab();
+            this.CartsTab = new ObjectOrientedPractices.View.Tabs.CartsTab();
             this.OrdersTabPage = new System.Windows.Forms.TabPage();
-            this.OrdersTab = new ObjectOrientedPractics.View.Tabs.OrdersTab();
+            this.OrdersTab = new ObjectOrientedPractices.View.Tabs.OrdersTab();
             this.MainTabControl.SuspendLayout();
             this.ItemsTabPage.SuspendLayout();
             this.CustomersTabPage.SuspendLayout();

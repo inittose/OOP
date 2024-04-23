@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractices.Model.Enums;
 
-namespace ObjectOrientedPractics.Model.Orders
+namespace ObjectOrientedPractices.Model.Orders
 {
     /// <summary>
     /// Хранит данные о приоритетном заказе.
@@ -10,19 +10,12 @@ namespace ObjectOrientedPractics.Model.Orders
     public class PriorityOrder : Order
     {
         /// <summary>
-        /// Возвращает и задает дату доставки.
-        /// </summary>
-        /// TODO: нигде не используется. Оно нужно?
-        public DateTime DeliveryDate { get; set; }
-
-        /// <summary>
         /// Возвращает и задает время доставки.
         /// </summary>
         public OrderTime DeliveryTime { get; set; }
 
         /// <summary>
-        /// TODO: грамм ошибка
-        /// Создает экзепляр класса <see cref="PriorityOrder"/>.
+        /// Создает экземпляр класса <see cref="PriorityOrder"/>.
         /// </summary>
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>

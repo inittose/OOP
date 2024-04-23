@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedPractics.View.Tabs
+﻿namespace ObjectOrientedPractices.View.Tabs
 {
     partial class CartsTab
     {

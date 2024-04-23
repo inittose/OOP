@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6B88ADE8-8672-418C-AD21-3ED849B92F48}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ObjectOrientedPractics</RootNamespace>
-    <AssemblyName>ObjectOrientedPractics</AssemblyName>
+    <RootNamespace>ObjectOrientedPractices</RootNamespace>
+    <AssemblyName>ObjectOrientedPractices</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -59,6 +59,7 @@
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\IDiscount.cs" />
     <Compile Include="Model\Item.cs" />
+    <Compile Include="Model\ModelConstants.cs" />
     <Compile Include="Model\Orders\Order.cs" />
     <Compile Include="Model\Enums\OrderStatus.cs" />
     <Compile Include="Model\Enums\OrderTime.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Services\IdGenerator.cs" />
     <Compile Include="Services\ItemFactory.cs" />
     <Compile Include="Services\ItemsTool.cs" />
+    <Compile Include="Services\OrderFactory.cs" />
     <Compile Include="Services\Serializer.cs" />
     <Compile Include="Services\ValueValidator.cs" />
     <Compile Include="View\Controls\AddressControl.cs">
@@ -126,6 +128,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="View\Controls\AddressControl.resx">
       <DependentUpon>AddressControl.cs</DependentUpon>
@@ -163,8 +166,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Services\Databases\CustomersData.txt" />
-    <Content Include="Services\Databases\ItemsData.txt" />
+    <Content Include="Services\Databases\CustomersData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Services\Databases\ItemsData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="View\Images\box.ico" />
     <Content Include="View\Images\box.svg" />
   </ItemGroup>

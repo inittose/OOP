@@ -1,6 +1,7 @@
-﻿using System;
+﻿using ObjectOrientedPractices.Model;
+using System;
 
-namespace ObjectOrientedPractics.Services
+namespace ObjectOrientedPractices.Services
 {
     /// <summary>
     /// Проводит валидацию входных данных.
@@ -18,8 +19,28 @@ namespace ObjectOrientedPractics.Services
             if (value.Length > maxLength)
             {
                 throw new
-                    // TODO: у тебя некоторые строки на русском, некоторые на английском. Нужен один язык
-                    ArgumentException($"{propertyName} должно быть меньше {maxLength} символов.");
+                    ArgumentException($"{propertyName} must be less than {maxLength} characters.");
+            }
+        }
+
+        /// <summary>
+        /// Проверка, входит ли длина строки в заданные границы.
+        /// </summary>
+        /// <param name="value">Входное значение.</param>
+        /// <param name="minLength">Минимальная длина строки.</param>
+        /// <param name="maxLength">Максимальная длина строки.</param>
+        /// <param name="propertyName">Имя свойства класса.</param>
+        public static void AssertStringOnLengthLimits(string value, int minLength, int maxLength, string propertyName)
+        {
+            if (value.Length >= maxLength)
+            {
+                throw new
+                    ArgumentException($"{propertyName} must be less than {maxLength} characters.");
+            }
+            else if (value.Length <= minLength)
+            {
+                throw new
+                    ArgumentException($"{propertyName} must be greater than {minLength} characters.");
             }
         }
 
@@ -40,7 +61,37 @@ namespace ObjectOrientedPractics.Services
             {
                 throw new 
                     ArgumentException(
-                    $"{propertyName} не входит в границы от {minimum} до {maximum}.");
+                    $"{propertyName} does not fall within the {minimum} to {maximum} boundary.");
+            }
+        }
+
+        /// <summary>
+        /// Проверка, является ли строка числом и
+        /// входит ли число в заданные границы.
+        /// </summary>
+        /// <param name="value">Входное значение.</param>
+        /// <param name="minimum">Минимальное число (нижняя граница).</param>
+        /// <param name="maximum">Максимальное число (верхняя граница).</param>
+        /// <param name="propertyName">Имя свойства класса.</param>
+        public static void AssertStringOnDecimalLimits(
+            string value,
+            int minimum,
+            int maximum,
+            string propertyName)
+        {
+            decimal parseValue;
+
+            if (!decimal.TryParse(value, out parseValue))
+            {
+                throw new ArgumentException($"{propertyName} must be a number.");
+            }
+            else if (parseValue <= ModelConstants.MinimumCost)
+            {
+                throw new ArgumentException($"Cost must be greater than { minimum }.");
+            }
+            else if (parseValue > ModelConstants.MaximumCost)
+            {
+                throw new ArgumentException($"Сost must be less than {maximum}.");
             }
         }
 
@@ -56,7 +107,7 @@ namespace ObjectOrientedPractics.Services
             {
                 throw new
                     ArgumentException(
-                    $"{propertyName} должно состоять из {digit} разрядов.");
+                    $"{propertyName} must consist of {digit} digits.");
             }
         }
 
@@ -72,7 +123,23 @@ namespace ObjectOrientedPractics.Services
             {
                 throw new
                     ArgumentException(
-                    $"{propertyName} должно быть больше {minimum}.");
+                    $"{propertyName} must be greater than {minimum}.");
+            }
+        }
+
+        /// <summary>
+        /// Проверка, входит ли целочисленное значение в заданный верхний предел.
+        /// </summary>
+        /// <param name="value">Входное значение.</param>
+        /// <param name="maximum">Максимальное число (верхняя граница).</param>
+        /// <param name="propertyName">Имя свойства класса.</param>
+        public static void AssertIntOnUpperLimit(int value, int maximum, string propertyName)
+        {
+            if (value < maximum)
+            {
+                throw new
+                    ArgumentException(
+                    $"{propertyName} must be less than {maximum}.");
             }
         }
 
@@ -93,7 +160,7 @@ namespace ObjectOrientedPractics.Services
             {
                 throw new
                     ArgumentException(
-                    $"{propertyName} не входит в границы от {minimum} до {maximum}.");
+                    $"{propertyName} does not fall within the {minimum} to {maximum} boundary.");
             }
         }
     }

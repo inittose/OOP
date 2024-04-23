@@ -1,58 +1,57 @@
-﻿namespace ObjectOrientedPractics.Model.Enums
+﻿namespace ObjectOrientedPractices.Model.Enums
 {
     /// <summary>
     /// Категория товара.
     /// </summary>
     public enum Category
     {
-        // TODO: не хватает точек в концах комментарий
         /// <summary>
-        /// Другое
+        /// Другое.
         /// </summary>
         Other,
 
         /// <summary>
-        /// Еда
+        /// Еда.
         /// </summary>
         Food,
 
         /// <summary>
-        /// Электроника
+        /// Электроника.
         /// </summary>
         Electronics,
 
         /// <summary>
-        /// Одежда
+        /// Одежда.
         /// </summary>
         Clothing,
 
         /// <summary>
-        /// Товары красоты
+        /// Товары красоты.
         /// </summary>
         Beauty,
 
         /// <summary>
-        /// Спортивные товары
+        /// Спортивные товары.
         /// </summary>
         Sports,
 
         /// <summary>
-        /// Игрушки и игры
+        /// Игрушки и игры.
         /// </summary>
         ToysAndGames,
 
         /// <summary>
-        /// Товары для здоровья и фитнеса
+        /// Товары для здоровья и фитнеса.
         /// </summary>
         HealthAndFitness,
 
         /// <summary>
-        /// Автозапчасти
+        /// Автозапчасти.
         /// </summary>
         Automotive,
 
         /// <summary>
-        /// Зоотовары
+        /// Зоотовары.
         /// </summary>
         PetSupplies
     }

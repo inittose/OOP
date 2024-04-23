@@ -1,12 +1,12 @@
-﻿using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Discounts;
-using ObjectOrientedPractics.Model.Enums;
+﻿using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Discounts;
+using ObjectOrientedPractices.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ObjectOrientedPractics.View.Pop_ups
+namespace ObjectOrientedPractices.View.Pop_ups
 {
     /// <summary>
     /// Всплывающее окно, отвечающее за выбор категории товара скидки.
@@ -43,11 +43,8 @@ namespace ObjectOrientedPractics.View.Pop_ups
 
             foreach (var discount in Customer.Discounts)
             {
-                // TODO: Сделать так: discount is PercentDiscount percentDiscount...
-                // Переменная percentDiscount сразу будет нужного типа
-                if (discount is PercentDiscount)
+                if (discount is PercentDiscount percentDiscount)
                 {
-                    var percentDiscount = discount as PercentDiscount;
                     customerCategories.Add(percentDiscount.Category);
                 }
             }

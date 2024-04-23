@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Enums;
-using ObjectOrientedPractics.Services;
+using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Services;
 
-namespace ObjectOrientedPractics.View.Tabs
+namespace ObjectOrientedPractices.View.Tabs
 {
     /// <summary>
     /// Отвечает за логику работы вкладки с товарами.
@@ -64,6 +64,11 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
+        /// Возвращает словарь, который хранит валидность текстовых полей.
+        /// </summary>
+        public Dictionary<TextBox, bool> Validations { get; } = new Dictionary<TextBox, bool>();
+
+        /// <summary>
         /// Возвращает и задает делигат критерия сортировки.
         /// </summary>
         private DataTools.CompareProperties SortCompare { get; set; }
@@ -86,13 +91,14 @@ namespace ObjectOrientedPractics.View.Tabs
             WrongNameLabel.Text = string.Empty;
             WrongDescriptionLabel.Text = string.Empty;
             ItemsListBox.DisplayMember = "Name";
+            Validations.Add(CostTextBox, true);
+            Validations.Add(NameTextBox, true);
+            Validations.Add(DescriptionTextBox, true);
         }
 
         /// <summary>
         /// Обновить список товаров, который будет выведен на экран.
         /// </summary>
-        /// TODO: убрать комментарий для входного параметра.
-        /// <param name="compare">Метод критерия проверки товаров.</param>
         private void UpdateDisplayedItems()
         {
             var displayedItems = Items;
@@ -132,8 +138,6 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Устанавливает корректные данные в текстовых окнах 
         /// в зависимости от индекса товара в списке.
         /// </summary>
-        /// TODO: убрать комментарий для входного параметра.
-        /// <param name="selectedIndex">Индекс товара в списке.</param>
         private void SetTextBoxes()
         {
             var isSelectedIndexCorrect = ItemsListBox.SelectedItem != null;
@@ -229,11 +233,18 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// Событие при изменении текста в текстовом поле ввода цены товара.
+        /// Отвечает за валидацию текстового поля ввода при его изменении.
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void CostTextBox_TextChanged(object sender, EventArgs e)
+        /// <param name="minimum">Минимальное значение.</param>
+        /// <param name="maximum">Максимальное значения.</param>
+        /// <param name="validationMethod">Делегат метода валидации.</param>
+        private void TextBoxChange(
+            TextBox sender,
+            int minimum,
+            int maximum,
+            string propertyName,
+            Action<string, int, int, string> validationMethod)
         {
             if (ItemsListBox.SelectedIndex < 0)
             {
@@ -242,29 +253,39 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
-            var currentColor = AppColors.WrongInputColor;
-            var getParse = 0M;
+            try
+            {
+                validationMethod(
+                    sender.Text,
+                    minimum,
+                    maximum,
+                    propertyName);
 
-            // TODO: вынести в валидатор
-            if (!decimal.TryParse(CostTextBox.Text, out getParse))
-            {
-                WrongCostLabel.Text = "Cost must be a float number.";
-            }
-            else if (getParse <= Item.MinimumCost)
-            {
-                WrongCostLabel.Text = $"Cost must be greater than {Item.MinimumCost}.";
-            }
-            else if (getParse > Item.MaximumCost)
-            {
-                WrongCostLabel.Text = $"Сost must be less than {Item.MaximumCost}.";
-            }
-            else
-            {
                 WrongCostLabel.Text = string.Empty;
-                currentColor = AppColors.RightInputColor;
+                sender.BackColor = AppColors.RightInputColor;
+                Validations[sender] = true;
             }
+            catch (ArgumentException ex)
+            {
+                WrongCostLabel.Text = ex.Message;
+                sender.BackColor = AppColors.WrongInputColor;
+                Validations[sender] = false;
+            }
+        }
 
-            CostTextBox.BackColor = currentColor;
+        /// <summary>
+        /// Событие при изменении текста в текстовом поле ввода цены товара.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void CostTextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxChange(
+                sender as TextBox,
+                (int)ModelConstants.MinimumCost,
+                (int)ModelConstants.MaximumCost,
+                "Cost",
+                ValueValidator.AssertStringOnDecimalLimits);
         }
 
         /// <summary>
@@ -274,32 +295,12 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedIndex < 0)
-            {
-                WrongNameLabel.Text = string.Empty;
-                NameTextBox.BackColor = AppColors.RightInputColor;
-                return;
-            }
-
-            var currentColor = AppColors.WrongInputColor;
-
-            // TODO: вынести в валидатор
-            if (NameTextBox.Text.Length == 0)
-            {
-                WrongNameLabel.Text = "Name must consist of characters.";
-            }
-            else if (NameTextBox.Text.Length > Item.NameLengthLimit)
-            {
-                WrongNameLabel.Text = 
-                    $"Name must be no more than {Item.NameLengthLimit} characters.";
-            }
-            else
-            {
-                WrongNameLabel.Text = string.Empty;
-                currentColor = AppColors.RightInputColor;
-            }
-
-            NameTextBox.BackColor = currentColor;
+            TextBoxChange(
+                sender as TextBox,
+                0,
+                ModelConstants.NameLengthLimit,
+                "Name",
+                ValueValidator.AssertStringOnLengthLimits);
         }
 
         /// <summary>
@@ -309,104 +310,12 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedIndex < 0)
-            {
-                WrongDescriptionLabel.Text = string.Empty;
-                DescriptionTextBox.BackColor = AppColors.RightInputColor;
-                return;
-            }
-
-            var currentColor = AppColors.WrongInputColor;
-
-            // TODO: вынести в валидатор
-            if (DescriptionTextBox.Text.Length > Item.InfoLengthLimit)
-            {
-                WrongDescriptionLabel.Text = 
-                    $"Description should not exceed {Item.InfoLengthLimit} characters";
-            }
-            else
-            {
-                WrongDescriptionLabel.Text = string.Empty;
-                currentColor = AppColors.RightInputColor;
-            }
-
-            DescriptionTextBox.BackColor = currentColor;
-        }
-
-        /// <summary>
-        /// Событие при выходе из текстового поля ввода наименования товара.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void NameTextBox_Leave(object sender, EventArgs e)
-        {
-            if (ItemsListBox.SelectedItem == null)
-            {
-                return;
-            }
-
-            var selectedItem = ItemsListBox.SelectedItem as Item;
-            // TODO: такая же ситуация, как и в CartsTab.
-            if (NameTextBox.BackColor == AppColors.RightInputColor)
-            {
-                selectedItem.Name = NameTextBox.Text;
-                ItemsChanged?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                NameTextBox.Text = selectedItem.Name;
-            }
-
-            UpdateDisplayedItems();
-        }
-
-        /// <summary>
-        /// Событие при выходе из текстового поля ввода цены товара.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void CostTextBox_Leave(object sender, EventArgs e)
-        {
-            if (ItemsListBox.SelectedIndex < 0)
-            {
-                return;
-            }
-
-            var selectedItem = ItemsListBox.SelectedItem as Item;
-
-            if (CostTextBox.BackColor == AppColors.RightInputColor)
-            {
-                selectedItem.Cost = decimal.Parse(CostTextBox.Text);
-                ItemsChanged?.Invoke(this, EventArgs.Empty);
-            }
-
-            CostTextBox.Text = selectedItem.Cost.ToString();
-            UpdateDisplayedItems();
-        }
-
-        /// <summary>
-        /// Событие при выходе из текстового поля ввода описания товара.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void DescriptionTextBox_Leave(object sender, EventArgs e)
-        {
-            if (ItemsListBox.SelectedIndex < 0)
-            {
-                return;
-            }
-
-            var selectedItem = ItemsListBox.SelectedItem as Item;
-
-            if (DescriptionTextBox.BackColor == AppColors.RightInputColor)
-            {
-                selectedItem.Info = DescriptionTextBox.Text;
-                ItemsChanged?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                DescriptionTextBox.Text = selectedItem.Info;
-            }
+            TextBoxChange(
+                sender as TextBox,
+                -1,
+                ModelConstants.InfoLengthLimit,
+                "Description",
+                ValueValidator.AssertStringOnLengthLimits);
         }
 
         /// <summary>
@@ -452,39 +361,97 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void OrderByComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(OrderByComboBox.SelectedIndex)
+            switch (OrderByComboBox.SelectedIndex)
             {
                 case 0:
                 {
                     SortCompare = (firstItem, secondItem) =>
                         firstItem.Name.CompareTo(secondItem.Name) < 0;
 
-                        break;
-                    }
+                    break;
+                }
+
                 case 1:
-                    {
-                        // TODO: сделай по примеру case 0
-                        SortCompare = (firstItem, secondItem) =>
-                        {
-                            return firstItem.Cost.CompareTo(secondItem.Cost) < 0;
-                        };
+                {
+                    SortCompare = (firstItem, secondItem) =>
+                        firstItem.Cost.CompareTo(secondItem.Cost) < 0;
 
-                        break;
-                    }
+                    break;
+                }
+
                 case 2:
-                    {
-                        SortCompare = (firstItem, secondItem) =>
-                        {
-                            return firstItem.Cost.CompareTo(secondItem.Cost) > 0;
-                        };
+                {
+                    SortCompare = (firstItem, secondItem) =>
+                        firstItem.Cost.CompareTo(secondItem.Cost) > 0;
 
-                        break;
-                    }
+                    break;
+                }
             }
 
-            // TODO: не используется. Убрать
-            var selectedItem = ItemsListBox.SelectedItem;
             UpdateDisplayedItems();
+        }
+
+        /// <summary>
+        /// Отвечает за обновление свойств объекта <see cref="Item"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="propertyName">Имя свойства объекта <see cref="Address"/>.</param>
+        private void TextBoxLeave(TextBox sender, string value, string propertyName)
+        {
+            var selectedItem = ItemsListBox.SelectedItem as Item;
+            var property = selectedItem.GetType().GetProperty(propertyName);
+
+            if (Validations[sender])
+            {
+                property.SetValue(selectedItem, value);
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
+            }
+
+            sender.Text = property.GetValue(selectedItem).ToString();
+            UpdateDisplayedItems();
+        }
+
+        /// <summary>
+        /// Событие при выходе из текстового поля ввода цены товара.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void CostTextBox_Leave(object sender, EventArgs e)
+        {
+            var selectedItem = ItemsListBox.SelectedItem as Item;
+
+            if (Validations[CostTextBox])
+            {
+                selectedItem.Cost = decimal.Parse(CostTextBox.Text);
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
+            }
+
+            CostTextBox.Text = selectedItem.Cost.ToString();
+            UpdateDisplayedItems();
+        }
+
+        /// <summary>
+        /// Событие при выходе из текстового поля ввода названия товара.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void NameTextBox_Leave(object sender, EventArgs e)
+        {
+            TextBoxLeave(sender as TextBox,
+                (sender as TextBox).Text,
+                "Name");
+        }
+
+        /// <summary>
+        /// Событие при выходе из текстового поля ввода описания товара.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void DescriptionTextBox_Leave(object sender, EventArgs e)
+        {
+            TextBoxLeave(sender as TextBox,
+                (sender as TextBox).Text,
+                "Info");
         }
     }
 }

@@ -1,11 +1,10 @@
-﻿using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Services;
-using ObjectOrientedPractics.View.Tabs;
+﻿using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Services;
+using ObjectOrientedPractices.View.Tabs;
 using System;
 using System.Windows.Forms;
 
-// TODO: namespace неверный.
-namespace ObjectOrientedPractics
+namespace ObjectOrientedPractices.View
 {
     /// <summary>
     /// Управляет главным окном программы.

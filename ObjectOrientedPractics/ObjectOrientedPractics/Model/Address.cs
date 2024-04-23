@@ -1,43 +1,13 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractices.Services;
 using System;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractices.Model
 {
     /// <summary>
     /// Хранит данные об адресе доставки.
     /// </summary>
     public class Address : ICloneable, IEquatable<Address>
     {
-        /// <summary>
-        /// Разряд почтового индекса.
-        /// </summary>
-        public const int IndexDigit = 6;
-
-        /// <summary>
-        /// Максимальное число символов названия страны.
-        /// </summary>
-        public const int CountryLengthLimit = 50;
-
-        /// <summary>
-        /// Максимальное число символов названия города.
-        /// </summary>
-        public const int CityLengthLimit = 50;
-
-        /// <summary>
-        /// Максимальное число символов названии улицы.
-        /// </summary>
-        public const int StreetLengthLimit = 100;
-
-        /// <summary>
-        /// Максимальное число символов номера дома.
-        /// </summary>
-        public const int BuildingLengthLimit = 10;
-
-        /// <summary>
-        /// Максимальное число символов номера квартиры/помещения.
-        /// </summary>
-        public const int ApartmentLengthLimit = 10;
-
         /// <summary>
         /// Почтовый индекс.
         /// </summary>
@@ -81,7 +51,7 @@ namespace ObjectOrientedPractics.Model
             get => _index;
             set
             {
-                ValueValidator.AssertIntOnDigit(value, IndexDigit, nameof(Index));
+                ValueValidator.AssertIntOnDigit(value, ModelConstants.IndexDigit, nameof(Index));
                 _index = value;
                 AddressChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -95,7 +65,11 @@ namespace ObjectOrientedPractics.Model
             get => _country;
             set
             {
-                ValueValidator.AssertStringOnLength(value, CountryLengthLimit, nameof(Country));
+                ValueValidator.AssertStringOnLength(
+                    value, 
+                    ModelConstants.CountryLengthLimit, 
+                    nameof(Country));
+
                 _country = value;
                 AddressChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -109,7 +83,11 @@ namespace ObjectOrientedPractics.Model
             get => _city;
             set
             {
-                ValueValidator.AssertStringOnLength(value, CityLengthLimit, nameof(City));
+                ValueValidator.AssertStringOnLength(
+                    value, 
+                    ModelConstants.CityLengthLimit, 
+                    nameof(City));
+
                 _city = value;
                 AddressChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -123,7 +101,11 @@ namespace ObjectOrientedPractics.Model
             get => _street;
             set
             {
-                ValueValidator.AssertStringOnLength(value, StreetLengthLimit, nameof(Street));
+                ValueValidator.AssertStringOnLength(
+                    value, 
+                    ModelConstants.StreetLengthLimit, 
+                    nameof(Street));
+
                 _street = value;
                 AddressChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -139,7 +121,7 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertStringOnLength(
                     value, 
-                    BuildingLengthLimit, 
+                    ModelConstants.BuildingLengthLimit, 
                     nameof(Building));
 
                 _building = value;
@@ -157,7 +139,7 @@ namespace ObjectOrientedPractics.Model
             {
                 ValueValidator.AssertStringOnLength(
                     value, 
-                    ApartmentLengthLimit, 
+                    ModelConstants.ApartmentLengthLimit, 
                     nameof(Apartment));
 
                 _apartment = value;
@@ -166,8 +148,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// TODO: грамм ошибка
-        /// Создает экзепляр класса <see cref="Address"/>.
+        /// Создает экземпляр класса <see cref="Address"/>.
         /// </summary>
         public Address()
         {
@@ -180,8 +161,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <summary>
-        /// TODO: грамм ошибка
-        /// Создает экзепляр класса <see cref="Address"/>.
+        /// Создает экземпляр класса <see cref="Address"/>.
         /// </summary>
         /// <param name="index">Почтовый индекс.</param>
         /// <param name="country">Страна.</param>

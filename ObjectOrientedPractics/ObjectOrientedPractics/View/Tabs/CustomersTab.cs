@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Discounts;
-using ObjectOrientedPractics.Services;
-using ObjectOrientedPractics.View.Pop_ups;
+using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Discounts;
+using ObjectOrientedPractices.Services;
+using ObjectOrientedPractices.View.Pop_ups;
 
-namespace ObjectOrientedPractics.View.Tabs
+namespace ObjectOrientedPractices.View.Tabs
 {
     /// <summary>
     /// Отвечает за логику работы вкладки с покупателями.
@@ -42,6 +42,11 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
+        /// Возвращает словарь, который хранит валидность текстовых полей.
+        /// </summary>
+        public Dictionary<TextBox, bool> Validations { get; } = new Dictionary<TextBox, bool>();
+
+        /// <summary>
         /// Инициализирует компонент, 
         /// убирает ошибки валидации и загружает сохраненных покупателей.
         /// </summary>
@@ -49,20 +54,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             InitializeComponent();
             WrongFullNameLabel.Text = string.Empty;
-        }
-
-        /// <summary>
-        /// Обновляет данные в списке скидок покупателя.
-        /// </summary>
-        /// TODO: не используется. Убрать
-        public void UpdateDiscountsListBox()
-        {
-            if (CustomersListBox.SelectedIndex < 0)
-            {
-                return;
-            }
-
-            UpdateDiscountsListBox(Customers[CustomersListBox.SelectedIndex]);
+            Validations.Add(FullNameTextBox, true);
         }
 
         /// <summary>
@@ -217,47 +209,42 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
-            var currentColor = AppColors.WrongInputColor;
+            if ((sender as TextBox).Focused)
+            {
+                try
+                {
+                    ValueValidator.AssertStringOnLengthLimits(
+                        FullNameTextBox.Text,
+                        0,
+                        ModelConstants.FullnameLengthLimit,
+                        "FullName");
 
-            if (FullNameTextBox.Text.Length == 0)
-            {
-                WrongFullNameLabel.Text = "Full name must consist of characters.";
-            }
-            else if (FullNameTextBox.Text.Length > Customer.FullnameLengthLimit)
-            {
-                WrongFullNameLabel.Text =
-                    $"Full name must be no more than {Customer.FullnameLengthLimit} characters.";
+                    WrongFullNameLabel.Text = string.Empty;
+                    FullNameTextBox.BackColor = AppColors.RightInputColor;
+                    Validations[FullNameTextBox] = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    WrongFullNameLabel.Text = ex.Message;
+                    FullNameTextBox.BackColor = AppColors.WrongInputColor;
+                    Validations[FullNameTextBox] = false;
+                }
             }
             else
             {
-                WrongFullNameLabel.Text = string.Empty;
-                currentColor = AppColors.RightInputColor;
-            }
-
-            FullNameTextBox.BackColor = currentColor;
-        }
-
-        /// <summary>
-        /// Событие при выходе из текстового поля ввода имени покупателя.
-        /// </summary>
-        /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void FullNameTextBox_Leave(object sender, EventArgs e)
-        {
-            if (CustomersListBox.SelectedIndex < 0)
-            {
-                return;
-            }
-
-            if (FullNameTextBox.BackColor == AppColors.RightInputColor)
-            {
-                Customers[CustomersListBox.SelectedIndex].FullName = FullNameTextBox.Text;
-                CustomersListBox.Items[CustomersListBox.SelectedIndex] = FullNameTextBox.Text;
-                CustomersChanged?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                FullNameTextBox.Text = Customers[CustomersListBox.SelectedIndex].FullName;
+                if (Validations[FullNameTextBox])
+                {
+                    Customers[CustomersListBox.SelectedIndex].FullName = FullNameTextBox.Text;
+                    CustomersListBox.Items[CustomersListBox.SelectedIndex] = FullNameTextBox.Text;
+                    CustomersChanged?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    FullNameTextBox.Text = Customers[CustomersListBox.SelectedIndex].FullName;
+                    WrongFullNameLabel.Text = string.Empty;
+                    FullNameTextBox.BackColor = AppColors.RightInputColor;
+                    Validations[FullNameTextBox] = true;
+                }
             }
         }
 

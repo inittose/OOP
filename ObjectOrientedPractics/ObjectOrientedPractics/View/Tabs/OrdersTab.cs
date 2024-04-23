@@ -1,11 +1,11 @@
-﻿using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Enums;
-using ObjectOrientedPractics.Model.Orders;
+﻿using ObjectOrientedPractices.Model;
+using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Model.Orders;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace ObjectOrientedPractics.View.Tabs
+namespace ObjectOrientedPractices.View.Tabs
 {
     /// <summary>
     /// Отвечает за логику работы вкладки заказов покупателей.
@@ -193,9 +193,10 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
+            // Индекс столбца со статусом заказа.
+            var statusIndex = 3;
             Orders[SelectedIndex].Status = (OrderStatus)StatusComboBox.SelectedItem;
-            // TODO: почему именно 3? Вынеси в переменную и добавь комментарий, почему именно это число
-            OrdersDataGridView[3, SelectedIndex].Value = 
+            OrdersDataGridView[statusIndex, SelectedIndex].Value = 
                 Enum.GetName(typeof(OrderStatus), Orders[SelectedIndex].Status);
         }
 

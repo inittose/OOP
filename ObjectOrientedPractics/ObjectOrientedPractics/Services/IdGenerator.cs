@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ObjectOrientedPractics.Services
+namespace ObjectOrientedPractices.Services
 {
     /// <summary>
     /// Хранит и возвращает уникальный идентификатор.

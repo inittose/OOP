@@ -1,42 +1,16 @@
 ﻿using Newtonsoft.Json;
-using ObjectOrientedPractics.Model.Enums;
-using ObjectOrientedPractics.Services;
+using ObjectOrientedPractices.Model.Enums;
+using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
 
-// TODO: грамматическая ошибка Practices
-namespace ObjectOrientedPractics.Model.Discounts
+namespace ObjectOrientedPractices.Model.Discounts
 {
-    // TODO: Сделай расположение элементов класса по формату, который указан в Яндекс Диске...
-    // 50ohm_Students\ГПО\Статьи по процессу разработки (копии с Wiki 50ohm)\Стандарт оформления кода - Overview
-    // Также по типу доступа внутри каждого типа элементов класс public, protected, private.
-    // Например, сначала идут публичные поля, потом защищенные и в конце приватные
     /// <summary>
     /// Хранит и вычисляет процентную скидку на конкретную категорию товаров.
     /// </summary>
     public class PercentDiscount : IDiscount, IComparable<PercentDiscount>
     {
-        /// <summary>
-        /// Минимально возможная скидка в процентах.
-        /// </summary>
-        public const int MinimumPercent = 1;
-
-        /// <summary>
-        /// Максимально возможная скидка в процентах.
-        /// </summary>
-        public const int MaximumPercent = 10;
-
-        /// <summary>
-        /// Количество процентов, на которое повышается скидка, при выполнении условия.
-        /// </summary>
-        // TODO: не используется. Убрать
-        public const int IncreasingDiscount = 1;
-
-        /// <summary>
-        /// Количество денежных единиц необходимое для повышения скидки.
-        /// </summary>
-        public const int AmountForIncreasing = 1000;
-
         /// <summary>
         /// Скидка в процентах.
         /// </summary>
@@ -44,8 +18,8 @@ namespace ObjectOrientedPractics.Model.Discounts
 
         /// <summary>
         /// Возвращает и задает скидку в процентах.
-        /// Скидка должна быть не менее <see cref="MinimumPercent"/> процентов
-        /// и не более <see cref="MaximumPercent"/> процентов.
+        /// Скидка должна быть не менее <see cref="ModelConstants.MinimumPercent"/> процентов
+        /// и не более <see cref="ModelConstants.MaximumPercent"/> процентов.
         /// </summary>
         public int Discount
         {
@@ -53,10 +27,9 @@ namespace ObjectOrientedPractics.Model.Discounts
             private set
             {
                 ValueValidator.AssertIntOnLimits(
-                    // TODO: есть лишние пробелы в концах строк. Для их обнаружения можно поставить Resharper
-                    value, 
-                    MinimumPercent, 
-                    MaximumPercent, 
+                    value,
+                    ModelConstants.MinimumPercent,
+                    ModelConstants.MaximumPercent,
                     nameof(Discount));
 
                 _discount = value;
@@ -76,60 +49,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <summary>
         /// Информация о скидке.
         /// </summary>
-        // TODO: Сделай в одну строку
-        public string Info
-        {
-            get
-            {
-                return $"Процентная \"{Category}\" - {Discount}%";
-            }
-        }
-
-        /// <summary>
-        /// Вычисляет размер скидки, доступный для списка товаров.
-        /// </summary>
-        /// <param name="items">Список товаров.</param>
-        /// <returns>Размер скидки.</returns>
-        public decimal Calculate(List<Item> items)
-        {
-            var amount = ItemsTool.GetAmountOnCategory(items, Category);
-
-            // TODO: вынеси 100 в отдельную константу внутри этого метода
-            return amount * Discount / 100;
-        }
-
-        /// <summary>
-        /// Применяет скидку, доступную для списка товаров.
-        /// </summary>
-        /// <param name="items">Список товаров.</param>
-        /// <returns>Размер скидки.</returns>
-        public decimal Apply(List<Item> items)
-        {
-            return Calculate(items);
-        }
-
-        /// <summary>
-        /// Обновляет процент скидки на основе полученного списка товаров.
-        /// Каждые <see cref="AmountForIncreasing"/> денежных единиц,
-        /// на которую покупатель совершает покупки,
-        /// скидка увеличивается на <see cref="IncreasingDiscount"/> процентов.
-        /// </summary>
-        /// <param name="items">Список товаров.</param>
-        public void Update(List<Item> items)
-        {
-            var amount = ItemsTool.GetAmountOnCategory(items, Category);
-            SpendingPerCategory += amount;
-            var percentage = (int)(SpendingPerCategory / AmountForIncreasing) + MinimumPercent;
-
-            if (percentage > MaximumPercent)
-            {
-                Discount = MaximumPercent;
-            }
-            else
-            {
-                Discount = percentage;
-            }
-        }
+        public string Info => $"Процентная \"{Category}\" - {Discount}%";
 
         /// <summary>
         /// Создает экзепляр класса <see cref="PercentDiscount"/>.
@@ -138,7 +58,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         public PercentDiscount(Category category)
         {
             Category = category;
-            Discount = MinimumPercent;
+            Discount = ModelConstants.MinimumPercent;
         }
 
         /// <summary>
@@ -177,6 +97,54 @@ namespace ObjectOrientedPractics.Model.Discounts
             else
             {
                 return -1;
+            }
+        }
+
+        /// <summary>
+        /// Вычисляет размер скидки, доступный для списка товаров.
+        /// </summary>
+        /// <param name="items">Список товаров.</param>
+        /// <returns>Размер скидки.</returns>
+        public decimal Calculate(List<Item> items)
+        {
+            var amount = ItemsTool.GetAmountOnCategory(items, Category);
+            var percents = 100;
+            return amount * Discount / percents;
+        }
+
+        /// <summary>
+        /// Применяет скидку, доступную для списка товаров.
+        /// </summary>
+        /// <param name="items">Список товаров.</param>
+        /// <returns>Размер скидки.</returns>
+        public decimal Apply(List<Item> items)
+        {
+            return Calculate(items);
+        }
+
+        /// <summary>
+        /// Обновляет процент скидки на основе полученного списка товаров.
+        /// Каждые <see cref="ModelConstants.AmountForIncreasing"/> денежных единиц,
+        /// на которую покупатель совершает покупки,
+        /// скидка увеличивается на <see cref="ModelConstants.AmountForIncreasing"/> процентов.
+        /// </summary>
+        /// <param name="items">Список товаров.</param>
+        public void Update(List<Item> items)
+        {
+            var amount = ItemsTool.GetAmountOnCategory(items, Category);
+            SpendingPerCategory += amount;
+
+            var percentage =
+                (int)(SpendingPerCategory / ModelConstants.AmountForIncreasing) +
+                ModelConstants.IncreasingDiscount;
+
+            if (percentage > ModelConstants.MaximumPercent)
+            {
+                Discount = ModelConstants.MaximumPercent;
+            }
+            else
+            {
+                Discount = percentage;
             }
         }
     }

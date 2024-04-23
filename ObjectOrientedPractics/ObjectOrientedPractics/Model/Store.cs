@@ -1,7 +1,7 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractices.Services;
 using System.Collections.Generic;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractices.Model
 {
     /// <summary>
     /// Хранит данные о товарах и покупателях.

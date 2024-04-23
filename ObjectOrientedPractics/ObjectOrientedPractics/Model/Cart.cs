@@ -1,8 +1,8 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractices.Services;
 using System;
 using System.Collections.Generic;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractices.Model
 {
     /// <summary>
     /// Описывает корзину товаров покупателя.
@@ -17,14 +17,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Возвращает общую стоимость товаров в корзине.
         /// </summary>
-        /// TODO: в одну строку.
-        public decimal Amount
-        {
-            get
-            {
-                return ItemsTool.GetAmount(Items);
-            }
-        }
+        public decimal Amount => ItemsTool.GetAmount(Items);
 
         /// <summary>
         /// Создает копию объекта <see cref="Cart"/>.

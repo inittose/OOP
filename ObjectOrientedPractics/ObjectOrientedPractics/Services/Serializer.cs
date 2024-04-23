@@ -2,9 +2,9 @@
 using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using ObjectOrientedPractics.Model;
+using ObjectOrientedPractices.Model;
 
-namespace ObjectOrientedPractics.Services
+namespace ObjectOrientedPractices.Services
 {
     /// <summary>
     /// Сериализует и десериализует данные товаров и покупателей.
@@ -50,25 +50,22 @@ namespace ObjectOrientedPractics.Services
             {
                 return new Store();
             }
-            // TODO: лишняя вложенность. Тут не нужно писать else. Можешь сразу код писать
-            else
-            {
-                try
-                {
-                    return JsonConvert.DeserializeObject<Store>(
-                        StoreJson, 
-                        new JsonSerializerSettings
-                        {
-                            TypeNameHandling = TypeNameHandling.All
-                        });
-                }
-                catch
-                {
-                    StoreJson = string.Empty;
-                    MessageBox.Show("Data is corrupted.\nSave files have been cleared.");
 
-                    return new Store();
-                }
+            try
+            {
+                return JsonConvert.DeserializeObject<Store>(
+                    StoreJson,
+                    new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    });
+            }
+            catch
+            {
+                StoreJson = string.Empty;
+                MessageBox.Show("Data is corrupted.\nSave files have been cleared.");
+
+                return new Store();
             }
         }
 

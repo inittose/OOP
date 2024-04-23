@@ -233,11 +233,18 @@ namespace ObjectOrientedPractices.View.Tabs
         }
 
         /// <summary>
-        /// Событие при изменении текста в текстовом поле ввода цены товара.
+        /// Отвечает за валидацию текстового поля ввода при его изменении.
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
-        /// <param name="e">Данные о событии.</param>
-        private void CostTextBox_TextChanged(object sender, EventArgs e)
+        /// <param name="minimum">Минимальное значение.</param>
+        /// <param name="maximum">Максимальное значения.</param>
+        /// <param name="validationMethod">Делегат метода валидации.</param>
+        private void TextChange(
+            TextBox sender,
+            int minimum,
+            int maximum,
+            string propertyName,
+            Action<string, int, int, string> validationMethod)
         {
             if (ItemsListBox.SelectedIndex < 0)
             {
@@ -246,43 +253,39 @@ namespace ObjectOrientedPractices.View.Tabs
                 return;
             }
 
-            if ((sender as TextBox).Focused)
+            try
             {
-                try
-                {
-                    ValueValidator.AssertStringOnDecimalLimits(
-                        CostTextBox.Text,
-                        ModelConstants.MinimumCost,
-                        ModelConstants.MaximumCost,
-                        "Cost");
+                validationMethod(
+                    sender.Text,
+                    minimum,
+                    maximum,
+                    propertyName);
 
-                    WrongCostLabel.Text = string.Empty;
-                    CostTextBox.BackColor = AppColors.RightInputColor;
-                    Validations[CostTextBox] = true;
-                }
-                catch (ArgumentException ex)
-                {
-                    WrongCostLabel.Text = ex.Message;
-                    CostTextBox.BackColor = AppColors.WrongInputColor;
-                    Validations[CostTextBox] = false;
-                }
-            }
-            else
-            {
-                var selectedItem = ItemsListBox.SelectedItem as Item;
-
-                if (Validations[CostTextBox])
-                {
-                    selectedItem.Cost = decimal.Parse(CostTextBox.Text);
-                    ItemsChanged?.Invoke(this, EventArgs.Empty);
-                }
-
-                CostTextBox.Text = selectedItem.Cost.ToString();
                 WrongCostLabel.Text = string.Empty;
-                CostTextBox.BackColor = AppColors.RightInputColor;
-                Validations[CostTextBox] = true;
-                UpdateDisplayedItems();
+                sender.BackColor = AppColors.RightInputColor;
+                Validations[sender] = true;
             }
+            catch (ArgumentException ex)
+            {
+                WrongCostLabel.Text = ex.Message;
+                sender.BackColor = AppColors.WrongInputColor;
+                Validations[sender] = false;
+            }
+        }
+
+        /// <summary>
+        /// Событие при изменении текста в текстовом поле ввода цены товара.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void CostTextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextChange(
+                sender as TextBox,
+                (int)ModelConstants.MinimumCost,
+                (int)ModelConstants.MaximumCost,
+                "Cost",
+                ValueValidator.AssertStringOnDecimalLimits);
         }
 
         /// <summary>
@@ -292,52 +295,12 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedIndex < 0)
-            {
-                WrongNameLabel.Text = string.Empty;
-                NameTextBox.BackColor = AppColors.RightInputColor;
-                return;
-            }
-
-            if ((sender as TextBox).Focused)
-            {
-                try
-                {
-                    ValueValidator.AssertStringOnLengthLimits(
-                        NameTextBox.Text,
-                        0,
-                        ModelConstants.NameLengthLimit,
-                        "Name");
-
-                    WrongNameLabel.Text = string.Empty;
-                    NameTextBox.BackColor = AppColors.RightInputColor;
-                    Validations[NameTextBox] = true;
-                }
-                catch (ArgumentException ex)
-                {
-                    WrongNameLabel.Text = ex.Message;
-                    NameTextBox.BackColor = AppColors.WrongInputColor;
-                    Validations[NameTextBox] = false;
-                }
-            }
-            else
-            {
-                var selectedItem = ItemsListBox.SelectedItem as Item;
-                if (Validations[NameTextBox])
-                {
-                    selectedItem.Name = NameTextBox.Text;
-                    ItemsChanged?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    NameTextBox.Text = selectedItem.Name;
-                    WrongNameLabel.Text = string.Empty;
-                    NameTextBox.BackColor = AppColors.RightInputColor;
-                    Validations[NameTextBox] = true;
-                }
-
-                UpdateDisplayedItems();
-            }
+            TextChange(
+                sender as TextBox,
+                0,
+                ModelConstants.NameLengthLimit,
+                "Name",
+                ValueValidator.AssertStringOnLengthLimits);
         }
 
         /// <summary>
@@ -347,50 +310,12 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedIndex < 0)
-            {
-                WrongDescriptionLabel.Text = string.Empty;
-                DescriptionTextBox.BackColor = AppColors.RightInputColor;
-                return;
-            }
-
-            if ((sender as TextBox).Focused)
-            {
-                try
-                {
-                    ValueValidator.AssertStringOnLength(
-                        DescriptionTextBox.Text,
-                        ModelConstants.InfoLengthLimit,
-                        "Description");
-
-                    WrongDescriptionLabel.Text = string.Empty;
-                    DescriptionTextBox.BackColor = AppColors.RightInputColor;
-                    Validations[DescriptionTextBox] = true;
-                }
-                catch (ArgumentException ex)
-                {
-                    WrongDescriptionLabel.Text = ex.Message;
-                    DescriptionTextBox.BackColor = AppColors.WrongInputColor;
-                    Validations[DescriptionTextBox] = false;
-                }
-            }
-            else
-            {
-                var selectedItem = ItemsListBox.SelectedItem as Item;
-
-                if (Validations[DescriptionTextBox])
-                {
-                    selectedItem.Info = DescriptionTextBox.Text;
-                    ItemsChanged?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    DescriptionTextBox.Text = selectedItem.Info;
-                    WrongDescriptionLabel.Text = string.Empty;
-                    DescriptionTextBox.BackColor = AppColors.RightInputColor;
-                    Validations[DescriptionTextBox] = true;
-                }
-            }
+            TextChange(
+                sender as TextBox,
+                -1,
+                ModelConstants.InfoLengthLimit,
+                "Description",
+                ValueValidator.AssertStringOnLengthLimits);
         }
 
         /// <summary>
@@ -464,6 +389,69 @@ namespace ObjectOrientedPractices.View.Tabs
             }
 
             UpdateDisplayedItems();
+        }
+
+        /// <summary>
+        /// Отвечает за обновление свойств объекта <see cref="Item"/>.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="propertyName">Имя свойства объекта <see cref="Address"/>.</param>
+        private void Leave(TextBox sender, string value, string propertyName)
+        {
+            var selectedItem = ItemsListBox.SelectedItem as Item;
+            var property = selectedItem.GetType().GetProperty(propertyName);
+
+            if (Validations[sender])
+            {
+                property.SetValue(selectedItem, value);
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
+            }
+
+            sender.Text = property.GetValue(selectedItem).ToString();
+            UpdateDisplayedItems();
+        }
+
+        /// <summary>
+        /// Событие при выходе из текстового поля ввода цены товара.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void CostTextBox_Leave(object sender, EventArgs e)
+        {
+            var selectedItem = ItemsListBox.SelectedItem as Item;
+
+            if (Validations[CostTextBox])
+            {
+                selectedItem.Cost = decimal.Parse(CostTextBox.Text);
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
+            }
+
+            CostTextBox.Text = selectedItem.Cost.ToString();
+            UpdateDisplayedItems();
+        }
+
+        /// <summary>
+        /// Событие при выходе из текстового поля ввода названия товара.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void NameTextBox_Leave(object sender, EventArgs e)
+        {
+            Leave(sender as TextBox,
+                (sender as TextBox).Text,
+                "Name");
+        }
+
+        /// <summary>
+        /// Событие при выходе из текстового поля ввода описания товара.
+        /// </summary>
+        /// <param name="sender">Элемент управления, вызвавший событие.</param>
+        /// <param name="e">Данные о событии.</param>
+        private void DescriptionTextBox_Leave(object sender, EventArgs e)
+        {
+            Leave(sender as TextBox,
+                (sender as TextBox).Text,
+                "Info");
         }
     }
 }

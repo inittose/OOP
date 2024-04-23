@@ -66,8 +66,8 @@ namespace ObjectOrientedPractices.Services
         }
 
         /// <summary>
-        /// Проверка, является ли строка вещественным числом и
-        /// входит ли вещественное число в заданные границы.
+        /// Проверка, является ли строка числом и
+        /// входит ли число в заданные границы.
         /// </summary>
         /// <param name="value">Входное значение.</param>
         /// <param name="minimum">Минимальное число (нижняя граница).</param>
@@ -75,15 +75,15 @@ namespace ObjectOrientedPractices.Services
         /// <param name="propertyName">Имя свойства класса.</param>
         public static void AssertStringOnDecimalLimits(
             string value,
-            decimal minimum,
-            decimal maximum,
+            int minimum,
+            int maximum,
             string propertyName)
         {
             decimal parseValue;
 
             if (!decimal.TryParse(value, out parseValue))
             {
-                throw new ArgumentException($"{propertyName} must be a decimal number.");
+                throw new ArgumentException($"{propertyName} must be a number.");
             }
             else if (parseValue <= ModelConstants.MinimumCost)
             {

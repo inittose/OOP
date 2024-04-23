@@ -144,10 +144,6 @@ namespace ObjectOrientedPractices.View.Controls
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="e">Данные о событии.</param>
-        // TODO: Обработчики событий дублируются. Нужно вынести дубль в отдельный метод и вызывать его из каждого обработчика
-        // UPD: +
-        // TODO: не исправил см. сообщение в дискорде.
-        // UPD: +
         private void PostIndexTextBox_TextChanged(object sender, EventArgs e)
         {
             int value;

@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
 
-// TODO: namespace не соответствует реальному расположению
-// UPD: +
-// TODO: все еще не соответствует. Посмотри в свойствах проекта, что Default Namespace установлен корректно
-// UPD: +
 namespace ObjectOrientedPractices.Model
 {
     /// <summary>

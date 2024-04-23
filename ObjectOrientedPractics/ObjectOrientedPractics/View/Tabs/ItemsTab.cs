@@ -239,7 +239,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="minimum">Минимальное значение.</param>
         /// <param name="maximum">Максимальное значения.</param>
         /// <param name="validationMethod">Делегат метода валидации.</param>
-        private void TextChange(
+        private void TextBoxChange(
             TextBox sender,
             int minimum,
             int maximum,
@@ -280,7 +280,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextChange(
+            TextBoxChange(
                 sender as TextBox,
                 (int)ModelConstants.MinimumCost,
                 (int)ModelConstants.MaximumCost,
@@ -295,7 +295,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextChange(
+            TextBoxChange(
                 sender as TextBox,
                 0,
                 ModelConstants.NameLengthLimit,
@@ -310,7 +310,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextChange(
+            TextBoxChange(
                 sender as TextBox,
                 -1,
                 ModelConstants.InfoLengthLimit,
@@ -396,7 +396,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="propertyName">Имя свойства объекта <see cref="Address"/>.</param>
-        private void Leave(TextBox sender, string value, string propertyName)
+        private void TextBoxLeave(TextBox sender, string value, string propertyName)
         {
             var selectedItem = ItemsListBox.SelectedItem as Item;
             var property = selectedItem.GetType().GetProperty(propertyName);
@@ -437,7 +437,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void NameTextBox_Leave(object sender, EventArgs e)
         {
-            Leave(sender as TextBox,
+            TextBoxLeave(sender as TextBox,
                 (sender as TextBox).Text,
                 "Name");
         }
@@ -449,7 +449,7 @@ namespace ObjectOrientedPractices.View.Tabs
         /// <param name="e">Данные о событии.</param>
         private void DescriptionTextBox_Leave(object sender, EventArgs e)
         {
-            Leave(sender as TextBox,
+            TextBoxLeave(sender as TextBox,
                 (sender as TextBox).Text,
                 "Info");
         }

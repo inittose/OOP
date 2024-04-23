@@ -102,7 +102,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="limit">Предел значения.</param>
         /// <param name="errorMessage">Сообщение об ошибке.</param>
         /// <param name="validationMethod">Делегат метода валидации.</param>
-        private void TextChanged(
+        private void TextBoxChanged(
             TextBox sender,
             int value,
             int limit,
@@ -153,7 +153,7 @@ namespace ObjectOrientedPractices.View.Controls
             int value;
             int.TryParse((sender as TextBox).Text, out value);
 
-            TextChanged(
+            TextBoxChanged(
                 sender as TextBox,
                 value,
                 ModelConstants.IndexDigit,
@@ -168,7 +168,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void CountryTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextChanged(
+            TextBoxChanged(
                 sender as TextBox,
                 ModelConstants.CountryLengthLimit,
                 (sender as TextBox).Text.Length,
@@ -183,7 +183,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void CityTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextChanged(
+            TextBoxChanged(
                 sender as TextBox,
                 ModelConstants.CityLengthLimit,
                 (sender as TextBox).Text.Length,
@@ -198,7 +198,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void StreetTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextChanged(
+            TextBoxChanged(
                 sender as TextBox,
                 ModelConstants.StreetLengthLimit,
                 (sender as TextBox).Text.Length,
@@ -213,7 +213,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void BuildingTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextChanged(
+            TextBoxChanged(
                 sender as TextBox,
                 ModelConstants.BuildingLengthLimit,
                 (sender as TextBox).Text.Length,
@@ -228,7 +228,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void ApartmentTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextChanged(
+            TextBoxChanged(
                 sender as TextBox,
                 ModelConstants.ApartmentLengthLimit,
                 (sender as TextBox).Text.Length,
@@ -241,7 +241,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// </summary>
         /// <param name="sender">Элемент управления, вызвавший событие.</param>
         /// <param name="propertyName">Имя свойства объекта <see cref="Address"/>.</param>
-        private void Leave(TextBox sender, string propertyName)
+        private void TextBoxLeave(TextBox sender, string propertyName)
         {
             if (!IsControlEnabled)
             {
@@ -285,7 +285,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void CountryTextBox_Leave(object sender, EventArgs e)
         {
-            Leave(sender as TextBox, nameof(Address.Country));
+            TextBoxLeave(sender as TextBox, nameof(Address.Country));
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void CityTextBox_Leave(object sender, EventArgs e)
         {
-            Leave(sender as TextBox, nameof(Address.City));
+            TextBoxLeave(sender as TextBox, nameof(Address.City));
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void StreetTextBox_Leave(object sender, EventArgs e)
         {
-            Leave(sender as TextBox, nameof(Address.Street));
+            TextBoxLeave(sender as TextBox, nameof(Address.Street));
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void BuildingTextBox_Leave(object sender, EventArgs e)
         {
-            Leave(sender as TextBox, nameof(Address.Building));
+            TextBoxLeave(sender as TextBox, nameof(Address.Building));
         }
 
         /// <summary>
@@ -325,7 +325,7 @@ namespace ObjectOrientedPractices.View.Controls
         /// <param name="e">Данные о событии.</param>
         private void ApartmentTextBox_Leave(object sender, EventArgs e)
         {
-            Leave(sender as TextBox, nameof(Address.Apartment));
+            TextBoxLeave(sender as TextBox, nameof(Address.Apartment));
         }
     }
 }
